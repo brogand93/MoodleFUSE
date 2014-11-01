@@ -5,7 +5,7 @@ MoodleFUSE
     :target: https://magnum.travis-ci.com/BroganD1993/MoodleFUSE
  
  
-Moodle is WIT`s online learning platform used in schools and university’s all around the world. 
+Moodle is WIT`s online learning platform used in schools and universitys all around the world. 
 Uploading and downloading files from Moodle can take time for lecturers and students because it 
 first involves logging into a web interface and uploading files individually.
 
