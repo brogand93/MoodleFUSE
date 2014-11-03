@@ -13,13 +13,23 @@ Moodle filesystem sync with FUSE
    :alt: 'Stories in Ready'
  
  
-Moodle is WIT`s online learning platform used in schools and universitys all around the world. 
-Uploading and downloading files from Moodle can take time for lecturers and students because it 
-first involves logging into a web interface and uploading files individually.
+Moodle is WIT`s online learning platform used in schools and universities all around the world. Uploading 
+and downloading files from Moodle can take time for lecturers and students. It first involves logging into 
+a web interface and uploading files individually.
 
-MoodleFUSE would aim to provide a simplified way to sync Moodle resources to a local filesystem. 
-MoodleFUSE watches the local Moodle filesystm waiting for changes or modifications. 
-When a change is detected (addition / deletion / modification) MoodleFUSE performs the corresponding 
-operation to the remote Moodle file. Similarly MoodleFUSE will download assignments automatically 
-onto the local filesystem after the deadline for the assignment has passed grading of the assignments 
-can be performed locally by adding grades to an auto generated CSV file. 
+MoodleFUSE aims to provide a simple way to map Moodle resources to a local filesystem. MoodleFUSE syncs a 
+Moodle filesystem to a local FUSE filesystem.  It then watches the new filesystem waiting for changes or 
+modifications. When a change is detected in the FUSE filesystem MoodleFUSE performs the same operation to 
+the remote Moodle file. 
+
+The list of supported operations is (Assuming appropriate user rights on Moodle):
+
+-	Addition of courses
+-	Addition of course sections
+-	Deletion of course sections
+-	Addition of course files
+-	Deletion of course files
+-	Modification of course files
+
+MoodleFUSE will also download assignments automatically onto the FUSE filesystem after the assignment deadline. 
+Grading of the assignments can be performed locally by adding grades to an auto generated CSV file.
