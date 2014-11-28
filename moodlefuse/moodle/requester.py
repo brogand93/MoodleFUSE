@@ -4,4 +4,4 @@
 class MoodleRequester():
 
     def make_request(self):
-        pas
+        pass
