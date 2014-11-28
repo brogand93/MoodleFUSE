@@ -3,4 +3,9 @@
 
 
 class MoodleHandler():
-    pass
+
+    def upload_to_moodle(self, error):
+        pass
+
+    def download_from_moodle(self, error):
+        pass

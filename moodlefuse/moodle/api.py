@@ -3,6 +3,10 @@
 
 class MoodleAPI():
 
+    def inspect_resources(self):
+        moodle_function = "core_files_inspect"
+        pass
+
     def upload_resources(self):
         moodle_function = "core_files_upload"
         pass
