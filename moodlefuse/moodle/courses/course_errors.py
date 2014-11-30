@@ -6,6 +6,10 @@ from moodlefuse.errors import MoodleFuseError
 class CourseErrors(MoodleFuseError):
 
     @MoodleFuseError
+    def unable_to_sync_courses(self):
+        return "Unable to sync courses"
+
+    @MoodleFuseError
     def unable_to_create_course(self):
         return "Unable to create course"
 
