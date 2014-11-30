@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-class MoodleRequester():
+
+class MoodleRequester(object):
 
     def make_request(self):
         pass

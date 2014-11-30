@@ -40,7 +40,14 @@ setup(
     url=URL,
     license='Apache License (2.0)',
     package_data={},
-    packages=['moodlefuse'],
+    packages=[
+        'moodlefuse',
+        'moodlefuse.filesystem',
+        'moodlefuse.moodle',
+        'moodlefuse.moodle.courses',
+        'moodlefuse.moodle.resources',
+        'moodlefuse.moodle.assignments'
+    ],
     include_package_data=True,
     zip_safe=False,
     install_requires=REQUIRES,

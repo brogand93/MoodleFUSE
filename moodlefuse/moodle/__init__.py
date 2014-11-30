@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 
-class Moodle():
+class Moodle(object):
 
     def __init__(self):
         self._observers = []
@@ -17,13 +17,13 @@ class Moodle():
         except ValueError:
             pass
 
-    def notify(self, modifier = None):
+    def notify(self, modifier=None):
         for observer in self._observers:
             if modifier != observer:
                 observer.update(self)
 
 
-class MoodleException():
+class MoodleException(BaseException):
 
     def __init__(self):
         self.message = "Unable to complete Moodle action"

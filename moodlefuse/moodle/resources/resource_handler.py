@@ -3,5 +3,6 @@
 
 from moodlefuse.moodle.moodle_handler import MoodleHandler
 
+
 class ResourceHandler(MoodleHandler):
     pass

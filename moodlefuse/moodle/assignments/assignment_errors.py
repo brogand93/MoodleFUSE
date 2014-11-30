@@ -3,6 +3,7 @@
 
 from moodlefuse.errors import MoodleFuseError
 
+
 class AssignmentErrors(MoodleFuseError):
 
     @MoodleFuseError

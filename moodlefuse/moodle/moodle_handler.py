@@ -6,12 +6,13 @@ import os
 from moodlefuse.moodle import MoodleException
 
 
-class MoodleHandler():
+class MoodleHandler(object):
 
-    _FS_ROOT =  os.path.join(os.path.expanduser('~'), 'moodle')
+    def __init__(self):
+        self. _FS_ROOT = os.path.join(os.path.expanduser('~'), 'moodle')
 
     def handle_moodle_action(self, action, moodlefuse_error, args=None):
         try:
             action(args)
-        except(MoodleException):
+        except MoodleException:
             moodlefuse_error()

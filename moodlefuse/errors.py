@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-class MoodleFuseError():
+
+class MoodleFuseError(object):
 
     _MOODLEFUSE_ERROR_MESSAGE = "MOODLEFUSE ERROR: Error encountered"
 
