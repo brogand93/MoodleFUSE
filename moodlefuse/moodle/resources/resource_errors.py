@@ -3,8 +3,16 @@
 
 from moodlefuse.errors import MoodleFuseError
 
-class ResourceErrors():
+class ResourceErrors(MoodleFuseError):
 
-    @MoodleFuseError.unable_to_upload
+    @MoodleFuseError
     def unable_to_upload_resource(self):
-        pass
+        return "Unable to upload resource"
+
+    @MoodleFuseError
+    def unable_to_remove_resource(self):
+        return "Unable to remove resource"
+
+    @MoodleFuseError
+    def unable_to_modify_resource(self):
+        return "Unable to modify resource"

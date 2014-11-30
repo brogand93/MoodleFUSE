@@ -3,8 +3,20 @@
 
 from moodlefuse.errors import MoodleFuseError
 
-class CourseErrors():
+class CourseErrors(MoodleFuseError):
 
-    @MoodleFuseError.unable_to_upload
-    def unable_to_upload_resource(self):
-        pass
+    @MoodleFuseError
+    def unable_to_create_course(self):
+        return "Unable to create course"
+
+    @MoodleFuseError
+    def unable_to_add_course_section(self):
+        return "Unable to add course section"
+
+    @MoodleFuseError
+    def unable_to_remove_course(self):
+        return "Unable to remove course"
+
+    @MoodleFuseError
+    def unable_to_remove_course_section(self):
+        return "Unable to remove course section"

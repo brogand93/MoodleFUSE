@@ -17,7 +17,16 @@ class Moodle():
         except ValueError:
             pass
 
-    def notify(self, modifier=None):
+    def notify(self, modifier = None):
         for observer in self._observers:
             if modifier != observer:
                 observer.update(self)
+
+
+class MoodleException():
+
+    def __init__(self):
+        self.message = "Unable to complete Moodle action"
+
+    def __str__(self):
+        return self.message

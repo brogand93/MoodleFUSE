@@ -3,8 +3,12 @@
 
 from moodlefuse.errors import MoodleFuseError
 
-class AssignmentErrors():
+class AssignmentErrors(MoodleFuseError):
 
-    @MoodleFuseError.unable_to_upload
+    @MoodleFuseError
     def unable_to_upload_assignment(self):
-        pass
+        print "Unable to upload assignment"
+
+    @MoodleFuseError
+    def unable_to_download_assignment(self):
+        print "Unable to download assignment"
