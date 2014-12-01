@@ -5,9 +5,8 @@ MoodleFUSE
 Moodle filesystem sync with FUSE
 ################################
 
-.. image:: https://magnum.travis-ci.com/BroganD1993/MoodleFUSE.svg?token=A11YYSj4ZhksVqqEC7xW&branch=master
-    :target: https://magnum.travis-ci.com/BroganD1993/MoodleFUSE
-    :alt: 'Repository status'
+.. image:: https://travis-ci.org/BroganD1993/MoodleFUSE.svg?branch=master
+    :target: https://travis-ci.org/BroganD1993/MoodleFUSE
 .. image:: https://badge.waffle.io/brogand1993/moodlefuse.svg?label=ready&title=Ready 
    :target: https://waffle.io/brogand1993/moodlefuse 
    :alt: 'Stories in Ready'
