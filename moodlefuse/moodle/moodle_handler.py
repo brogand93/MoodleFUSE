@@ -20,11 +20,10 @@ class MoodleHandler(object):
     @staticmethod
     def handle_moodle_action(action, moodlefuse_error, args=None):
         try:
-            action(args)
+            return action(args)
         except MoodleException:
             moodlefuse_error()
 
     @abstractmethod
     def update(self):
         raise NotImplementedError("Unable to update observer")
-

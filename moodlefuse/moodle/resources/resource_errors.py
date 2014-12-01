@@ -10,7 +10,7 @@ class ResourceErrors(MoodleFuseError):
     def unable_to_upload_resource(self):
         return "Unable to upload resource"
 
-    MoodleFuseError
+    @MoodleFuseError
     def unable_to_get_resource(self):
         return "Unable to get resource"
 

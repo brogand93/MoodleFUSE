@@ -14,11 +14,11 @@ class ResourceHandler(MoodleHandler):
         self.sync_resources()
 
     def sync_resources(self):
-        get_courses_action = self.moodle_api.download_resources
-        get_courses_error = ResourceErrors.unable_to_get_resource()
+        get_resource_action = self.moodle_api.download_resources
+        get_resource_error = ResourceErrors.unable_to_get_resource
 
         resources = \
-            MoodleHandler.handle_moodle_action(get_courses_action, get_courses_error)
+            MoodleHandler.handle_moodle_action(get_resource_action, get_resource_error)
 
         for resource in resources:
             print "Adding " + resource
