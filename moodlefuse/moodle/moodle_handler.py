@@ -3,16 +3,28 @@
 
 import os
 
+from abc import ABCMeta, abstractmethod
+
+from moodlefuse.moodle.api import MoodleAPI
 from moodlefuse.moodle import MoodleException
 
 
 class MoodleHandler(object):
 
-    def __init__(self):
-        self. _FS_ROOT = os.path.join(os.path.expanduser('~'), 'moodle')
+    __metaclass__ = ABCMeta
 
-    def handle_moodle_action(self, action, moodlefuse_error, args=None):
+    def __init__(self):
+        self.moodle_api = MoodleAPI
+        self._FS_ROOT = os.path.join(os.path.expanduser('~'), 'moodle')
+
+    @staticmethod
+    def handle_moodle_action(action, moodlefuse_error, args=None):
         try:
             action(args)
         except MoodleException:
             moodlefuse_error()
+
+    @abstractmethod
+    def update(self):
+        raise NotImplementedError("Unable to update observer")
+

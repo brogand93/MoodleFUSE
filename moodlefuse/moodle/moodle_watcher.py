@@ -17,7 +17,7 @@ class MoodleWatcher(object):
             resource_info = MoodleAPI.inspect_resources(MoodleAPI)
             moodle_changed = self.moodle_has_changed(resource_info)
             if moodle_changed:
-                self.moodle.notify(Moodle)
+                self.moodle.notify()
 
             time.sleep(poll_delay)
 

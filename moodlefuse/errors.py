@@ -13,7 +13,7 @@ class MoodleFuseError(object):
         def error():
             raise Exception("{1} - {2}".format(
                 self._MOODLEFUSE_ERROR_MESSAGE,
-                self.error_source
+                self.error_source()
             ))
 
         return error()

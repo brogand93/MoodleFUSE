@@ -1,8 +1,24 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+from moodlefuse.moodle.resources.resource_errors import ResourceErrors
 from moodlefuse.moodle.moodle_handler import MoodleHandler
 
 
 class ResourceHandler(MoodleHandler):
-    pass
+
+    def __init__(self):
+        MoodleHandler.__init__(self)
+
+    def update(self):
+        self.sync_resources()
+
+    def sync_resources(self):
+        get_courses_action = self.moodle_api.download_resources
+        get_courses_error = ResourceErrors.unable_to_get_resource()
+
+        resources = \
+            MoodleHandler.handle_moodle_action(get_courses_action, get_courses_error)
+
+        for resource in resources:
+            print "Adding " + resource
