@@ -2,6 +2,10 @@
 MoodleFUSE
 ==========
 
+Work in progress
+----------------
+This project is still in the development phase and is currently unfit for usage.
+
 Moodle filesystem sync with FUSE
 ################################
 
