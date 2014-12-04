@@ -4,7 +4,7 @@
 from moodlefuse.errors import MoodleFuseError
 
 
-class AssignmentErrors(MoodleFuseError):
+class AssignmentErrors(object):
 
     @MoodleFuseError
     def unable_to_upload_assignment(self):

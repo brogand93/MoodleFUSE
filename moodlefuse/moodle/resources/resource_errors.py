@@ -4,7 +4,7 @@
 from moodlefuse.errors import MoodleFuseError
 
 
-class ResourceErrors(MoodleFuseError):
+class ResourceErrors(object):
 
     @MoodleFuseError
     def unable_to_upload_resource(self):

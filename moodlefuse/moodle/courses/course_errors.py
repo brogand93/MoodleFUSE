@@ -4,7 +4,7 @@
 from moodlefuse.errors import MoodleFuseError
 
 
-class CourseErrors(MoodleFuseError):
+class CourseErrors(object):
 
     @MoodleFuseError
     def unable_to_sync_courses(self):
