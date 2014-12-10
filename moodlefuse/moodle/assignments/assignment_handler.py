@@ -3,6 +3,7 @@
 
 from moodlefuse.moodle.assignments.assignment_errors import AssignmentErrors
 from moodlefuse.moodle.moodle_handler import MoodleHandler
+from moodlefuse.errors import MoodleFuseError
 
 
 class AssignmentHandler(MoodleHandler):
@@ -17,8 +18,11 @@ class AssignmentHandler(MoodleHandler):
         get_assignments_action = self.moodle_api.get_assignment
         get_assignments_error = AssignmentErrors.unable_to_download_assignment
 
-        assignments = \
-            MoodleHandler.handle_moodle_action(get_assignments_action, get_assignments_error)
+        try:
+            assignments = \
+                MoodleHandler.handle_moodle_action(get_assignments_action, get_assignments_error)
+        except MoodleFuseError:
+            print 'caught error'
 
         for assignment in assignments:
-            print "Adding " + assignment
+            print "Received " + assignment

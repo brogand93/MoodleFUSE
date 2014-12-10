@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 
-class MoodleFuseError(object):
+class MoodleFuseError(BaseException):
 
     _MOODLEFUSE_ERROR_MESSAGE = "MOODLEFUSE ERROR: Error encountered"
 
@@ -10,10 +10,13 @@ class MoodleFuseError(object):
         self.error_source = error_source
 
     def __call__(self):
+        general_message = self._MOODLEFUSE_ERROR_MESSAGE
+        error_source = self.error_source()
+
         def error():
-            raise Exception("{1} - {2}".format(
-                self._MOODLEFUSE_ERROR_MESSAGE,
-                self.error_source()
+            raise Exception("{0} - {1}".format(
+                general_message,
+                error_source
             ))
 
         return error()

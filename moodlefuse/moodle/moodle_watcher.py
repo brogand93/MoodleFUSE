@@ -2,31 +2,34 @@
 # encoding: utf-8
 
 import time
+import threading
 
-from moodlefuse.moodle import Moodle
+from datetime import datetime
+
 from moodlefuse.moodle.api import MoodleAPI
 
 
-class MoodleWatcher(object):
+class MoodleWatcher(threading.Thread):
 
-    def __init__(self):
-        self.moodle = Moodle()
+    def __init__(self, moodle):
+        super(MoodleWatcher, self).__init__()
+        self.moodle = moodle
 
-    def poll_moodle(self, poll_delay):
+    def run(self):
+        self._poll_moodle(1000000)
+
+    def _poll_moodle(self, poll_delay):
         while True:
-            resource_info = MoodleAPI.inspect_resources(MoodleAPI)
-            moodle_changed = self.moodle_has_changed(resource_info)
+            moodle_last_updated = MoodleAPI.inspect_resources()
+            moodle_changed = self._moodle_has_changed(moodle_last_updated)
             if moodle_changed:
+                print "Detected change in Moodle"
                 self.moodle.notify()
 
             time.sleep(poll_delay)
 
-    def moodle_has_changed(self, current_resource_info):
-        previous_resource_info = {
-            "modified": 15
-        }
+    def _moodle_has_changed(self, moodle_last_updated):
+        # Dummy last synced time to trigger observer update
+        last_synced = datetime(2014, 1, 1)
 
-        last_modified = current_resource_info.modified
-        last_updated_at = previous_resource_info['modified']
-
-        return last_modified < last_updated_at
+        return last_synced < moodle_last_updated
