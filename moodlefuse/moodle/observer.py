@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Interface for Observer objects
+"""
+
 from abc import ABCMeta, abstractmethod
 
 

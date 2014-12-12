@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to handle assignment Moodle actions, it extends MoodleHandler
+   and therefor is an observer of Moodle.
+"""
+
 from moodlefuse.moodle.assignments.assignment_errors import AssignmentErrors
 from moodlefuse.moodle.moodle_handler import MoodleHandler
 from moodlefuse.errors import MoodleFuseError

@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""This is the base of Subjects, all subjects will derive from
+    this class"""
+
 
 class Subject(object):
 
@@ -8,15 +11,11 @@ class Subject(object):
         self._observers = []
 
     def attach(self, observer):
-        print self._observers
         if observer not in self._observers:
             self._observers.append(observer)
 
     def detach(self, observer):
-        try:
-            self._observers.remove(observer)
-        except ValueError:
-            pass
+        self._observers.remove(observer)
 
     def notify(self, modifier=None):
         for observer in self._observers:

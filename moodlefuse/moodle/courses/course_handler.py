@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to handle course Moodle actions, it extends MoodleHandler
+   and therefor is an observer of Moodle.
+"""
+
 import os
 
 from moodlefuse.moodle.courses.course_errors import CourseErrors

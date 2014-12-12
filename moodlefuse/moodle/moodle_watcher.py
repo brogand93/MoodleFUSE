@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to watch moodle and wait for channges
+"""
+
 import time
 import threading
 

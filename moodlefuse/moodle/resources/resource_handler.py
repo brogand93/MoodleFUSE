@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to handle resource Moodle actions, it extends MoodleHandler
+   and therefor is an observer of Moodle.
+"""
+
 from moodlefuse.moodle.resources.resource_errors import ResourceErrors
 from moodlefuse.moodle.moodle_handler import MoodleHandler
 

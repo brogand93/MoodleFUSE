@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to handle base Moodle actions, it observes Moodle.
+"""
+
 import os
 
 from moodlefuse.moodle.observer import Observer

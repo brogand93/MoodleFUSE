@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to handle errors relating to resource incidents.
+"""
+
 from moodlefuse.errors import MoodleFuseError
 
 
