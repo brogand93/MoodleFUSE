@@ -19,20 +19,17 @@ class MoodleWatcher(threading.Thread):
         self.moodle = moodle
 
     def run(self):
-        self._poll_moodle(1000000)
+        poll_delay = 120*100*60
+        self._poll_moodle(poll_delay)
 
     def _poll_moodle(self, poll_delay):
         while True:
-            moodle_last_updated = MoodleAPI.inspect_resources()
-            moodle_changed = self._moodle_has_changed(moodle_last_updated)
-            if moodle_changed:
-                print "Detected change in Moodle"
-                self.moodle.notify()
-
+            self._poll_resources()
+            self._poll_courses()
             time.sleep(poll_delay)
 
-    def _moodle_has_changed(self, moodle_last_updated):
-        # Dummy last synced time to trigger observer update
-        last_synced = datetime(2014, 1, 1)
+    def _poll_resources(self):
+        pass
 
-        return last_synced < moodle_last_updated
+    def _poll_courses(self):
+        pass

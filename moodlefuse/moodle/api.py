@@ -1,67 +1,60 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from moodlefuse.moodle import MoodleException
-from datetime import datetime
+from moodlefuse.moodle import Moodle
 
 
 class MoodleAPI(object):
 
     @staticmethod
-    def inspect_resources(args=None):
-        print "=================================="
-        print "Inspecting Resources"
-        print "=================================="
-        print "Setting last updated time to now"
-        print "This will make observers update"
-        updated = datetime.now()
-        return updated
+    def upload_resources(resourcelink):
 
-    @staticmethod
-    def upload_resources(args=None):
-        moodle_function = "core_files_upload"
-        print moodle_function
         return
 
     @staticmethod
-    def download_resources(args=None):
-        print "=================================="
-        print "Get Resources"
-        print "=================================="
-        print "Attempting to get resources"
-        print "Failed to get resources"
-        print "Raising Moodle exception"
-        print "=================================="
-        raise MoodleException()
+    def download_resources(resourcelink):
+
+        return
 
     @staticmethod
     def get_courses(args=None):
-        print "=================================="
-        print "Get Courses"
-        print "==================================="
-        print "Attempting to get resources"
-        print "Returning simulated Moodle courses array"
-        return ['CA431', 'CA421', 'CA400']
+
+        args = {
+            "function": "core_course_get_courses"
+        }
+        return Moodle.rest_request(args)
 
     @staticmethod
-    def get_course_sections(args=None):
-        moodle_function = "core_course_get_categories"
-        print moodle_function
+    def get_course_resource_links(courseid):
+        args = {
+            "function": "core_course_get_contents",
+            "courseid": courseid
+        }
+        return Moodle.rest_request(args)
 
     @staticmethod
-    def create_course_section(args=None):
-        moodle_function = "core_course_create_categories"
-        print moodle_function
+    def get_course_sections(courseid):
+        args = {
+            "function": "core_course_get_categories",
+            "courseid": courseid
+        }
+        return Moodle.rest_request(args)
 
     @staticmethod
-    def remove_course_section(args=None):
+    def create_course_categories(courseid, categories):
+        args = {
+            "function": "core_course_create_categories",
+            "courseid": courseid,
+            "categories": categories
+        }
+        return Moodle.rest_request(args)
+
+    @staticmethod
+    def remove_course_categorie(courseid, categories):
+        args = {
+            "function": "core_course_create_categories",
+            "courseid": courseid,
+            "categories": categories
+        }
         moodle_function = "core_course_delete_categories"
-        print moodle_function
-
-    @staticmethod
-    def get_assignment(args=None):
-        print "=================================="
-        print "Getting Assignments"
-        print "=================================="
-        print "Return dummy assignment called 'assignment1'"
-        return ['assignment1.pdf']
+        return Moodle.rest_request(args)

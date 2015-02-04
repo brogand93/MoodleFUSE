@@ -1,13 +1,32 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from moodlefuse.moodle.subject import Subject
+import requests
 
+class Moodle():
 
-class Moodle(Subject):
+    @staticmethod
+    def rest_request():
 
-    def __init__(self):
-        Subject.__init__(self)
+        url = Moodle._create_request_url('dummytoken', 'function')
+        response = requests.get(url)
+
+        return response
+
+    @staticmethod
+    def _create_request_url(token, function):
+
+        token_payload = 'wstoken=%s' % (token)
+        function_payload = 'wsfunction=%s' % function
+
+        request_url = '%s/webservice/%s/server.php?%s&%s' % (
+            'http://www.moodle.dcu.ie',
+            'rest',
+            token_payload,
+            function_payload
+        )
+
+        return request_url
 
 
 class MoodleException(BaseException):

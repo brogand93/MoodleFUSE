@@ -11,18 +11,12 @@ from moodlefuse.moodle.moodle_handler import MoodleHandler
 
 class ResourceHandler(MoodleHandler):
 
-    def __init__(self):
-        MoodleHandler.__init__(self)
-
-    def update(self):
-        self.sync_resources()
-
-    def sync_resources(self):
+    def sync_remote_resources_locally(self):
         get_resource_action = self.moodle_api.download_resources
         get_resource_error = ResourceErrors.unable_to_get_resource
 
-        resources = \
-            MoodleHandler.handle_moodle_action(get_resource_action, get_resource_error)
 
-        for resource in resources:
-            print "Adding " + resource
+        MoodleHandler.handle_moodle_action(get_resource_action, get_resource_error)
+
+
+

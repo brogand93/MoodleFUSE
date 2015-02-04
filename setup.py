@@ -27,7 +27,10 @@ AUTHOR_EMAIL = 'brogand2@mail.dcu.ie'
 DESC = "FUSE filesystem based on moodle implementation"
 LONG_DESC = read_file('README.rst')
 REQUIRES = [
-    'requests', 'fusepy'
+    'Flask-SQLAlchemy',
+    'requests',
+    'alembic',
+    'fusepy'
 ]
 
 setup(
@@ -42,7 +45,6 @@ setup(
     package_data={},
     packages=[
         'moodlefuse',
-        'moodlefuse.filesystem',
         'moodlefuse.moodle',
         'moodlefuse.moodle.courses',
         'moodlefuse.moodle.resources',
@@ -61,6 +63,5 @@ setup(
     entry_points="""
         [console_scripts]
         moodlefuse = moodlefuse.__main__:main
-        moodlefuse-configure = moodlefuse.configure:main
     """
 )

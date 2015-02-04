@@ -13,12 +13,6 @@ from moodlefuse.moodle.moodle_handler import MoodleHandler
 
 class CourseHandler(MoodleHandler):
 
-    def __init__(self):
-        MoodleHandler.__init__(self)
-
-    def update(self):
-        self.sync_courses()
-
     def sync_courses(self):
         get_courses_action = self.moodle_api.get_courses
         get_courses_error = CourseErrors.unable_to_sync_courses
