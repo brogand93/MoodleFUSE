@@ -5,6 +5,8 @@ import sqlalchemy
 
 
 class Core(object):
+
     db = SQLAlchemy()
+
 
 

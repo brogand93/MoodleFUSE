@@ -63,5 +63,6 @@ setup(
     entry_points="""
         [console_scripts]
         moodlefuse = moodlefuse.__main__:main
+        moodlefuse-configure = moodlefuse.configure:main
     """
 )

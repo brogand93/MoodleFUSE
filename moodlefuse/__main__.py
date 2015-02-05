@@ -9,13 +9,10 @@ from moodlefuse.moodle import Moodle
 
 
 def main():
-    print "Launched moodlefuse"
     moodle = Moodle()
     moodle.attach(AssignmentHandler())
     moodle.attach(ResourceHandler())
     moodle.attach(CourseHandler())
-    print "Starting moodle observation"
-    print "=================================="
     watcher = MoodleWatcher(moodle)
     watcher.start()
 
