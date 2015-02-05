@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-"""Class to watch moodle and wait for channges
+"""Class to watch moodle and wait for changes
 """
 
 import time
@@ -14,9 +14,8 @@ from moodlefuse.moodle.api import MoodleAPI
 
 class MoodleWatcher(threading.Thread):
 
-    def __init__(self, moodle):
+    def __init__(self):
         super(MoodleWatcher, self).__init__()
-        self.moodle = moodle
 
     def run(self):
         poll_delay = 120*100*60

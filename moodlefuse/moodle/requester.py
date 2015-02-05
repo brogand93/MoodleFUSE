@@ -12,8 +12,21 @@ class Requester(object):
 
         return response
 
+    def upload_request(self):
 
-    def _create_rest_request_url(token, function):
+        url = self._create_file_upload_request_url('dummytoken', '~/testfile.txt', '/')
+        response = requests.get(url)
+
+        return response
+
+    def download_request(self):
+
+        url = self._create_file_download_request_url('dummytoken', '~/testfile.txt')
+        response = requests.get(url)
+
+        return response
+
+    def _create_rest_request_url(self, token, function):
 
         token_payload = 'wstoken=%s' % (token)
         function_payload = 'wsfunction=%s' % (function)
@@ -28,7 +41,7 @@ class Requester(object):
         return request_url
 
 
-    def create_file_upload_request_url(token, file_to_upload, file_destination):
+    def _create_file_upload_request_url(self, token, file_to_upload, file_destination):
 
         token_payload = 'token=%s' % (token)
         file_source_payload = 'file_box=%s' % (file_to_upload)
@@ -44,7 +57,8 @@ class Requester(object):
 
         return request_url
 
-    def create_file_download_request_url(token, file_to_download):
+
+    def _create_file_download_request_url(self, token, file_to_download):
 
         token_payload = 'token=%s' % (token)
 

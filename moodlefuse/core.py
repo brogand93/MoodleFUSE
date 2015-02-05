@@ -9,4 +9,8 @@ class Core(object):
     db = SQLAlchemy()
 
 
+    def setup_filesystem(self):
+        pass
+
+
 

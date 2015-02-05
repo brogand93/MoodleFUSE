@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-"""Class to handle base Moodle actions, it observes Moodle.
+"""Class to handle base Moodle actions.
 """
 
 import os
