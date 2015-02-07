@@ -3,23 +3,24 @@
 
 import requests
 
+
 class Requester(object):
 
-    def rest_request(self):
+    def rest_request(self, args):
 
         url = self._create_rest_request_url('dummytoken', 'dummyfunction')
         response = requests.get(url)
 
         return response
 
-    def upload_request(self):
+    def upload_request(self, args):
 
         url = self._create_file_upload_request_url('dummytoken', '~/testfile.txt', '/')
         response = requests.get(url)
 
         return response
 
-    def download_request(self):
+    def download_request(self, args):
 
         url = self._create_file_download_request_url('dummytoken', '~/testfile.txt')
         response = requests.get(url)
@@ -40,13 +41,11 @@ class Requester(object):
 
         return request_url
 
-
     def _create_file_upload_request_url(self, token, file_to_upload, file_destination):
 
         token_payload = 'token=%s' % (token)
         file_source_payload = 'file_box=%s' % (file_to_upload)
         file_destination_payload = 'filepath=%s' % (file_destination)
-
 
         request_url = '%s/webservice/upload.php?%s&%s&%s' % (
             'http://www.moodle.dcu.ie',
@@ -56,7 +55,6 @@ class Requester(object):
         )
 
         return request_url
-
 
     def _create_file_download_request_url(self, token, file_to_download):
 

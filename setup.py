@@ -47,8 +47,7 @@ setup(
         'moodlefuse',
         'moodlefuse.moodle',
         'moodlefuse.moodle.courses',
-        'moodlefuse.moodle.resources',
-        'moodlefuse.moodle.assignments'
+        'moodlefuse.moodle.resources'
     ],
     include_package_data=True,
     zip_safe=False,

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from moodlefuse.moodle import Moodle
 from moodlefuse.moodle.requester import Requester
 
 
@@ -10,28 +9,25 @@ class MoodleAPI(object):
     def __init__(self):
         self.requester = Requester()
 
-
     def upload_resources(self, source_link, destination_link):
         args = {
-
+            "file_box": "@" + source_link,
+            "filepath": destination_link
         }
-        return
-
+        return self.requester.upload_request(args)
 
     def download_resources(self, source_link, destination_link):
         args = {
-
+            "remote_path": source_link
         }
-        return
+        return self.requester.download_request(args)
 
     def get_courses(self):
-
         args = {
             "function": "core_course_get_courses"
         }
 
         return self.requester.rest_request(args)
-
 
     def get_course_resource_links(self, courseid, time_stamp):
         args = {
@@ -40,7 +36,6 @@ class MoodleAPI(object):
         }
         return self.requester.rest_request(args)
 
-    @staticmethod
     def get_course_sections(self, courseid):
         args = {
             "function": "core_course_get_categories",
@@ -48,7 +43,6 @@ class MoodleAPI(object):
         }
         return self.requester.rest_request(args)
 
-    @staticmethod
     def create_course_categories(self, courseid, categories):
         args = {
             "function": "core_course_create_categories",
@@ -57,7 +51,6 @@ class MoodleAPI(object):
         }
         return self.requester.rest_request(args)
 
-    @staticmethod
     def remove_course_categorie(self, courseid, categories):
         args = {
             "function": "core_course_delete_categories",

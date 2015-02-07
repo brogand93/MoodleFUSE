@@ -15,8 +15,4 @@ class ResourceHandler(MoodleHandler):
         get_resource_action = self.moodle_api.download_resources
         get_resource_error = ResourceErrors.unable_to_get_resource
 
-
         MoodleHandler.handle_moodle_action(get_resource_action, get_resource_error)
-
-
-

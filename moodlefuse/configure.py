@@ -10,6 +10,7 @@ from ConfigParser import SafeConfigParser
 def main():
     Configurer()
 
+
 class Configurer(object):
 
     def __init__(self):
@@ -24,7 +25,6 @@ class Configurer(object):
         os.chmod(config_folder, 0700)
         return config_folder
 
-
     def _create_config_file(self, config_folder):
         args = self._generate_args()
         profile = args.pop('profile')
@@ -32,7 +32,6 @@ class Configurer(object):
         config = self._modify_config_profile(config_file_path, profile)
         config_file = open(config_file_path, 'w+')
         config.write(config_file)
-
 
     def _generate_args(self):
         parser = argparse.ArgumentParser(
@@ -51,7 +50,6 @@ class Configurer(object):
 
         return vars(args)
 
-
     def _modify_config_profile(self, config_file, profile):
         config = SafeConfigParser()
         config.read(config_file)
@@ -63,10 +61,9 @@ class Configurer(object):
 
         return config
 
-
     def _set_attributes_of_profile(self, config, profile):
         config = self._set_attribute_of_profile(
-            config, profile, 'moodle_web_address', 'Moodle server address', 'moodle.dcu.ie'
+            config, profile, 'moodle_web_address', 'Moodle server address', 'hhtp://www.moodle.dcu.ie'
         )
         config = self._set_attribute_of_profile(
             config, profile, 'local_moodle_folder', 'Local Moodle folder', '~/moodle'
@@ -80,7 +77,6 @@ class Configurer(object):
 
         return config
 
-
     def _set_attribute_of_profile(self, config, profile, attribute, message, default):
         if config.has_option(profile, attribute):
             default = config.get(profile, attribute)
@@ -90,14 +86,12 @@ class Configurer(object):
         config.set(profile, attribute, attribute_value)
         return config
 
-
     def _read_in_config_attribute_or_use_default(self, message, default):
         attribute = raw_input(message + ' [' + default + ']: ')
         if attribute == '':
             attribute = default
 
         return attribute
-
 
     def _create_filesystem_folder(self):
         config_folder = os.path.join(os.path.expanduser('~'), 'moodle')

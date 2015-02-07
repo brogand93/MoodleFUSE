@@ -7,10 +7,6 @@
 import time
 import threading
 
-from datetime import datetime
-
-from moodlefuse.moodle.api import MoodleAPI
-
 
 class MoodleWatcher(threading.Thread):
 
@@ -18,7 +14,7 @@ class MoodleWatcher(threading.Thread):
         super(MoodleWatcher, self).__init__()
 
     def run(self):
-        poll_delay = 120*100*60
+        poll_delay = 120 * 100 * 60
         self._poll_moodle(poll_delay)
 
     def _poll_moodle(self, poll_delay):
