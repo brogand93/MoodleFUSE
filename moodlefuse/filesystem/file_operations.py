@@ -10,8 +10,8 @@ from fuse import FuseOSError, Operations
 
 class FileOperationOverrider(Operations):
 
-    def __init__(self, root):
-        self.root = root
+    def __init__(self):
+        pass
 
     def _full_path(self, partial):
         if partial.startswith("/"):

@@ -30,7 +30,8 @@ REQUIRES = [
     'SQLAlchemy',
     'requests',
     'alembic',
-    'fusepy'
+    'fusepy',
+    'sh'
 ]
 
 setup(
