@@ -4,5 +4,5 @@
 
 class Core(object):
 
-    def setup_filesystem(self):
+    def __init__(self):
         pass
