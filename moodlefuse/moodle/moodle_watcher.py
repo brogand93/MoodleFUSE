@@ -10,12 +10,12 @@ import threading
 
 class MoodleWatcher(threading.Thread):
 
-    def __init__(self):
+    def __init__(self, poll_delay=720000):
         super(MoodleWatcher, self).__init__()
+        self.poll_delay = poll_delay
 
     def run(self):
-        poll_delay = 120 * 100 * 60
-        self._poll_moodle(poll_delay)
+        self._poll_moodle(self.poll_delay)
 
     def _poll_moodle(self, poll_delay):
         while True:

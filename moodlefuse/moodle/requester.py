@@ -3,67 +3,53 @@
 
 import requests
 
+from urllib import urlencode
+from moodlefuse.moodle.helpers import requires_user_token
+
 
 class Requester(object):
 
+    @requires_user_token
     def rest_request(self, args):
-
-        url = self._create_rest_request_url('dummytoken', 'dummyfunction')
+        destination = 'webservice/rest/server.php'
+        url = self._create_moodle_request_url(destination, args)
         response = requests.get(url)
 
         return response
 
+    @requires_user_token
     def upload_request(self, args):
-
-        url = self._create_file_upload_request_url('dummytoken', '~/testfile.txt', '/')
+        destination = 'webservice/upload.php'
+        url = self._create_moodle_request_url(destination, args)
         response = requests.get(url)
 
         return response
 
+    @requires_user_token
     def download_request(self, args):
-
-        url = self._create_file_download_request_url('dummytoken', '~/testfile.txt')
+        destination = 'webservice/pluginfile.php'
+        url = self._create_moodle_request_url(destination, args)
         response = requests.get(url)
 
         return response
 
-    def _create_rest_request_url(self, token, function):
+    def _generate_args_url(self, args):
+        keys = sorted(args.keys())
+        values = sorted(map(args.get, keys))
 
-        token_payload = 'wstoken=%s' % (token)
-        function_payload = 'wsfunction=%s' % (function)
-
-        request_url = '%s/webservice/%s/server.php?%s&%s' % (
-            'http://www.moodle.dcu.ie',
-            'rest',
-            token_payload,
-            function_payload
+        return urlencode(
+            list(
+                zip(keys, values)
+            )
         )
 
-        return request_url
+    def _create_moodle_request_url(self, destination, args):
+        args_url = self._generate_args_url(args)
 
-    def _create_file_upload_request_url(self, token, file_to_upload, file_destination):
-
-        token_payload = 'token=%s' % (token)
-        file_source_payload = 'file_box=%s' % (file_to_upload)
-        file_destination_payload = 'filepath=%s' % (file_destination)
-
-        request_url = '%s/webservice/upload.php?%s&%s&%s' % (
+        request_url = '%s/%s?%s' % (
             'http://www.moodle.dcu.ie',
-            token_payload,
-            file_source_payload,
-            file_destination_payload
-        )
-
-        return request_url
-
-    def _create_file_download_request_url(self, token, file_to_download):
-
-        token_payload = 'token=%s' % (token)
-
-        request_url = '%s/webservice/pluginfile.php?%s%s' % (
-            'http://www.moodle.dcu.ie',
-            token_payload,
-            file_to_download
+            destination,
+            args_url
         )
 
         return request_url
