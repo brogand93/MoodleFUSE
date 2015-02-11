@@ -46,6 +46,7 @@ setup(
     package_data={},
     packages=[
         'moodlefuse',
+        'moodlefuse.fusepy',
         'moodlefuse.moodle',
         'moodlefuse.filesystem',
         'moodlefuse.moodle.courses',

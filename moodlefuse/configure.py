@@ -68,6 +68,7 @@ class Configurer(object):
         config = self._set_attribute_of_profile(
             config, profile, 'local_moodle_folder', 'Local Moodle folder', '~/moodle'
         )
+
         while True:
             config = self._set_attribute_of_profile(
                 config, profile, 'moodle_token', 'Moodle REST user token', ''

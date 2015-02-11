@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 import os
+import errno
 
 from moodlefuse.filesystem import Filesystem
 
@@ -14,11 +15,9 @@ class MoodleFuse(object):
 
     def _create_filesystem_root(self):
         moodle_fs_path = os.path.join(os.path.expanduser('~'), 'moodle')
-        print moodle_fs_path
-        if os.path.ismount(moodle_fs_path):
-            print 'dahkja dasdsa'
-
-        if not os.path.exists(moodle_fs_path):
+        try:
             os.makedirs(moodle_fs_path)
-
-        os.chmod(moodle_fs_path, 0700)
+        except OSError, e:
+            if e.errno is not errno.EEXIST:
+                raise e
+            pass
