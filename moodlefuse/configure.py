@@ -17,9 +17,17 @@ class Configurer(object):
         config_folder = self._create_config_folder()
         self._create_config_file(config_folder)
         self._create_filesystem_folder()
+        self._create_file_cache()
 
     def _create_config_folder(self):
         config_folder = os.path.join(os.path.expanduser('~'), '.moodlefuse')
+        if not os.path.exists(config_folder):
+            os.makedirs(config_folder)
+        os.chmod(config_folder, 0700)
+        return config_folder
+
+    def _create_file_cache(self):
+        config_folder = os.path.join(os.path.expanduser('~'), '.moodlefuse/cache')
         if not os.path.exists(config_folder):
             os.makedirs(config_folder)
         os.chmod(config_folder, 0700)

@@ -2,12 +2,6 @@
 # encoding: utf-8
 
 
-class Moodle(object):
-
-    def __init__(self):
-        pass
-
-
 class MoodleException(BaseException):
 
     def __init__(self):

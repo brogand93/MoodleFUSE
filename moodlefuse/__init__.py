@@ -20,4 +20,3 @@ class MoodleFuse(object):
         except OSError, e:
             if e.errno is not errno.EEXIST:
                 raise e
-            pass

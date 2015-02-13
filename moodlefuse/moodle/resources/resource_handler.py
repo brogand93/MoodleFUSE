@@ -16,3 +16,7 @@ class ResourceHandler(MoodleHandler):
         get_resource_error = ResourceErrors.unable_to_get_resource
 
         MoodleHandler.handle_moodle_action(get_resource_action, get_resource_error)
+
+    @staticmethod
+    def get_file_names_as_array():
+        return ['lecture1.txt', 'testffile.txt']

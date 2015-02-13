@@ -4,7 +4,7 @@
 import os
 import errno
 
-
+from moodlefuse.filesystem.file_system_parser import FileSystemParser
 from fuse import FuseOSError, Operations
 
 
@@ -19,8 +19,8 @@ class FileOperationOverrider(Operations):
         )
 
     def access(self, path, mode):
-        print 'access'
-        if not os.access(path, mode):
+        location = FileSystemParser.get_position_in_filesystem_as_array(path)
+        if not FileSystemParser.path_exists_in_moodle(location):
             raise FuseOSError(errno.EACCES)
 
     def chmod(self, path, mode):
@@ -32,22 +32,20 @@ class FileOperationOverrider(Operations):
         return os.chown(path, uid, gid)
 
     def getattr(self, path, fh=None):
-        print 'getattr'
-        st = os.lstat(path)
-        return dict(
-            (key, getattr(st, key)) for key in (
-                'st_atime', 'st_ctime',
-                'st_gid', 'st_mode',
-                'st_mtime', 'st_nlink',
-                'st_size', 'st_uid'
-            )
-        )
+        return {
+            'st_ctime': 1,
+            'st_mtime': 1,
+            'st_nlink': 7,
+            'st_mode': 16877,
+            'st_size': 4096,
+            'st_gid': 1000,
+            'st_uid': 1000,
+            'st_atime': 1
+        }
 
     def readdir(self, path, fh):
-        print 'readdir'
-        dirents = ['.', '..']
-        if os.path.isdir(path):
-            dirents.extend(os.listdir(path))
+        location = FileSystemParser.get_position_in_filesystem_as_array(path)
+        dirents = FileSystemParser.get_directory_contents_based_on_location(location)
         for r in dirents:
             yield r
 
@@ -71,9 +69,15 @@ class FileOperationOverrider(Operations):
     def statfs(self, path):
         print 'statfs'
         stv = os.statvfs(path)
-        return dict((key, getattr(stv, key)) for key in ('f_bavail', 'f_bfree',
-            'f_blocks', 'f_bsize', 'f_favail', 'f_ffree', 'f_files', 'f_flag',
-            'f_frsize', 'f_namemax'))
+        return dict(
+            (key, getattr(stv, key)) for key in (
+                'f_bavail', 'f_bfree',
+                'f_blocks', 'f_bsize',
+                'f_favail', 'f_ffree',
+                'f_files', 'f_flag',
+                'f_frsize', 'f_namemax'
+            )
+        )
 
     def unlink(self, path):
         print 'unlink'
@@ -87,16 +91,11 @@ class FileOperationOverrider(Operations):
         print 'rename'
         return os.rename(old, new)
 
-    def link(self, target, name):
-        print 'link'
-        return os.link(target, name)
+    link = None
 
     def utimens(self, path, times=None):
         print 'utimens'
         return os.utime(path, times)
-
-    # File methods
-    # ============
 
     def open(self, path, flags):
         print 'open'

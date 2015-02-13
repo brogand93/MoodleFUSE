@@ -24,3 +24,11 @@ class CourseHandler(MoodleHandler):
             course_folder_path = os.path.join(self._FS_ROOT, course)
             if not os.path.exists(course_folder_path):
                 os.makedirs(course_folder_path)
+
+    @staticmethod
+    def get_courses_as_array():
+        return ['Concurrency', 'Compilers', 'SPI']
+
+    @staticmethod
+    def get_course_categories_as_array(course):
+        return ['week1', 'week2', 'week3']
