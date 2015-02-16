@@ -7,7 +7,7 @@ from moodlefuse.moodle.resources.resource_handler import ResourceHandler
 import os
 
 
-class FileSystemParser(object):
+class FileSystemTranslator(object):
 
     @staticmethod
     def get_position_in_filesystem_as_array(path):
@@ -18,7 +18,8 @@ class FileSystemParser(object):
         return path_sections
 
     @staticmethod
-    def get_directory_contents_based_on_location(location):
+    def get_directory_contents_based_on_path(paath):
+        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
         dirents = ['.', '..']
 
         if len(location) is 0:
@@ -33,7 +34,8 @@ class FileSystemParser(object):
         return dirents
 
     @staticmethod
-    def path_exists_in_moodle(location):
+    def path_exists_in_moodle(path):
+        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
         if len(location) is 0:
             return True
 

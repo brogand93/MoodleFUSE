@@ -4,7 +4,7 @@
 import os
 import errno
 
-from moodlefuse.filesystem.file_system_parser import FileSystemParser
+from moodlefuse.filesystem.file_system_translator import FileSystemTranslator
 from fuse import FuseOSError, Operations
 
 
@@ -19,8 +19,7 @@ class FileOperationOverrider(Operations):
         )
 
     def access(self, path, mode):
-        location = FileSystemParser.get_position_in_filesystem_as_array(path)
-        if not FileSystemParser.path_exists_in_moodle(location):
+        if not FileSystemTranslator.path_exists_in_moodle(path):
             raise FuseOSError(errno.EACCES)
 
     def create(self, path, mode, fi=None):
@@ -65,8 +64,7 @@ class FileOperationOverrider(Operations):
         return os.read(fh, length)
 
     def readdir(self, path, fh):
-        location = FileSystemParser.get_position_in_filesystem_as_array(path)
-        dirents = FileSystemParser.get_directory_contents_based_on_location(location)
+        dirents = FileSystemTranslator.get_directory_contents_based_on_path(path)
         for r in dirents:
             yield r
 
