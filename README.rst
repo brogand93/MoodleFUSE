@@ -34,5 +34,3 @@ The list of supported operations is (Assuming appropriate user rights on Moodle)
 -	Deletion of course files
 -	Modification of course files
 
-MoodleFUSE will also download assignments automatically onto the FUSE filesystem after the assignment deadline. 
-Grading of the assignments can be performed locally by adding grades to an auto generated CSV file.
