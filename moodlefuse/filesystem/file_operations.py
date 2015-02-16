@@ -23,13 +23,17 @@ class FileOperationOverrider(Operations):
         if not FileSystemParser.path_exists_in_moodle(location):
             raise FuseOSError(errno.EACCES)
 
-    def chmod(self, path, mode):
-        print 'chmod'
-        return os.chmod(path, mode)
+    def create(self, path, mode, fi=None):
+        print 'create'
+        return os.open(path, os.O_WRONLY | os.O_CREAT, mode)
 
-    def chown(self, path, uid, gid):
-        print 'chown'
-        return os.chown(path, uid, gid)
+    def flush(self, path, fh):
+        print 'flush'
+        return os.fsync(fh)
+
+    def fsync(self, path, fdatasync, fh):
+        print 'fsync'
+        return self.flush(path, fh)
 
     def getattr(self, path, fh=None):
         return {
@@ -43,6 +47,23 @@ class FileOperationOverrider(Operations):
             'st_atime': 1
         }
 
+    def mknod(self, path, mode, dev):
+        print 'mknod'
+        return os.mknod(path, mode, dev)
+
+    def mkdir(self, path, mode):
+        print 'mkdir'
+        return os.mkdir(path, mode)
+
+    def open(self, path, flags):
+        print 'open'
+        return os.open(path, flags)
+
+    def read(self, path, length, offset, fh):
+        print 'read'
+        os.lseek(fh, offset, os.SEEK_SET)
+        return os.read(fh, length)
+
     def readdir(self, path, fh):
         location = FileSystemParser.get_position_in_filesystem_as_array(path)
         dirents = FileSystemParser.get_directory_contents_based_on_location(location)
@@ -54,17 +75,17 @@ class FileOperationOverrider(Operations):
         pathname = os.readlink(path)
         return pathname
 
-    def mknod(self, path, mode, dev):
-        print 'mknod'
-        return os.mknod(path, mode, dev)
+    def release(self, path, fh):
+        print 'release'
+        return os.close(fh)
+
+    def rename(self, old, new):
+        print 'rename'
+        return os.rename(old, new)
 
     def rmdir(self, path):
         print 'rmdir'
         return os.rmdir(path)
-
-    def mkdir(self, path, mode):
-        print 'mkdir'
-        return os.mkdir(path, mode)
 
     def statfs(self, path):
         print 'statfs'
@@ -79,55 +100,27 @@ class FileOperationOverrider(Operations):
             )
         )
 
-    def unlink(self, path):
-        print 'unlink'
-        return os.unlink(path)
-
     def symlink(self, name, target):
         print 'symlink'
         return os.symlink(name, target)
 
-    def rename(self, old, new):
-        print 'rename'
-        return os.rename(old, new)
-
-    link = None
+    def unlink(self, path):
+        print 'unlink'
+        return os.unlink(path)
 
     def utimens(self, path, times=None):
         print 'utimens'
         return os.utime(path, times)
-
-    def open(self, path, flags):
-        print 'open'
-        return os.open(path, flags)
-
-    def create(self, path, mode, fi=None):
-        print 'create'
-        return os.open(path, os.O_WRONLY | os.O_CREAT, mode)
-
-    def read(self, path, length, offset, fh):
-        print 'read'
-        os.lseek(fh, offset, os.SEEK_SET)
-        return os.read(fh, length)
 
     def write(self, path, buf, offset, fh):
         print 'write'
         os.lseek(fh, offset, os.SEEK_SET)
         return os.write(fh, buf)
 
-    def truncate(self, path, length, fh=None):
-        print 'truncate'
-        with open(path, 'r+') as f:
-            f.truncate(length)
+    link = None
 
-    def flush(self, path, fh):
-        print 'flush'
-        return os.fsync(fh)
+    chmod = None
 
-    def release(self, path, fh):
-        print 'release'
-        return os.close(fh)
+    chown = None
 
-    def fsync(self, path, fdatasync, fh):
-        print 'fsync'
-        return self.flush(path, fh)
+    truncate = None
