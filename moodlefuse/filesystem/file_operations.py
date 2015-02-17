@@ -56,6 +56,7 @@ class FileOperationOverrider(Operations):
 
     def open(self, path, flags):
         print 'open'
+        path = '/home/brogand/output.txt'
         return os.open(path, flags)
 
     def read(self, path, length, offset, fh):

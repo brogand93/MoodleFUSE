@@ -23,9 +23,10 @@ class FileSystemTranslator(object):
 
     @staticmethod
     def get_position_in_filesystem_as_array(path):
-        path = path.strip(str(os.path.join(os.path.expanduser('~'), 'moodle')))
+        path = path.replace(str(os.path.join(os.path.expanduser('~'), 'moodle/')), '')
         if len(path) is 0:
             return []
+
         path_sections = path.split("/")
         return path_sections
 
@@ -35,23 +36,27 @@ class FileSystemTranslator(object):
         dirents = ['.', '..']
 
         if FileSystemTranslator._location_is_in_root(location):
-            dirents.extend(CourseHandler.get_courses_as_array())
+            courses = CourseHandler()
+            dirents.extend(courses.get_courses_as_array())
         elif FileSystemTranslator._location_is_in_course(location):
-            dirents.extend(CourseHandler.get_course_categories_as_array('testcourse'))
+            courses = CourseHandler()
+            dirents.extend(courses.get_course_categories_as_array(2))
         elif FileSystemTranslator._location_is_in_course_categorie(location):
-            dirents.extend(ResourceHandler.get_file_names_as_array())
+            resources = ResourceHandler()
+            dirents.extend(resources.get_file_names_as_array(location[0], location[1]))
 
         return dirents
 
     @staticmethod
     def path_exists_in_moodle(path):
         location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
+        courses = CourseHandler()
 
         if FileSystemTranslator._location_is_in_root(location):
             return True
         elif FileSystemTranslator._location_is_in_course(location):
-            return location[0] in CourseHandler.get_courses_as_array()
+            return location[0] in courses.get_courses_as_array()
         elif FileSystemTranslator._location_is_in_course_categorie(location):
-            return location[1] in CourseHandler.get_course_categories_as_array('testcourse')
-        else:
-            return False
+            return location[1] in courses.get_course_categories_as_array(2)
+
+        return False

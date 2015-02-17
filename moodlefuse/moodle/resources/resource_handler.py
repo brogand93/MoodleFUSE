@@ -5,18 +5,26 @@
    and therefor is an observer of Moodle.
 """
 
-from moodlefuse.moodle.resources.resource_errors import ResourceErrors
 from moodlefuse.moodle.moodle_handler import MoodleHandler
+from moodlefuse.moodle.api import MoodleAPI
 
 
 class ResourceHandler(MoodleHandler):
 
-    def sync_remote_resources_locally(self):
-        get_resource_action = self.moodle_api.download_resources
-        get_resource_error = ResourceErrors.unable_to_get_resource
+    def __init__(self):
+        super(self.__class__, self).__init__()
+        self.moodle = MoodleAPI()
 
-        MoodleHandler.handle_moodle_action(get_resource_action, get_resource_error)
+    def get_file_names_as_array(self, course, categorie):
+        categories = self.moodle.get_course_contents(2)
+        return self._parse_course_resources(categories, categorie)
 
-    @staticmethod
-    def get_file_names_as_array():
-        return ['lecture1.txt', 'testffile.txt']
+    def _parse_course_resources(self, categories_dictionary, desired_categorie):
+        resources = []
+        for categorie in categories_dictionary:
+            if categorie['name'] == desired_categorie:
+                for module in categorie['modules']:
+                    for resource in module['contents']:
+                        resources.append(resource['filename'])
+
+        return resources

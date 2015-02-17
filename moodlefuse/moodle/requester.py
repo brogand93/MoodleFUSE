@@ -1,23 +1,22 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import json
 import requests
 
 from urllib import urlencode
-from moodlefuse.moodle.helpers import requires_user_token
 
 
 class Requester(object):
 
-    @requires_user_token
     def rest_request(self, args):
         destination = 'webservice/rest/server.php'
         url = self._create_moodle_request_url(destination, args)
         response = requests.get(url)
+        response_data = json.loads(response.text)
 
-        return response
+        return response_data
 
-    @requires_user_token
     def upload_request(self, args):
         destination = 'webservice/upload.php'
         url = self._create_moodle_request_url(destination, args)
@@ -25,7 +24,6 @@ class Requester(object):
 
         return response
 
-    @requires_user_token
     def download_request(self, args):
         destination = 'webservice/pluginfile.php'
         url = self._create_moodle_request_url(destination, args)
@@ -35,7 +33,7 @@ class Requester(object):
 
     def _generate_args_url(self, args):
         keys = sorted(args.keys())
-        values = sorted(map(args.get, keys))
+        values = map(args.get, keys)
 
         return urlencode(
             list(
@@ -47,7 +45,7 @@ class Requester(object):
         args_url = self._generate_args_url(args)
 
         request_url = '%s/%s?%s' % (
-            'http://www.moodle.dcu.ie',
+            'http://192.168.0.23//moodle',
             destination,
             args_url
         )

@@ -12,21 +12,35 @@ class MoodleAPI(object):
     def upload_resources(self, source_link, destination_link):
         args = {
             "file_box": "@" + source_link,
-            "filepath": destination_link
+            "filepath": destination_link,
+            "token": 'c48133e52b502740fbce84eecf7e3110'
         }
 
         return self.requester.upload_request(args)
 
     def download_resources(self, source_link, destination_link):
         args = {
-            "remote_path": source_link
+            "remote_path": source_link,
+            "token": 'c48133e52b502740fbce84eecf7e3110'
         }
 
         return self.requester.download_request(args)
 
     def get_courses(self):
         args = {
-            "wsfunction": "core_course_get_courses"
+            "wsfunction": "core_course_get_courses",
+            "wstoken": "c48133e52b502740fbce84eecf7e3110",
+            "moodlewsrestformat": "json"
+        }
+
+        return self.requester.rest_request(args)
+
+    def get_course_contents(self, courseid):
+        args = {
+            "wsfunction": "core_course_get_contents",
+            "wstoken": 'c48133e52b502740fbce84eecf7e3110',
+            "courseid": courseid,
+            "moodlewsrestformat": "json"
         }
 
         return self.requester.rest_request(args)
@@ -34,7 +48,9 @@ class MoodleAPI(object):
     def get_course_resource_links(self, courseid, time_stamp):
         args = {
             "wsfunction": "core_course_get_contents",
-            "courseid": courseid
+            "courseid": courseid,
+            "wstoken": 'c48133e52b502740fbce84eecf7e3110',
+            "moodlewsrestformat": "json"
         }
 
         return self.requester.rest_request(args)
@@ -42,7 +58,9 @@ class MoodleAPI(object):
     def get_course_sections(self, courseid):
         args = {
             "wsfunction": "core_course_get_categories",
-            "courseid": courseid
+            "wstoken": 'c48133e52b502740fbce84eecf7e3110',
+            "courseid": courseid,
+            "moodlewsrestformat": "json"
         }
 
         return self.requester.rest_request(args)

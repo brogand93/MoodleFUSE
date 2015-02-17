@@ -5,30 +5,36 @@
    and therefor is an observer of Moodle.
 """
 
-import os
-
-from moodlefuse.moodle.courses.course_errors import CourseErrors
 from moodlefuse.moodle.moodle_handler import MoodleHandler
+from moodlefuse.moodle.api import MoodleAPI
 
 
 class CourseHandler(MoodleHandler):
 
-    def sync_courses(self):
-        get_courses_action = self.moodle_api.get_courses
-        get_courses_error = CourseErrors.unable_to_sync_courses
+    def __init__(self):
+        super(self.__class__, self).__init__()
+        self.moodle = MoodleAPI()
 
-        courses = \
-            MoodleHandler.handle_moodle_action(get_courses_action, get_courses_error)
+    def get_courses_as_array(self):
+        course = self.moodle.get_courses()
+        return self._parse_courses(course)
 
-        for course in courses:
-            course_folder_path = os.path.join(self._FS_ROOT, course)
-            if not os.path.exists(course_folder_path):
-                os.makedirs(course_folder_path)
+    def _parse_courses(self, courses_dictionary):
+        courses = []
+        for course in courses_dictionary:
+            if course['id'] is not 1:
+                courses.append(course['fullname'])
 
-    @staticmethod
-    def get_courses_as_array():
-        return ['Concurrency', 'Compilers', 'SPI']
+        return courses
 
-    @staticmethod
-    def get_course_categories_as_array(course):
-        return ['week1', 'week2', 'week3']
+    def get_course_categories_as_array(self, course):
+        categories = self.moodle.get_course_contents(course)
+        return self._parse_course_categories(categories)
+
+    def _parse_course_categories(self, categories_dictionary):
+        categories = []
+        for categorie in categories_dictionary:
+            if categorie['id'] is not 1:
+                categories.append(categorie['name'])
+
+        return categories

@@ -27,11 +27,8 @@ AUTHOR_EMAIL = 'brogand2@mail.dcu.ie'
 DESC = "FUSE filesystem based on moodle implementation"
 LONG_DESC = read_file('README.rst')
 REQUIRES = [
-    'SQLAlchemy',
     'requests',
-    'alembic',
-    'fusepy',
-    'sh'
+    'fusepy'
 ]
 
 setup(
