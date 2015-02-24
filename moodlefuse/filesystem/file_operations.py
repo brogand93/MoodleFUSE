@@ -35,16 +35,7 @@ class FileOperationOverrider(Operations):
         return self.flush(path, fh)
 
     def getattr(self, path, fh=None):
-        return {
-            'st_ctime': 1,
-            'st_mtime': 1,
-            'st_nlink': 7,
-            'st_mode': 16877,
-            'st_size': 4096,
-            'st_gid': 1000,
-            'st_uid': 1000,
-            'st_atime': 1
-        }
+        return FileSystemTranslator.get_file_attributes(path)
 
     def mknod(self, path, mode, dev):
         print 'mknod'
@@ -56,8 +47,10 @@ class FileOperationOverrider(Operations):
 
     def open(self, path, flags):
         print 'open'
-        path = '/home/brogand/output.txt'
-        return os.open(path, flags)
+        cache_path = FileSystemTranslator.open_file(path)
+        if cache_path is not None:
+            return os.open(cache_path, flags)
+        else: return 1
 
     def read(self, path, length, offset, fh):
         print 'read'

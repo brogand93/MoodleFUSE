@@ -13,7 +13,7 @@ from moodlefuse.moodle import MoodleException
 class MoodleHandler(object):
 
     def __init__(self):
-        self.moodle_api = MoodleAPI
+        self.moodle = MoodleAPI()
         self._FS_ROOT = os.path.join(os.path.expanduser('~'), 'moodle')
 
     @staticmethod

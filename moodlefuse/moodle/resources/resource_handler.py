@@ -19,12 +19,34 @@ class ResourceHandler(MoodleHandler):
         categories = self.moodle.get_course_contents(2)
         return self._parse_course_resources(categories, categorie)
 
-    def _parse_course_resources(self, categories_dictionary, desired_categorie):
+    def get_file_path(self, course, categorie, filename):
+        categories = self.moodle.get_course_contents(2)
+        return self._parse_course_resources(categories, categorie)
+
+    def download_resource(self, moodle_url, location):
+        self.moodle.download_resources(location, moodle_url)
+        pass
+
+    def _parse_course_resources(self, categories, desired_categorie):
+        self._parse_course_resource_url(categories, desired_categorie,
+                                         'example.txt')
         resources = []
-        for categorie in categories_dictionary:
+        for categorie in categories:
             if categorie['name'] == desired_categorie:
                 for module in categorie['modules']:
                     for resource in module['contents']:
                         resources.append(resource['filename'])
 
         return resources
+
+
+    def _parse_course_resource_url(self, categories, desired_categorie, filename):
+        resource = None
+        for categorie in categories:
+            if categorie['name'] == desired_categorie:
+                for module in categorie['modules']:
+                    for resource in module['contents']:
+                        if resource['filename'] == filename:
+                            resource =  resource['fileurl']
+
+        return resource

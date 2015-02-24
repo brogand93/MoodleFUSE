@@ -24,7 +24,7 @@ class MoodleAPI(object):
             "token": 'c48133e52b502740fbce84eecf7e3110'
         }
 
-        return self.requester.download_request(args)
+        return self.requester.download_request(args, destination_link)
 
     def get_courses(self):
         args = {

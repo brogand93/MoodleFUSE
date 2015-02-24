@@ -4,7 +4,7 @@
 import json
 import requests
 
-from urllib import urlencode
+from urllib import urlencode, urlretrieve
 
 
 class Requester(object):
@@ -24,12 +24,12 @@ class Requester(object):
 
         return response
 
-    def download_request(self, args):
+    def download_request(self, args, location):
         destination = 'webservice/pluginfile.php'
         url = self._create_moodle_request_url(destination, args)
-        response = requests.get(url)
-
-        return response
+        cache_path = '/home/brogand/.moodlefuse/cache/' + location[0] + '_' + location[1] + '_' + location[2]
+        urlretrieve(url, cache_path)
+        return cache_path
 
     def _generate_args_url(self, args):
         keys = sorted(args.keys())
@@ -45,7 +45,7 @@ class Requester(object):
         args_url = self._generate_args_url(args)
 
         request_url = '%s/%s?%s' % (
-            'http://192.168.0.23//moodle',
+            'http://192.168.56.103/moodle',
             destination,
             args_url
         )

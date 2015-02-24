@@ -13,11 +13,18 @@ class CourseHandler(MoodleHandler):
 
     def __init__(self):
         super(self.__class__, self).__init__()
-        self.moodle = MoodleAPI()
 
     def get_courses_as_array(self):
-        course = self.moodle.get_courses()
-        return self._parse_courses(course)
+        courses = self.moodle.get_courses()
+        return self._parse_courses(courses)
+
+    def get_course_id_by_name(self, coursename):
+        courses = self.moodle.get_courses()
+        for course in courses:
+            if course['fullname'] == coursename:
+                return course['id']
+
+        return 0
 
     def _parse_courses(self, courses_dictionary):
         courses = []
