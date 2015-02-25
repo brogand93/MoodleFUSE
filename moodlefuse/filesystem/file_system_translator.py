@@ -39,7 +39,7 @@ class FileSystemTranslator(object):
         resources = ResourceHandler()
         location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
         if len(location) is 3:
-            moodle_url = resources._parse_course_resource_url(location[0], location[1], location[2])
+            moodle_url = resources.get_file_path(location[0], location[1], location[2])
             return resources.download_resource(location, moodle_url)
 
     @staticmethod

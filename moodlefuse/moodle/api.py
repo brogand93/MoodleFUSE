@@ -20,11 +20,10 @@ class MoodleAPI(object):
 
     def download_resources(self, source_link, destination_link):
         args = {
-            "remote_path": source_link,
             "token": 'c48133e52b502740fbce84eecf7e3110'
         }
 
-        return self.requester.download_request(args, destination_link)
+        return self.requester.download_request(args, source_link, destination_link)
 
     def get_courses(self):
         args = {

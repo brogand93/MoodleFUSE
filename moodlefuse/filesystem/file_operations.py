@@ -46,11 +46,11 @@ class FileOperationOverrider(Operations):
         return os.mkdir(path, mode)
 
     def open(self, path, flags):
-        print 'open'
         cache_path = FileSystemTranslator.open_file(path)
         if cache_path is not None:
             return os.open(cache_path, flags)
-        else: return 1
+        else:
+            return 1
 
     def read(self, path, length, offset, fh):
         print 'read'

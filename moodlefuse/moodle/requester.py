@@ -4,6 +4,7 @@
 import json
 import requests
 
+from moodlefuse.helpers import get_cache_path_based_on_location
 from urllib import urlencode, urlretrieve
 
 
@@ -24,10 +25,9 @@ class Requester(object):
 
         return response
 
-    def download_request(self, args, location):
-        destination = 'webservice/pluginfile.php'
-        url = self._create_moodle_request_url(destination, args)
-        cache_path = '/home/brogand/.moodlefuse/cache/' + location[0] + '_' + location[1] + '_' + location[2]
+    def download_request(self, args, source, location):
+        url = self._create_moodle_download_url(source, args)
+        cache_path = get_cache_path_based_on_location(location)
         urlretrieve(url, cache_path)
         return cache_path
 
@@ -40,6 +40,16 @@ class Requester(object):
                 zip(keys, values)
             )
         )
+
+    def _create_moodle_download_url(self, path, args):
+        args_url = self._generate_args_url(args)
+
+        request_url = '%s?&%s' % (
+            path,
+            args_url
+        )
+
+        return request_url
 
     def _create_moodle_request_url(self, destination, args):
         args_url = self._generate_args_url(args)
