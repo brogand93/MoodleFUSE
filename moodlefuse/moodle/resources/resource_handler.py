@@ -6,29 +6,29 @@
 """
 
 from moodlefuse.moodle.moodle_handler import MoodleHandler
-from moodlefuse.moodle.api import MoodleAPI
+from moodlefuse.moodle.courses.course_handler import CourseHandler
 
 
 class ResourceHandler(MoodleHandler):
 
     def __init__(self):
         super(self.__class__, self).__init__()
-        self.moodle = MoodleAPI()
 
     def get_file_names_as_array(self, course, categorie):
         categories = self.moodle.get_course_contents(2)
         return self._parse_course_resources(categories, categorie)
 
     def get_file_path(self, course, categorie, filename):
-        categories = self.moodle.get_course_contents(2)
-        return self._parse_course_resource_url(categories, categorie, filename)
+        courses = CourseHandler()
+        course_id = courses.get_course_id_by_name(course)
+        if course_id != 0:
+            categories = self.moodle.get_course_contents(course_id)
+            return self._parse_course_resource_url(categories, categorie, filename)
 
     def download_resource(self, moodle_url, location):
         return self.moodle.download_resources(location, moodle_url)
 
     def _parse_course_resources(self, categories, desired_categorie):
-        self._parse_course_resource_url(categories, desired_categorie,
-                                         'example.txt')
         resources = []
         for categorie in categories:
             if categorie['name'] == desired_categorie:

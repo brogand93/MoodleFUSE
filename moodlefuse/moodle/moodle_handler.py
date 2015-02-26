@@ -14,7 +14,6 @@ class MoodleHandler(object):
 
     def __init__(self):
         self.moodle = MoodleAPI()
-        self._FS_ROOT = os.path.join(os.path.expanduser('~'), 'moodle')
 
     @staticmethod
     def handle_moodle_action(action, moodlefuse_error, args=None):

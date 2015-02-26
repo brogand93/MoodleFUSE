@@ -27,11 +27,9 @@ class FileOperationOverrider(Operations):
         return os.open(path, os.O_WRONLY | os.O_CREAT, mode)
 
     def flush(self, path, fh):
-        print 'flush'
         return os.fsync(fh)
 
     def fsync(self, path, fdatasync, fh):
-        print 'fsync'
         return self.flush(path, fh)
 
     def getattr(self, path, fh=None):
@@ -53,7 +51,6 @@ class FileOperationOverrider(Operations):
             return 1
 
     def read(self, path, length, offset, fh):
-        print 'read'
         os.lseek(fh, offset, os.SEEK_SET)
         return os.read(fh, length)
 
@@ -63,12 +60,10 @@ class FileOperationOverrider(Operations):
             yield r
 
     def readlink(self, path):
-        print 'readlink'
         pathname = os.readlink(path)
         return pathname
 
     def release(self, path, fh):
-        print 'release'
         return os.close(fh)
 
     def rename(self, old, new):
@@ -80,7 +75,6 @@ class FileOperationOverrider(Operations):
         return os.rmdir(path)
 
     def statfs(self, path):
-        print 'statfs'
         stv = os.statvfs(path)
         return dict(
             (key, getattr(stv, key)) for key in (

@@ -5,16 +5,18 @@ import os
 import errno
 
 from moodlefuse.filesystem import Filesystem
+from moodlefuse.core import setup, config
 
 
 class MoodleFuse(object):
 
     def __init__(self):
+        setup()
         self._create_filesystem_root()
-        Filesystem(str(os.path.join(os.path.expanduser('~'), 'moodle')))
+        Filesystem(config['LOCAL_MOODLE_FOLDER'])
 
     def _create_filesystem_root(self):
-        moodle_fs_path = os.path.join(os.path.expanduser('~'), 'moodle')
+        moodle_fs_path = config['LOCAL_MOODLE_FOLDER']
         try:
             os.makedirs(moodle_fs_path)
         except OSError, e:

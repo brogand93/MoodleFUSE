@@ -6,6 +6,7 @@ import requests
 
 from moodlefuse.helpers import get_cache_path_based_on_location
 from urllib import urlencode, urlretrieve
+from moodlefuse.core import config
 
 
 class Requester(object):
@@ -26,10 +27,11 @@ class Requester(object):
         return response
 
     def download_request(self, args, source, location):
-        url = self._create_moodle_download_url(source, args)
-        cache_path = get_cache_path_based_on_location(location)
-        urlretrieve(url, cache_path)
-        return cache_path
+        if source != None:
+            url = self._create_moodle_download_url(source, args)
+            cache_path = get_cache_path_based_on_location(location)
+            urlretrieve(url, cache_path)
+            return cache_path
 
     def _generate_args_url(self, args):
         keys = sorted(args.keys())
@@ -55,7 +57,7 @@ class Requester(object):
         args_url = self._generate_args_url(args)
 
         request_url = '%s/%s?%s' % (
-            'http://192.168.56.103/moodle',
+            config['MOODLE_WEB_ADDRESS'],
             destination,
             args_url
         )

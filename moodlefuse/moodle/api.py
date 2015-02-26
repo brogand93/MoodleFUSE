@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 from moodlefuse.moodle.requester import Requester
+from moodlefuse.core import config
 
 
 class MoodleAPI(object):
@@ -13,14 +14,14 @@ class MoodleAPI(object):
         args = {
             "file_box": "@" + source_link,
             "filepath": destination_link,
-            "token": 'c48133e52b502740fbce84eecf7e3110'
+            "token": config['MOODLE_TOKEN']
         }
 
         return self.requester.upload_request(args)
 
     def download_resources(self, source_link, destination_link):
         args = {
-            "token": 'c48133e52b502740fbce84eecf7e3110'
+            "token": config['MOODLE_TOKEN']
         }
 
         return self.requester.download_request(args, source_link, destination_link)
@@ -28,7 +29,7 @@ class MoodleAPI(object):
     def get_courses(self):
         args = {
             "wsfunction": "core_course_get_courses",
-            "wstoken": "c48133e52b502740fbce84eecf7e3110",
+            "wstoken": config['MOODLE_TOKEN'],
             "moodlewsrestformat": "json"
         }
 
@@ -37,7 +38,7 @@ class MoodleAPI(object):
     def get_course_contents(self, courseid):
         args = {
             "wsfunction": "core_course_get_contents",
-            "wstoken": 'c48133e52b502740fbce84eecf7e3110',
+            "wstoken": config['MOODLE_TOKEN'],
             "courseid": courseid,
             "moodlewsrestformat": "json"
         }
@@ -48,7 +49,7 @@ class MoodleAPI(object):
         args = {
             "wsfunction": "core_course_get_contents",
             "courseid": courseid,
-            "wstoken": 'c48133e52b502740fbce84eecf7e3110',
+            "wstoken": config['MOODLE_TOKEN'],
             "moodlewsrestformat": "json"
         }
 
@@ -57,7 +58,7 @@ class MoodleAPI(object):
     def get_course_sections(self, courseid):
         args = {
             "wsfunction": "core_course_get_categories",
-            "wstoken": 'c48133e52b502740fbce84eecf7e3110',
+            "wstoken": config['MOODLE_TOKEN'],
             "courseid": courseid,
             "moodlewsrestformat": "json"
         }
@@ -67,6 +68,7 @@ class MoodleAPI(object):
     def create_course_categories(self, courseid, categories):
         args = {
             "wsfunction": "core_course_create_categories",
+            "wstoken": config['MOODLE_TOKEN'],
             "courseid": courseid,
             "categories": categories
         }
@@ -76,6 +78,7 @@ class MoodleAPI(object):
     def remove_course_categorie(self, courseid, categories):
         args = {
             "wsfunction": "core_course_delete_categories",
+            "wstoken": config['MOODLE_TOKEN'],
             "courseid": courseid,
             "categories": categories
         }

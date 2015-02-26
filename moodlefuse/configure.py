@@ -74,7 +74,7 @@ class Configurer(object):
             config, profile, 'moodle_web_address', 'Moodle server address', 'hhtp://www.moodle.dcu.ie'
         )
         config = self._set_attribute_of_profile(
-            config, profile, 'local_moodle_folder', 'Local Moodle folder', '~/moodle'
+            config, profile, 'local_moodle_folder', 'Local Moodle folder name', 'moodle'
         )
 
         while True:

@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from moodlefuse.moodle.courses.course_handler import CourseHandler
 from moodlefuse.moodle.resources.resource_handler import ResourceHandler
+from moodlefuse.moodle.courses.course_handler import CourseHandler
+from moodlefuse.core import config
 
 import os
 
@@ -27,7 +28,7 @@ class FileSystemTranslator(object):
 
     @staticmethod
     def get_position_in_filesystem_as_array(path):
-        path = path.replace(str(os.path.join(os.path.expanduser('~'), 'moodle/')), '')
+        path = path.replace(config['LOCAL_MOODLE_FOLDER'] + '/', '')
         if len(path) is 0:
             return []
 
