@@ -5,8 +5,6 @@ from moodlefuse.moodle.resources.resource_handler import ResourceHandler
 from moodlefuse.moodle.courses.course_handler import CourseHandler
 from moodlefuse.core import config
 
-import os
-
 
 class FileSystemTranslator(object):
 
@@ -52,7 +50,7 @@ class FileSystemTranslator(object):
         location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
         attributes = {
             'st_ctime': 1,
-            'st_mtime': 1,
+            'st_mtime': 2,
             'st_nlink': 7,
             'st_size': 4096,
             'st_gid': 1000,

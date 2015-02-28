@@ -25,6 +25,7 @@ class MoodleAPI(object):
         }
 
         return self.requester.download_request(args, source_link, destination_link)
+        return jsa
 
     def get_courses(self):
         args = {

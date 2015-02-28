@@ -15,8 +15,11 @@ class ResourceHandler(MoodleHandler):
         super(self.__class__, self).__init__()
 
     def get_file_names_as_array(self, course, categorie):
-        categories = self.moodle.get_course_contents(2)
-        return self._parse_course_resources(categories, categorie)
+        courses = CourseHandler()
+        course_id = courses.get_course_id_by_name(course)
+        if course_id != 0:
+            categories = self.moodle.get_course_contents(course_id)
+            return self._parse_course_resources(categories, categorie)
 
     def get_file_path(self, course, categorie, filename):
         courses = CourseHandler()

@@ -30,7 +30,9 @@ class Requester(object):
         if source != None:
             url = self._create_moodle_download_url(source, args)
             cache_path = get_cache_path_based_on_location(location)
+
             urlretrieve(url, cache_path)
+
             return cache_path
 
     def _generate_args_url(self, args):
