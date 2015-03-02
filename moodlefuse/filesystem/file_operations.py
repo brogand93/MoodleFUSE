@@ -23,8 +23,8 @@ class FileOperationOverrider(Operations):
             raise FuseOSError(errno.EACCES)
 
     def create(self, path, mode, fi=None):
-        print 'create'
-        return os.open(path, os.O_WRONLY | os.O_CREAT, mode)
+        print 'open'
+        FileSystemTranslator.create_file(path)
 
     def flush(self, path, fh):
         return os.fsync(fh)
@@ -37,7 +37,6 @@ class FileOperationOverrider(Operations):
 
     def mknod(self, path, mode, dev):
         print 'mknod'
-        return os.mknod(path, mode, dev)
 
     def mkdir(self, path, mode):
         print 'mkdir'
@@ -100,8 +99,8 @@ class FileOperationOverrider(Operations):
 
     def write(self, path, buf, offset, fh):
         print 'write'
-        os.lseek(fh, offset, os.SEEK_SET)
-        return os.write(fh, buf)
+        print path
+        print buf
 
     link = None
 

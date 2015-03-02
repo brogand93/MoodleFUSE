@@ -3,6 +3,7 @@
 
 from moodlefuse.moodle.resources.resource_handler import ResourceHandler
 from moodlefuse.moodle.courses.course_handler import CourseHandler
+from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.core import config
 
 
@@ -40,6 +41,13 @@ class FileSystemTranslator(object):
         if len(location) is 3:
             moodle_url = resources.get_file_path(location[0], location[1], location[2])
             return resources.download_resource(location, moodle_url)
+
+    @staticmethod
+    def create_file(path):
+        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
+        if len(location) is 3:
+            cache_path = get_cache_path_based_on_location(location)
+            open(cache_path, 'w')
 
     @staticmethod
     def is_file(location):
