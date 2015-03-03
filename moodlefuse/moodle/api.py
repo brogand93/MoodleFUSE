@@ -19,13 +19,12 @@ class MoodleAPI(object):
 
         return self.requester.upload_request(args)
 
-    def download_resources(self, source_link, destination_link):
+    def download_resources(self, destination_link, source_link):
         args = {
             "token": config['MOODLE_TOKEN']
         }
 
         return self.requester.download_request(args, source_link, destination_link)
-        return jsa
 
     def get_courses(self):
         args = {

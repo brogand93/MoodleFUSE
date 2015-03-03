@@ -6,6 +6,7 @@
 """
 
 from moodlefuse.moodle.moodle_handler import MoodleHandler
+from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.moodle.courses.course_handler import CourseHandler
 
 
@@ -28,8 +29,14 @@ class ResourceHandler(MoodleHandler):
             categories = self.moodle.get_course_contents(course_id)
             return self._parse_course_resource_url(categories, categorie, filename)
 
-    def download_resource(self, moodle_url, location):
-        return self.moodle.download_resources(location, moodle_url)
+    def download_resource(self, location, moodle_url):
+        cache_path = get_cache_path_based_on_location(location)
+        return self.moodle.download_resources(cache_path, moodle_url)
+
+    def create_file(self, location):
+        cache_path = get_cache_path_based_on_location(location)
+        open(cache_path, 'w')
+        return cache_path
 
     def _parse_course_resources(self, categories, desired_categorie):
         resources = []
@@ -43,13 +50,11 @@ class ResourceHandler(MoodleHandler):
 
 
     def _parse_course_resource_url(self, categories, desired_categorie, filename):
-        resource = None
-
         for categorie in categories:
             if categorie['name'] == desired_categorie:
                 for module in categorie['modules']:
                     for resource in module['contents']:
                         if resource['filename'] == filename:
-                            return  resource['fileurl']
+                            return resource['fileurl']
 
-        return resource
+        return None

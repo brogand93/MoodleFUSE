@@ -40,6 +40,8 @@ class FileSystemTranslator(object):
         location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
         if len(location) is 3:
             moodle_url = resources.get_file_path(location[0], location[1], location[2])
+            if moodle_url is None:
+                return resources.create_file(location)
             return resources.download_resource(location, moodle_url)
 
     @staticmethod
@@ -48,6 +50,7 @@ class FileSystemTranslator(object):
         if len(location) is 3:
             cache_path = get_cache_path_based_on_location(location)
             open(cache_path, 'w')
+            return cache_path
 
     @staticmethod
     def is_file(location):

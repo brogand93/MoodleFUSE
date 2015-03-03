@@ -4,7 +4,6 @@
 import json
 import requests
 
-from moodlefuse.helpers import get_cache_path_based_on_location
 from urllib import urlencode, urlretrieve
 from moodlefuse.core import config
 
@@ -26,14 +25,13 @@ class Requester(object):
 
         return response
 
-    def download_request(self, args, source, location):
+    def download_request(self, args, source, destination):
         if source != None:
             url = self._create_moodle_download_url(source, args)
-            cache_path = get_cache_path_based_on_location(location)
 
-            urlretrieve(url, cache_path)
+            urlretrieve(url, destination)
 
-            return cache_path
+            return destination
 
     def _generate_args_url(self, args):
         keys = sorted(args.keys())

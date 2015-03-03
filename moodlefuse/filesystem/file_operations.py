@@ -23,8 +23,11 @@ class FileOperationOverrider(Operations):
             raise FuseOSError(errno.EACCES)
 
     def create(self, path, mode, fi=None):
-        print 'open'
-        FileSystemTranslator.create_file(path)
+        cache_path = FileSystemTranslator.create_file(path)
+        if cache_path is not None:
+            return os.open(cache_path, os.O_WRONLY)
+        else:
+            return 1
 
     def flush(self, path, fh):
         return os.fsync(fh)
@@ -43,6 +46,7 @@ class FileOperationOverrider(Operations):
         return os.mkdir(path, mode)
 
     def open(self, path, flags):
+        print 'open'
         cache_path = FileSystemTranslator.open_file(path)
         if cache_path is not None:
             return os.open(cache_path, flags)
@@ -91,16 +95,15 @@ class FileOperationOverrider(Operations):
 
     def unlink(self, path):
         print 'unlink'
-        return os.unlink(path)
+        return os.unlink('/home/brogand/te')
 
     def utimens(self, path, times=None):
         print 'utimens'
-        return os.utime(path, times)
+        return os.utime('/home/brogand/te', times)
 
     def write(self, path, buf, offset, fh):
-        print 'write'
-        print path
-        print buf
+        os.lseek(fh, offset, os.SEEK_SET)
+        return os.write(fh, buf)
 
     link = None
 
@@ -108,4 +111,8 @@ class FileOperationOverrider(Operations):
 
     chown = None
 
-    truncate = None
+    def truncate(self, path, length, fh=None):
+        cache_path = FileSystemTranslator.open_file(path)
+        with open(cache_path, 'r+') as cache_file:
+            cache_file.truncate(length)
+
