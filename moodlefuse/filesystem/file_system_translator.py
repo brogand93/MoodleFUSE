@@ -84,8 +84,7 @@ class FileSystemTranslator(object):
             dirents.extend(courses.get_courses_as_array())
         elif FileSystemTranslator._location_is_in_course(location):
             courses = CourseHandler()
-            courseid = courses.get_course_id_by_name(location[0])
-            dirents.extend(courses.get_course_categories_as_array(courseid))
+            dirents.extend(courses.get_course_categories_as_array(location[0]))
         elif FileSystemTranslator._location_is_in_course_categorie(location):
             resources = ResourceHandler()
             dirents.extend(resources.get_file_names_as_array(location[0], location[1]))
@@ -102,7 +101,6 @@ class FileSystemTranslator(object):
         elif FileSystemTranslator._location_is_in_course(location):
             return location[0] in courses.get_courses_as_array()
         elif FileSystemTranslator._location_is_in_course_categorie(location):
-            courseid = courses.get_course_id_by_name(location[0])
-            return location[1] in courses.get_course_categories_as_array(courseid)
+            pass
 
         return False

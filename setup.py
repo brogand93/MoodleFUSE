@@ -28,7 +28,9 @@ DESC = "FUSE filesystem based on moodle implementation"
 LONG_DESC = read_file('README.rst')
 REQUIRES = [
     'requests',
-    'fusepy'
+    'fusepy',
+    'mechanize',
+    'beautifulsoup4'
 ]
 
 setup(
@@ -46,7 +48,8 @@ setup(
         'moodlefuse.moodle',
         'moodlefuse.filesystem',
         'moodlefuse.moodle.courses',
-        'moodlefuse.moodle.resources'
+        'moodlefuse.moodle.resources',
+        'moodlefuse.filesystem.files'
     ],
     include_package_data=True,
     zip_safe=False,

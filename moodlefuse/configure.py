@@ -71,18 +71,24 @@ class Configurer(object):
 
     def _set_attributes_of_profile(self, config, profile):
         config = self._set_attribute_of_profile(
-            config, profile, 'moodle_web_address', 'Moodle server address', 'hhtp://www.moodle.dcu.ie'
+            config, profile, 'moodle_web_address', 'Moodle server address', 'hhtp://www.loop.dcu.ie'
         )
+
+        config = self._set_attribute_of_profile(
+            config, profile, 'moodle_index_address', 'Moodle index address', 'hhtp://www.loop.dcu.ie/my'
+        )
+
         config = self._set_attribute_of_profile(
             config, profile, 'local_moodle_folder', 'Local Moodle folder name', 'moodle'
         )
 
-        while True:
-            config = self._set_attribute_of_profile(
-                config, profile, 'moodle_token', 'Moodle REST user token', ''
-            )
-            if config.get(profile, 'moodle_token') is not '':
-                break
+        config = self._set_attribute_of_profile(
+            config, profile, 'username', 'Moodle username', 'username'
+        )
+
+        config = self._set_attribute_of_profile(
+            config, profile, 'password', 'Moodle password', 'password'
+        )
 
         return config
 
