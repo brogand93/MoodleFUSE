@@ -32,12 +32,9 @@ class CourseHandler(MoodleHandler):
         course_link = self.scraper.get_link_from_linktext_in_divclass(
             course_scraper, 'courses frontpage-course-list-all', course)
         course_content = self.moodle.get_course_contents(course_link)
-        course_categories_html = self.scraper.get_html_with_divclass(
+        categories_html = self.scraper.get_html_with_divclass(
             course_content, 'course-content')
 
-        sections_html = course_categories_html.select('h3')
-        sections = []
-        for categorie in sections_html:
-            sections.append(categorie.get_text())
+        sections = self.scraper.get_text_from_taged_item(categories_html, 'h3')
 
         return self.remove_unicode(sections)

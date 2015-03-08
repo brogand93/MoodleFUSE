@@ -12,15 +12,10 @@ class MoodleAPI(object):
         self.emulator.login()
 
     def upload_resources(self, source_link, destination_link):
-        args = {
-            "file_box": "@" + source_link,
-            "filepath": destination_link,
-        }
-
-        return self.emulator.upload(args)
+        pass
 
     def download_resources(self, destination_link, source_link):
-        return self.emulator.download(source_link, destination_link)
+        pass
 
     def get_courses(self):
         return self.emulator.get_courses()

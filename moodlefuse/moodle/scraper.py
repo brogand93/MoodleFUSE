@@ -15,3 +15,12 @@ class Scraper(object):
         })
 
         return div_html
+
+    def get_text_from_taged_item(self, html, tag):
+        tagged_html = html.select(tag)
+
+        texts = []
+        for tag in tagged_html:
+            texts.append(tag.get_text())
+
+        return texts

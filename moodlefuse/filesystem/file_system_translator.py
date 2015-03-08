@@ -9,24 +9,23 @@ from moodlefuse.core import config
 
 class FileSystemTranslator(object):
 
-    @staticmethod
-    def _location_is_in_root(location):
+    def __init__(self):
+        self.courses = CourseHandler()
+        self.resources = ResourceHandler()
+
+    def _location_is_in_root(self, location):
         return len(location) is 0
 
-    @staticmethod
-    def _location_is_in_course(location):
+    def _location_is_in_course(self, location):
         return len(location) is 1
 
-    @staticmethod
-    def _location_is_in_course_categorie(location):
+    def _location_is_in_course_categorie(self, location):
         return len(location) is 2
 
-    @staticmethod
-    def _location_is_file(location):
+    def _location_is_file(self, location):
         return len(location) is 3
 
-    @staticmethod
-    def get_position_in_filesystem_as_array(path):
+    def get_position_in_filesystem_as_array(self, path):
         path = path.replace(config['LOCAL_MOODLE_FOLDER'] + '/', '')
         if len(path) is 0:
             return []
@@ -34,31 +33,26 @@ class FileSystemTranslator(object):
         path_sections = path.split("/")
         return path_sections
 
-    @staticmethod
-    def open_file(path):
-        resources = ResourceHandler()
-        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
+    def open_file(self, path):
+        location = self.get_position_in_filesystem_as_array(path)
         if len(location) is 3:
-            moodle_url = resources.get_file_path(location[0], location[1], location[2])
+            moodle_url = self.resources.get_file_path(location[0], location[1], location[2])
             if moodle_url is None:
-                return resources.create_file(location)
-            return resources.download_resource(location, moodle_url)
+                return self.resources.create_file(location)
+            return self.resources.download_resource(location, moodle_url)
 
-    @staticmethod
-    def create_file(path):
-        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
+    def create_file(self, path):
+        location = self.get_position_in_filesystem_as_array(path)
         if len(location) is 3:
             cache_path = get_cache_path_based_on_location(location)
             open(cache_path, 'w')
             return cache_path
 
-    @staticmethod
-    def is_file(location):
-        return FileSystemTranslator._location_is_file(location)
+    def is_file(self, location):
+        return self._location_is_file(location)
 
-    @staticmethod
-    def get_file_attributes(path):
-        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
+    def get_file_attributes(self, path):
+        location = self.get_position_in_filesystem_as_array(path)
         attributes = {
             'st_ctime': 1,
             'st_mtime': 2,
@@ -68,39 +62,33 @@ class FileSystemTranslator(object):
             'st_uid': 1000,
             'st_atime': 1
         }
-        if FileSystemTranslator.is_file(location):
+        if self.is_file(location):
             attributes['st_mode'] = 33188
         else: attributes['st_mode'] = 16877
 
         return attributes
 
-    @staticmethod
-    def get_directory_contents_based_on_path(path):
-        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
+    def get_directory_contents_based_on_path(self, path):
+        location = self.get_position_in_filesystem_as_array(path)
         dirents = ['.', '..']
 
-        if FileSystemTranslator._location_is_in_root(location):
-            courses = CourseHandler()
-            dirents.extend(courses.get_courses_as_array())
-        elif FileSystemTranslator._location_is_in_course(location):
-            courses = CourseHandler()
-            dirents.extend(courses.get_course_categories_as_array(location[0]))
-        elif FileSystemTranslator._location_is_in_course_categorie(location):
-            resources = ResourceHandler()
-            dirents.extend(resources.get_file_names_as_array(location[0], location[1]))
+        if self._location_is_in_root(location):
+            dirents.extend(self.courses.get_courses_as_array())
+        elif self._location_is_in_course(location):
+            dirents.extend(self.courses.get_course_categories_as_array(location[0]))
+        elif self._location_is_in_course_categorie(location):
+            dirents.extend(self.resources.get_file_names_as_array(location[0], location[1]))
 
         return dirents
 
-    @staticmethod
-    def path_exists_in_moodle(path):
-        location = FileSystemTranslator.get_position_in_filesystem_as_array(path)
-        courses = CourseHandler()
+    def path_exists_in_moodle(self, path):
+        location = self.get_position_in_filesystem_as_array(path)
 
-        if FileSystemTranslator._location_is_in_root(location):
+        if self._location_is_in_root(location):
             return True
-        elif FileSystemTranslator._location_is_in_course(location):
-            return location[0] in courses.get_courses_as_array()
-        elif FileSystemTranslator._location_is_in_course_categorie(location):
+        elif self._location_is_in_course(location):
+            return location[0] in self.courses.get_courses_as_array()
+        elif self._location_is_in_course_categorie(location):
             pass
 
         return False

@@ -12,6 +12,7 @@ class FileOperationOverrider(Operations):
 
     def __init__(self, root):
         self.root = os.path.realpath(root)
+        self.translator = FileSystemTranslator()
 
     def __call__(self, op, path, *args):
         return super(FileOperationOverrider, self).__call__(
@@ -19,11 +20,11 @@ class FileOperationOverrider(Operations):
         )
 
     def access(self, path, mode):
-        if not FileSystemTranslator.path_exists_in_moodle(path):
+        if not self.translator.path_exists_in_moodle(path):
             raise FuseOSError(errno.EACCES)
 
     def create(self, path, mode, fi=None):
-        cache_path = FileSystemTranslator.create_file(path)
+        cache_path = self.translator.create_file(path)
         if cache_path is not None:
             return os.open(cache_path, os.O_WRONLY)
         else:
@@ -36,7 +37,7 @@ class FileOperationOverrider(Operations):
         return self.flush(path, fh)
 
     def getattr(self, path, fh=None):
-        return FileSystemTranslator.get_file_attributes(path)
+        return self.translator.get_file_attributes(path)
 
     def mknod(self, path, mode, dev):
         print 'mknod'
@@ -47,7 +48,7 @@ class FileOperationOverrider(Operations):
 
     def open(self, path, flags):
         print 'open'
-        cache_path = FileSystemTranslator.open_file(path)
+        cache_path = self.translator.open_file(path)
         if cache_path is not None:
             return os.open(cache_path, flags)
         else:
@@ -58,7 +59,7 @@ class FileOperationOverrider(Operations):
         return os.read(fh, length)
 
     def readdir(self, path, fh):
-        dirents = FileSystemTranslator.get_directory_contents_based_on_path(path)
+        dirents = self.translator.get_directory_contents_based_on_path(path)
         for r in dirents:
             yield r
 
@@ -112,7 +113,7 @@ class FileOperationOverrider(Operations):
     chown = None
 
     def truncate(self, path, length, fh=None):
-        cache_path = FileSystemTranslator.open_file(path)
+        cache_path = self.translator.open_file(path)
         with open(cache_path, 'r+') as cache_file:
             cache_file.truncate(length)
 

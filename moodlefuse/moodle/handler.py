@@ -4,8 +4,6 @@
 """Class to handle base Moodle actions.
 """
 
-import os
-
 from moodlefuse.moodle.api import MoodleAPI
 from moodlefuse.moodle.scraper import Scraper
 

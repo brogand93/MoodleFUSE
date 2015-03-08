@@ -20,7 +20,6 @@ class Emulator():
 
     def login(self):
         MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
-        print MOODLE_LOGIN_URL
         self.browser.open(MOODLE_LOGIN_URL)
         self.browser.select_form(predicate=lambda form: form.attrs.get('id') == 'login')
         self.browser.form.set_value(self.username, name='username')
@@ -35,12 +34,12 @@ class Emulator():
     def download(self):
         pass
 
+    def open_link(self, url):
+        response = self.browser.open(url)
+        return BeautifulSoup(response.read())
+
     def get_courses(self):
-        response = self.browser.open(config['MOODLE_INDEX_ADDRESS'])
-        response = response.read()
-        return BeautifulSoup(response)
+        return self.open_link(config['MOODLE_INDEX_ADDRESS'])
 
     def get_course_categories(self, url):
-        response = self.browser.open(url)
-        response = response.read()
-        return BeautifulSoup(response)
+        return self.open_link(url)
