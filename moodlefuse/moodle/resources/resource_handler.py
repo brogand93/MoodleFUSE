@@ -25,12 +25,5 @@ class ResourceHandler(MoodleHandler):
 
     def create_file(self, location):
         cache_path = get_cache_path_based_on_location(location)
-        open(cache_path, 'w')
-        return cache_path
-
-    def _parse_course_resources(self, categories, desired_categorie):
-        pass
-
-
-    def _parse_course_resource_url(self, categories, desired_categorie, filename):
-        pass
+        with open(cache_path, 'w'):
+            return cache_path

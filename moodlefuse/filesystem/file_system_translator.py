@@ -89,6 +89,6 @@ class FileSystemTranslator(object):
         elif self._location_is_in_course(location):
             return location[0] in self.courses.get_courses_as_array()
         elif self._location_is_in_course_categorie(location):
-            pass
+            return location[1] in self.courses.get_course_categories_as_array(location[0])
 
         return False

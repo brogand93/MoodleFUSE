@@ -9,9 +9,7 @@ class Directory(File):
 
     def __init__(self, api, name, url, **kwargs):
         super(Directory, self).__init__(api, name, url, **kwargs)
-
         self.files = {}
-
         self.attrs['st_mode'] = (S_IFDIR | S_IREAD)
 
     def load_files(self):
