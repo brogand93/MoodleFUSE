@@ -23,7 +23,7 @@ class MoodleAPI(object):
     def get_course_contents(self, url):
           return self.emulator.get_course_categories(url)
 
-    def get_course_resource_links(self, courseid, time_stamp):
+    def get_course_resources(self, course, category):
         pass
 
     def get_course_sections(self, courseid):

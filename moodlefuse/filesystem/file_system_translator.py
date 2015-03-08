@@ -77,7 +77,8 @@ class FileSystemTranslator(object):
         elif self._location_is_in_course(location):
             dirents.extend(self.courses.get_course_categories_as_array(location[0]))
         elif self._location_is_in_course_categorie(location):
-            dirents.extend(self.resources.get_file_names_as_array(location[0], location[1]))
+            course_contents = self.courses.enter_course_and_get_contents(location[0])
+            dirents.extend(self.resources.get_file_names_as_array(course_contents))
 
         return dirents
 

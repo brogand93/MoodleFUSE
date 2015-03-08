@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from urlparse import urljoin
 from bs4 import BeautifulSoup
 from moodlefuse.core import config
 from mechanize import Browser, CookieJar
+from moodlefuse.moodle.exception import LoginException
+
 
 class Emulator():
 
@@ -26,7 +27,7 @@ class Emulator():
         self.browser.form.set_value(self.password, name='password')
         resp = self.browser.submit()
         if resp.geturl().endswith('/login/index.php'):
-            print 'FAILED: logging into moodle'
+            raise LoginException(self.username)
 
     def upload(self):
         pass
@@ -43,3 +44,12 @@ class Emulator():
 
     def get_course_categories(self, url):
         return self.open_link(url)
+
+    def get_course_resource_names(self, url):
+        return self.open_link(url)
+
+    def download_resourse(self, resourcename):
+        pass
+
+    def upload_resource(self):
+        pass

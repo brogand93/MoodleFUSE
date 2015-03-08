@@ -8,9 +8,9 @@ class MoodleFuseException(BaseException):
         self.debug_info = debug_info
 
     def __str__(self):
-        return repr(
+        return str(
             self.exception_reason + '\n' + self.debug_info
         )
 
     def __add__(self, desired_addition):
-        return MoodleFuseException(self + desired_addition)
+        return str(self + desired_addition)

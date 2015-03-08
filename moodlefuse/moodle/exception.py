@@ -9,7 +9,7 @@ class MoodleException(MoodleFuseException):
         self.debug_info = "Moodle action failed to complete"
 
     def __str__(self):
-        return repr(MoodleFuseException + self.debug_info)
+        return str(MoodleFuseException + self.debug_info)
 
 
 class LoginException(MoodleException):
@@ -18,7 +18,7 @@ class LoginException(MoodleException):
         self.debug_info = "Failed to log into account"
 
     def __str__(self):
-        return repr(MoodleException + self.debug_info)
+        return str(MoodleException + self.debug_info)
 
 
 class NotFoundException(MoodleException):
