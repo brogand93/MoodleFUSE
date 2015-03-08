@@ -4,27 +4,30 @@
 """Class to handle errors relating to resource incidents.
 """
 
-from moodlefuse.errors import MoodleFuseError
+from moodlefuse.moodle.exception import MoodleException
 
 
-class ResourceErrors(object):
+class UnableToUploadResource(MoodleException):
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_upload_resource():
-        return "Unable to upload resource"
+    def __init__(self):
+        self.debug_info = "Failed to upload resource"
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_get_resource():
-        return "Unable to get resource"
+    def __str__(self):
+        return repr(MoodleException + self.debug_info)
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_remove_resource():
-        return "Unable to remove resource"
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_modify_resource():
-        return "Unable to modify resource"
+class UnableToDownloadResource(MoodleException):
+
+    def __init__(self):
+        self.debug_info = "Failed to download resource"
+
+    def __str__(self):
+        return repr(MoodleException + self.debug_info)
+
+class UnableToObtainResourceList(MoodleException):
+
+    def __init__(self):
+        self.debug_info = "Failed to obtain resource list from Moodle"
+
+    def __str__(self):
+        return repr(MoodleException + self.debug_info)

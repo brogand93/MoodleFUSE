@@ -9,5 +9,5 @@ class ResourceParser(Parser):
     def __init__(self):
         super(ResourceParser, self).__init__()
 
-    def _parse_course_resources(self, categories, desired_categorie):
+    def parse_course_resources(self, course_content):
         pass

@@ -4,32 +4,23 @@
 """Class to handle errors relating to course incidents.
 """
 
-from moodlefuse.errors import MoodleFuseError
+
+from moodlefuse.moodle.exception import MoodleException
 
 
-class CourseErrors(object):
+class UnableToObtainCourseList(MoodleException):
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_sync_courses():
-        return "Unable to sync courses"
+    def __init__(self):
+        self.debug_info = "Failed to obtain course list from Moodle"
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_create_course():
-        return "Unable to create course"
+    def __str__(self):
+        return repr(MoodleException + self.debug_info)
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_add_course_section():
-        return "Unable to add course section"
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_remove_course():
-        return "Unable to remove course"
+class UnableToObtainCategoryList(MoodleException):
 
-    @staticmethod
-    @MoodleFuseError
-    def unable_to_remove_course_section():
-        return "Unable to remove course section"
+    def __init__(self):
+        self.debug_info = "Failed to obtain course category list from Moodle"
+
+    def __str__(self):
+        return repr(MoodleException + self.debug_info)
