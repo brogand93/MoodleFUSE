@@ -25,14 +25,8 @@ class MoodleAPI(object):
             return self.emulator.get_course_categories(url)
         return None
 
-    def get_course_resources(self, course, category):
+    def create_course_categories(self, categoryname):
         pass
 
-    def get_course_sections(self, courseid):
-        pass
-
-    def create_course_categories(self, courseid, categories):
-        pass
-
-    def remove_course_categorie(self, courseid, categories):
+    def remove_course_categorie(self, categoryname):
         pass
