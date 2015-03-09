@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Derived class to parse Moodle resource items, it parses
+   Moodle and therefor extends off of Parser
+"""
+
 from moodlefuse.moodle.parser import Parser
 
 

@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to handle Exceptions relating to Moodle actions
+"""
+
 from moodlefuse.exception import MoodleFuseException
 
 class MoodleException(MoodleFuseException):

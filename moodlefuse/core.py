@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to setup MoodleFUSE
+"""
+
 import os
 import sys
 import argparse

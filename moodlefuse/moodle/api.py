@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to act as a bridge between the Moodle emulator and handlers
+"""
+
 from moodlefuse.moodle.emulator import Emulator
 from moodlefuse.core import config
 

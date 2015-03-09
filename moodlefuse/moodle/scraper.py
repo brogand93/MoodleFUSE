@@ -1,14 +1,21 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to scrape Moodle HTML, looking for specific
+   information.
+"""
+
+
 class Scraper(object):
 
     def get_link_from_linktext_in_divclass(self, html, divclass, linktext):
         div_html = self.get_html_with_divclass(html, divclass)
 
         link = div_html.find('a', href=True, text=linktext)
+
         if link is not None:
             return link['href']
+
         return link
 
     def get_html_with_divclass(self, html, classname):
@@ -49,7 +56,6 @@ class Scraper(object):
         })
 
         return html
-
 
     def get_text_from_taged_item(self, html, tag):
         tagged_html = html.select(tag)

@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to spin up a headless browser to handle Moodle interaction
+"""
+
 from bs4 import BeautifulSoup
 from moodlefuse.core import config
 from mechanize import Browser, CookieJar

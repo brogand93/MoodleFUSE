@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Base class to parse Moodle items
+"""
+
 from moodlefuse.moodle.scraper import Scraper
 
 
