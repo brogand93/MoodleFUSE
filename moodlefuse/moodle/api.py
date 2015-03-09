@@ -21,7 +21,9 @@ class MoodleAPI(object):
         return self.emulator.get_courses()
 
     def get_course_contents(self, url):
-          return self.emulator.get_course_categories(url)
+        if url is not None:
+            return self.emulator.get_course_categories(url)
+        return None
 
     def get_course_resources(self, course, category):
         pass

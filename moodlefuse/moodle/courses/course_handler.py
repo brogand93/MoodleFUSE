@@ -20,11 +20,15 @@ class CourseHandler(MoodleHandler):
         return self.parser.parse_courses(course_scraper)
 
     def get_course_categories_as_array(self, course):
-        course_contents = self.enter_course_and_get_contents(courses_scrapper, course)
-        return self.parser.parse_course_categories(course_contents)
+        course_contents = self.enter_course_and_get_contents(course)
+        return self.parser.parse_course_category_titles(course_contents)
 
-    def enter_course_and_get_contents(self, courses_scrapper, course):
+    def enter_course_and_get_contents(self, course):
         courses_scrapper = self.moodle.get_courses()
         course_link = self.parser.get_course_link(courses_scrapper, course)
-        return self.moodle.get_course_contents(course_link)
+        course_page = self.moodle.get_course_contents(course_link)
+        return self.parser.parse_course_content_from_page(course_page)
+
+    def get_course_category_contents(self, course_content, category):
+        return self.parser.parse_course_category_from_course(course_content, category)
 

@@ -9,9 +9,11 @@ class ResourceParser(Parser):
     def __init__(self):
         super(ResourceParser, self).__init__()
 
-    def parse_course_resources(self, course_content):
-        categories_html = self.scraper.get_html_with_divclass(
-            course_content, 'course-content')
+    def parse_course_resources(self, category_content):
+        resources_html = self.scraper.get_html_items_with_spanclass(
+            category_content, 'instancename')
 
-        pass
+        return self.scraper.get_instances_from_span_list_with_type(
+            resources_html, 'File'
+        )
 

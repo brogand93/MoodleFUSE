@@ -22,13 +22,22 @@ class CourseParser(Parser):
     def _parse_table_courses(self, course_scraper):
         pass
 
-    def parse_course_categories(self, course_content):
-        categories_html = self.scraper.get_html_with_divclass(
-            course_content, 'course-content')
-
-        sections = self.scraper.get_text_from_taged_item(categories_html, 'h3')
-
+    def parse_course_category_titles(self, course_content):
+        sections = self.scraper.get_text_from_taged_item(course_content, 'h3')
         return self.remove_unicode(sections)
+
+    def parse_course_content_from_page(self, html):
+        course_html = self.scraper.get_html_with_divclass(
+            html, 'course-content')
+
+        return course_html
+
+    def parse_course_category_from_course(self, course_content, category):
+        category_html = self.scraper.get_html_with_liarialabel(
+            course_content, category
+        )
+
+        return category_html
 
     def get_course_link(self, course_scraper, course):
         course_link = self.scraper.get_link_from_linktext_in_divclass(
