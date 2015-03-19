@@ -7,8 +7,8 @@ from moodlefuse.filesystem.files.file import File
 
 class Directory(File):
 
-    def __init__(self, api, name, url, **kwargs):
-        super(Directory, self).__init__(api, name, url, **kwargs)
+    def __init__(self, name, url, **kwargs):
+        super(Directory, self).__init__(name, url, **kwargs)
         self.files = {}
         self.attrs['st_mode'] = (S_IFDIR | S_IREAD)
 

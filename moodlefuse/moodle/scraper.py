@@ -21,6 +21,9 @@ class Scraper(object):
     def get_html_with_divclass(self, html, classname):
         return self._get_html_from_tag_label_with_name(html, 'div', 'class', classname)
 
+    def get_html_items_with_tdclass(self, html, classname):
+        return self._get_all_html_from_tag_label_with_name(html, 'td', 'class', classname)
+
     def get_html_items_with_spanclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(html, 'span', 'class', classname)
 
@@ -63,5 +66,12 @@ class Scraper(object):
         texts = []
         for tag in tagged_html:
             texts.append(tag.get_text())
+
+        return texts
+
+    def get_text_from_html_list(self, html_list):
+        texts = []
+        for item in html_list:
+            texts.append(item.get_text())
 
         return texts

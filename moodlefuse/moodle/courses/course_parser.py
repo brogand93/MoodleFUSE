@@ -13,18 +13,32 @@ class CourseParser(Parser):
     def __init__(self):
         super(CourseParser, self).__init__()
 
-    def parse_courses(self, course_scraper):
-        return self._parse_flat_courses(course_scraper)
+    def parse_courses(self, html):
+        if self._html_is_table_format(html):
+            return self._parse_table_courses(html)
+        else:
+            return self._parse_flat_courses(html)
 
-    def _parse_flat_courses(self, course_scraper):
-        course_scraper = self.scraper.get_html_with_divclass(
-            course_scraper, 'courses frontpage-course-list-all')
+    def _html_is_table_format(self, course_html):
+        return self.scraper.get_html_with_divclass(
+            course_html, 'courses frontpage-course-list-all') is None
 
-        courses = course_scraper.findAll(text=True)
+    def _parse_flat_courses(self, course_html):
+        course_html = self.scraper.get_html_with_divclass(
+            course_html, 'courses frontpage-course-list-all')
+
+        courses = course_html.findAll(text=True)
         return self.remove_unicode(courses)
 
-    def _parse_table_courses(self, course_scraper):
-        pass
+    def _parse_table_courses(self, course_html):
+        course_table = self.scraper.get_html_with_divclass(
+            course_html, 'mymodules')
+
+        courses_html = self.scraper.get_html_items_with_tdclass(
+            course_table, 'cell c0')
+
+        courses = self.scraper.get_text_from_html_list(courses_html)
+        return self.remove_unicode(courses)
 
     def parse_course_category_titles(self, course_content):
         sections = self.scraper.get_text_from_taged_item(course_content, 'h3')
