@@ -59,6 +59,15 @@ class FileSystemTranslator(object):
     def is_file(self, location):
         return self._location_is_file(location)
 
+    def make_directory(self, path):
+        location = self.get_position_in_filesystem_as_array(path)
+        if self._location_is_in_root(location):
+            pass
+        elif self._location_is_in_course(location):
+            self.courses.add_new_category()
+        else:
+            pass
+
     def get_file_attributes(self, path):
         location = self.get_position_in_filesystem_as_array(path)
         attributes = {

@@ -45,12 +45,20 @@ class Emulator(object):
         response = self.browser.open(url)
         return BeautifulSoup(response.read())
 
+    def set_form_to_form_with_control_value(self, value):
+        for index, form in enumerate(self.browser.forms()):
+            for control in form.controls:
+                if control.value == value:
+                    self.browser.form = form
+
     def turn_course_editing_on(self):
-        response = self.browser.submit(label='Turn editing on')
+        self.set_form_to_form_with_control_value('Turn editing on')
+        response = self.browser.submit()
         return BeautifulSoup(response.read())
 
     def turn_course_editing_off(self):
-        response = self.browser.submit(label='Turn editing off')
+        self.set_form_to_form_with_control_value('Turn editing off')
+        response = self.browser.submit()
         return BeautifulSoup(response.read())
 
     def get_courses(self):

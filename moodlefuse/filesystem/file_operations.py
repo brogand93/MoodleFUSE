@@ -37,14 +37,16 @@ class FileOperationOverrider(Operations):
         return self.flush(path, fh)
 
     def getattr(self, path, fh=None):
-        return self.translator.get_file_attributes(path)
+        if not self.translator.path_exists_in_moodle(path):
+            raise FuseOSError(errno.ENOENT)
+        else:
+            return self.translator.get_file_attributes(path)
 
     def mknod(self, path, mode, dev):
         print 'mknod'
 
     def mkdir(self, path, mode):
-        print 'mkdir'
-        return os.mkdir(path, mode)
+        self.translator.make_directory(path)
 
     def open(self, path, flags):
         print 'open'
@@ -55,6 +57,7 @@ class FileOperationOverrider(Operations):
             return 1
 
     def read(self, path, length, offset, fh):
+        print 'read'
         os.lseek(fh, offset, os.SEEK_SET)
         return os.read(fh, length)
 
@@ -103,6 +106,7 @@ class FileOperationOverrider(Operations):
         return os.utime('/home/brogand/te', times)
 
     def write(self, path, buf, offset, fh):
+        print 'write'
         os.lseek(fh, offset, os.SEEK_SET)
         return os.write(fh, buf)
 
