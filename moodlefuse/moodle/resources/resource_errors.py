@@ -24,6 +24,7 @@ class UnableToDownloadResource(MoodleException):
     def __str__(self):
         return repr(MoodleException + self.debug_info)
 
+
 class UnableToObtainResourceList(MoodleException):
 
     def __init__(self):

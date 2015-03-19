@@ -26,14 +26,16 @@ class Configurer(object):
         config_folder = os.path.join(os.path.expanduser('~'), '.moodlefuse')
         if not os.path.exists(config_folder):
             os.makedirs(config_folder)
-        os.chmod(config_folder, 0700)
+        os.chmod(config_folder, 0o700)
         return config_folder
 
     def _create_file_cache(self):
-        cache_folder = os.path.join(os.path.expanduser('~'), '.moodlefuse/cache')
+        cache_folder = os.path.join(
+            os.path.expanduser('~'),
+            '.moodlefuse/cache')
         if not os.path.exists(cache_folder):
             os.makedirs(cache_folder)
-        os.chmod(cache_folder, 0700)
+        os.chmod(cache_folder, 0o700)
         return cache_folder
 
     def _create_config_file(self, config_folder):
@@ -74,16 +76,25 @@ class Configurer(object):
 
     def _set_attributes_of_profile(self, config, profile):
         config = self._set_attribute_of_profile(
-            config, profile, 'moodle_web_address', 'Moodle server address', 'hhtp://www.loop.dcu.ie'
-        )
+            config,
+            profile,
+            'moodle_web_address',
+            'Moodle server address',
+            'hhtp://www.loop.dcu.ie')
 
         config = self._set_attribute_of_profile(
-            config, profile, 'moodle_index_address', 'Moodle index address', 'hhtp://www.loop.dcu.ie/my'
-        )
+            config,
+            profile,
+            'moodle_index_address',
+            'Moodle index address',
+            'hhtp://www.loop.dcu.ie/my')
 
         config = self._set_attribute_of_profile(
-            config, profile, 'local_moodle_folder', 'Local Moodle folder name', 'moodle'
-        )
+            config,
+            profile,
+            'local_moodle_folder',
+            'Local Moodle folder name',
+            'moodle')
 
         config = self._set_attribute_of_profile(
             config, profile, 'username', 'Moodle username', 'username'
@@ -95,11 +106,19 @@ class Configurer(object):
 
         return config
 
-    def _set_attribute_of_profile(self, config, profile, attribute, message, default):
+    def _set_attribute_of_profile(
+            self,
+            config,
+            profile,
+            attribute,
+            message,
+            default):
         if config.has_option(profile, attribute):
             default = config.get(profile, attribute)
 
-        attribute_value = self._read_in_config_attribute_or_use_default(message, default)
+        attribute_value = self._read_in_config_attribute_or_use_default(
+            message,
+            default)
 
         config.set(profile, attribute, attribute_value)
         return config
@@ -115,5 +134,5 @@ class Configurer(object):
         config_folder = os.path.join(os.path.expanduser('~'), 'moodle')
         if not os.path.exists(config_folder):
             os.makedirs(config_folder)
-        os.chmod(config_folder, 0700)
+        os.chmod(config_folder, 0o700)
         return config_folder

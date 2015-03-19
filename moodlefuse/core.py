@@ -12,6 +12,7 @@ from ConfigParser import SafeConfigParser
 
 config = {}
 
+
 def setup():
     args = _generate_args()
     profile = args.pop('profile')
@@ -74,13 +75,20 @@ def _config_from_config_profile(config_file, profile):
     configuration.read(config_file)
 
     if not configuration.has_section(profile):
-        sys.exit('No profile matching ' + profile
-                 + ' found in configuration, please run moodlefuse-configure -p '
-                 + profile)
+        sys.exit(
+            'No profile matching ' +
+            profile +
+            ' found in configuration, please run moodlefuse-configure -p ' +
+            profile)
 
     for attribute in configuration.options(profile):
         if attribute == 'local_moodle_folder':
-            config[attribute.upper()] = str(os.path.join(os.path.expanduser('~'),
-                configuration.get(profile, attribute)))
+            config[
+                attribute.upper()] = str(
+                os.path.join(
+                    os.path.expanduser('~'),
+                    configuration.get(
+                        profile,
+                        attribute)))
         else:
             config[attribute.upper()] = configuration.get(profile, attribute)

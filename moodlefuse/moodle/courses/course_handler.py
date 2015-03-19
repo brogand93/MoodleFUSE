@@ -30,5 +30,6 @@ class CourseHandler(MoodleHandler):
         return self.parser.parse_course_content_from_page(course_page)
 
     def get_course_category_contents(self, course_content, category):
-        return self.parser.parse_course_category_from_course(course_content, category)
-
+        return self.parser.parse_course_category_from_course(
+            course_content,
+            category)

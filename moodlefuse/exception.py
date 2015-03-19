@@ -4,6 +4,7 @@
 """Class to handle Exceptions relating to MoodleFUSE actions
 """
 
+
 class MoodleFuseException(BaseException):
 
     def __init__(self, debug_info):

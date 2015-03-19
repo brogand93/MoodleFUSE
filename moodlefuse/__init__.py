@@ -19,6 +19,6 @@ class MoodleFuse(object):
         moodle_fs_path = config['LOCAL_MOODLE_FOLDER']
         try:
             os.makedirs(moodle_fs_path)
-        except OSError, e:
+        except OSError as e:
             if e.errno is not errno.EEXIST:
                 raise e

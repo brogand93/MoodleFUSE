@@ -28,7 +28,6 @@ class ResourceParser(Parser):
             activity_instances, 'File', filename
         )
 
-
     def _get_resource_html(self, category_content):
         return self.scraper.get_html_items_with_spanclass(
             category_content, 'instancename')

@@ -24,7 +24,9 @@ class ResourceHandler(MoodleHandler):
     def get_file_path(self, category_contents, filename):
         if category_contents is None:
             return []
-        return self.parser.parse_course_resource_url(category_contents, filename)
+        return self.parser.parse_course_resource_url(
+            category_contents,
+            filename)
 
     def download_resource(self, location, moodle_url):
         cache_path = self.create_file(location)

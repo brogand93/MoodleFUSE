@@ -25,7 +25,8 @@ class Emulator():
     def login(self):
         MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
         self.browser.open(MOODLE_LOGIN_URL)
-        self.browser.select_form(predicate=lambda form: form.attrs.get('id') == 'login')
+        self.browser.select_form(
+            predicate=lambda form: form.attrs.get('id') == 'login')
         self.browser.form.set_value(self.username, name='username')
         self.browser.form.set_value(self.password, name='password')
         resp = self.browser.submit()

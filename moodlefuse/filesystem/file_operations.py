@@ -116,4 +116,3 @@ class FileOperationOverrider(Operations):
         cache_path = self.translator.open_file(path)
         with open(cache_path, 'r+') as cache_file:
             cache_file.truncate(length)
-

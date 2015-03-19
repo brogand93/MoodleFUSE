@@ -5,6 +5,7 @@ import os
 
 from moodlefuse.filesystem.files.file import File
 
+
 class RegularFile(File):
 
     def __init__(self, name, url, **kwargs):

@@ -6,6 +6,7 @@
 
 from moodlefuse.exception import MoodleFuseException
 
+
 class MoodleException(MoodleFuseException):
 
     def __init__(self):
