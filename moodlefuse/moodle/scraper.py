@@ -21,6 +21,9 @@ class Scraper(object):
     def get_html_with_divclass(self, html, classname):
         return self._get_html_from_tag_label_with_name(html, 'div', 'class', classname)
 
+    def get_html_items_with_divclass(self, html, classname):
+        return self._get_all_html_from_tag_label_with_name(html, 'div', 'class', classname)
+
     def get_html_items_with_tdclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(html, 'td', 'class', classname)
 
@@ -39,6 +42,14 @@ class Scraper(object):
                 instances.append(sections[0])
 
         return instances
+
+    def get_link_from_span_list_with_type_and_name(self, spanlist, type, name):
+        for span_item in spanlist:
+            sections = span_item.get_text().split(" ")
+            if sections[1] == type and sections[0] == name:
+                return span_item.find('a', href=True)['href']
+
+        return None
 
     def _get_html_from_tag_label_with_name(self, html, tag, label, name):
         if html is None:

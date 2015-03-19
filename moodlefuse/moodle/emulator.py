@@ -35,8 +35,8 @@ class Emulator():
     def upload(self):
         pass
 
-    def download(self):
-        pass
+    def download(self, destination, source):
+        self.browser.retrieve(source, destination)
 
     def open_link(self, url):
         response = self.browser.open(url)

@@ -14,10 +14,21 @@ class ResourceParser(Parser):
         super(ResourceParser, self).__init__()
 
     def parse_course_resources(self, category_content):
-        resources_html = self.scraper.get_html_items_with_spanclass(
-            category_content, 'instancename')
+        resources_html = self._get_resource_html(category_content)
 
         return self.scraper.get_instances_from_span_list_with_type(
             resources_html, 'File'
         )
 
+    def parse_course_resource_url(self, category_content, filename):
+        activity_instances = self.scraper.get_html_items_with_divclass(
+            category_content, 'activityinstance')
+
+        return self.scraper.get_link_from_span_list_with_type_and_name(
+            activity_instances, 'File', filename
+        )
+
+
+    def _get_resource_html(self, category_content):
+        return self.scraper.get_html_items_with_spanclass(
+            category_content, 'instancename')

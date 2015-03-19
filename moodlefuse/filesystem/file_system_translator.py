@@ -36,10 +36,13 @@ class FileSystemTranslator(object):
     def open_file(self, path):
         location = self.get_position_in_filesystem_as_array(path)
         if len(location) is 3:
-            moodle_url = self.resources.get_file_path(location[0], location[1], location[2])
+            course_contents = self.courses.enter_course_and_get_contents(location[0])
+            category_contents = self.courses.get_course_category_contents(course_contents, location[1])
+            moodle_url = self.resources.get_file_path(category_contents, location[2])
             if moodle_url is None:
                 return self.resources.create_file(location)
-            return self.resources.download_resource(location, moodle_url)
+            else:
+                return self.resources.download_resource(location, moodle_url)
 
     def create_file(self, path):
         location = self.get_position_in_filesystem_as_array(path)

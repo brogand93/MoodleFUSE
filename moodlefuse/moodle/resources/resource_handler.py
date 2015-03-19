@@ -21,11 +21,15 @@ class ResourceHandler(MoodleHandler):
             return []
         return self.parser.parse_course_resources(category_contents)
 
-    def get_file_path(self, course, categorie, filename):
-        pass
+    def get_file_path(self, category_contents, filename):
+        if category_contents is None:
+            return []
+        return self.parser.parse_course_resource_url(category_contents, filename)
 
     def download_resource(self, location, moodle_url):
-        pass
+        cache_path = self.create_file(location)
+        self.moodle.download_resources(cache_path, moodle_url)
+        return cache_path
 
     def create_file(self, location):
         cache_path = get_cache_path_based_on_location(location)

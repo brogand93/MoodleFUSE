@@ -18,7 +18,7 @@ class MoodleAPI(object):
         pass
 
     def download_resources(self, destination_link, source_link):
-        pass
+        self.emulator.download(destination_link, source_link)
 
     def get_courses(self):
         return self.emulator.get_courses()
