@@ -3,8 +3,6 @@
 
 import os
 
-from moodlefuse.core import config
-
 
 def get_cache_path_based_on_location(location):
     config_folder = os.path.join(os.path.expanduser('~'), '.moodlefuse')

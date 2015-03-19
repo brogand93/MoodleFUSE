@@ -23,50 +23,55 @@ class Scraper(object):
             html,
             'div',
             'class',
-            classname)
+            classname
+        )
 
     def get_html_items_with_divclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
             html,
             'div',
             'class',
-            classname)
+            classname
+        )
 
     def get_html_items_with_tdclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
             html,
             'td',
             'class',
-            classname)
+            classname
+        )
 
     def get_html_items_with_spanclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
             html,
             'span',
             'class',
-            classname)
+            classname
+        )
 
     def get_html_with_liarialabel(self, html, labelname):
         return self._get_html_from_tag_label_with_name(
             html,
             'li',
             'aria-label',
-            labelname)
+            labelname
+        )
 
-    def get_instances_from_span_list_with_type(self, spanlist, type):
+    def get_instances_from_span_list_with_type(self, spanlist, instance_type):
         instances = []
 
         for span_item in spanlist:
             sections = span_item.get_text().split(" ")
-            if sections[1] == type:
+            if sections[1] == instance_type:
                 instances.append(sections[0])
 
         return instances
 
-    def get_link_from_span_list_with_type_and_name(self, spanlist, type, name):
+    def get_link_from_span_list_with_type_and_name(self, spanlist, instance_type, name):
         for span_item in spanlist:
             sections = span_item.get_text().split(" ")
-            if sections[1] == type and sections[0] == name:
+            if sections[1] == instance_type and sections[0] == name:
                 return span_item.find('a', href=True)['href']
 
         return None

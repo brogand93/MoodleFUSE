@@ -83,12 +83,13 @@ def _config_from_config_profile(config_file, profile):
 
     for attribute in configuration.options(profile):
         if attribute == 'local_moodle_folder':
-            config[
-                attribute.upper()] = str(
+            config[attribute.upper()] = str(
                 os.path.join(
                     os.path.expanduser('~'),
                     configuration.get(
                         profile,
-                        attribute)))
+                        attribute
+                    )
+                ))
         else:
             config[attribute.upper()] = configuration.get(profile, attribute)

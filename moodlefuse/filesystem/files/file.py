@@ -12,7 +12,7 @@ class File(object):
         self.name = name
         self.url = url
 
-        uid, gid, pid = fuse_get_context()
+        uid, gid = fuse_get_context()
         self.attrs = {
             'st_mode': (S_IFREG | 0o755),
             'st_mtime': time(),

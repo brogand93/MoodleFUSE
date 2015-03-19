@@ -138,6 +138,8 @@ bad-names=foo,bar,baz,toto,tutu,tata
 # not require a docstring
 no-docstring-rgx=__.*__
 
+disable=unbalanced-tuple-unpacking
+
 
 [FORMAT]
 

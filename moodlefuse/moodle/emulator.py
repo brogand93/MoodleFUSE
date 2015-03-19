@@ -10,7 +10,7 @@ from mechanize import Browser, CookieJar
 from moodlefuse.moodle.exception import LoginException
 
 
-class Emulator():
+class Emulator(object):
 
     def __init__(self, username, password):
         self.username = username

@@ -8,8 +8,6 @@ install:
 - pip install factory-boy==1.3.0
 - pip install mock
 - pip install coveralls
-- python setup.py install
 script:
 - pep8 --ignore=E501 *.py moodlefuse
 - pylint --rcfile=pylint.rc *.py moodlefuse
-- nosetests --with-coverage --cover-erase --cover-package=moodlefuse --cover-html

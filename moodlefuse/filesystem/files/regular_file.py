@@ -22,20 +22,20 @@ class RegularFile(File):
         if not os.path.exists(self.filepath):
             self.create_cache_file()
 
-        with open(self.filepath, 'rb+') as file:
-            file.seek(offset, 0)
-            return file.read(size)
+        with open(self.filepath, 'rb+') as f:
+            f.seek(offset, 0)
+            return f.read(size)
 
     def write(self, data, offset):
-        with open(self.filepath, 'rb+') as file:
-            file.seek(offset, 0)
-            file.write(data)
+        with open(self.filepath, 'rb+') as f:
+            f.seek(offset, 0)
+            f.write(data)
 
         self.attrs['st_size'] += len(data)
 
     def truncate(self, length):
-        with open(self.filepath, 'rb+') as file:
-            file.truncate(length)
+        with open(self.filepath, 'rb+') as f:
+            f.truncate(length)
 
         self.attrs['st_size'] = length
 
