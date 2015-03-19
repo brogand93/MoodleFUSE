@@ -20,42 +20,32 @@ class Scraper(object):
 
     def get_html_with_divclass(self, html, classname):
         return self._get_html_from_tag_label_with_name(
-            html,
-            'div',
-            'class',
-            classname
+            html, 'div',
+            'class', classname
         )
 
     def get_html_items_with_divclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
-            html,
-            'div',
-            'class',
-            classname
+            html, 'div',
+            'class', classname
         )
 
     def get_html_items_with_tdclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
-            html,
-            'td',
-            'class',
-            classname
+            html, 'td',
+            'class', classname
         )
 
     def get_html_items_with_spanclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
-            html,
-            'span',
-            'class',
-            classname
+            html, 'span',
+            'class', classname
         )
 
     def get_html_with_liarialabel(self, html, labelname):
         return self._get_html_from_tag_label_with_name(
-            html,
-            'li',
-            'aria-label',
-            labelname
+            html, 'li',
+            'aria-label', labelname
         )
 
     def get_instances_from_span_list_with_type(self, spanlist, instance_type):
@@ -98,7 +88,6 @@ class Scraper(object):
 
     def get_text_from_taged_item(self, html, tag):
         tagged_html = html.select(tag)
-
         texts = []
         for tag in tagged_html:
             texts.append(tag.get_text())

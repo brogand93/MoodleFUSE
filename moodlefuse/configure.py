@@ -76,49 +76,42 @@ class Configurer(object):
 
     def _set_attributes_of_profile(self, config, profile):
         config = self._set_attribute_of_profile(
-            config,
-            profile,
-            'moodle_web_address',
+            config, profile, 'moodle_web_address',
             'Moodle server address',
-            'hhtp://www.loop.dcu.ie')
-
-        config = self._set_attribute_of_profile(
-            config,
-            profile,
-            'moodle_index_address',
-            'Moodle index address',
-            'hhtp://www.loop.dcu.ie/my')
-
-        config = self._set_attribute_of_profile(
-            config,
-            profile,
-            'local_moodle_folder',
-            'Local Moodle folder name',
-            'moodle')
-
-        config = self._set_attribute_of_profile(
-            config, profile, 'username', 'Moodle username', 'username'
+            'hhtp://www.loop.dcu.ie'
         )
 
         config = self._set_attribute_of_profile(
-            config, profile, 'password', 'Moodle password', 'password'
+            config, profile, 'moodle_index_address',
+            'Moodle index address',
+            'hhtp://www.loop.dcu.ie/my'
+        )
+
+        config = self._set_attribute_of_profile(
+            config, profile, 'local_moodle_folder',
+            'Local Moodle folder name', 'moodle'
+        )
+
+        config = self._set_attribute_of_profile(
+            config, profile, 'username',
+            'Moodle username', 'username'
+        )
+
+        config = self._set_attribute_of_profile(
+            config, profile, 'password',
+            'Moodle password', 'password'
         )
 
         return config
 
-    def _set_attribute_of_profile(
-            self,
-            config,
-            profile,
-            attribute,
-            message,
-            default):
+    def _set_attribute_of_profile(self, config, profile, attribute, message, default):
         if config.has_option(profile, attribute):
             default = config.get(profile, attribute)
 
         attribute_value = self._read_in_config_attribute_or_use_default(
             message,
-            default)
+            default
+        )
 
         config.set(profile, attribute, attribute_value)
         return config
