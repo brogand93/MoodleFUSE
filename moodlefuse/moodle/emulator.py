@@ -43,6 +43,14 @@ class Emulator(object):
         response = self.browser.open(url)
         return BeautifulSoup(response.read())
 
+    def turn_course_editing_on(self):
+        response = self.browser.submit(label='Turn editing on')
+        return BeautifulSoup(response.read())
+
+    def turn_course_editing_off(self):
+        response = self.browser.submit(label='Turn editing off')
+        return BeautifulSoup(response.read())
+
     def get_courses(self):
         return self.open_link(config['MOODLE_INDEX_ADDRESS'])
 
