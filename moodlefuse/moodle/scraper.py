@@ -10,8 +10,10 @@ class Scraper(object):
 
     def get_link_from_linktext_in_divclass(self, html, divclass, linktext):
         div_html = self.get_html_with_divclass(html, divclass)
+        return self.get_link_from_linktext(div_html, linktext)
 
-        link = div_html.find('a', href=True, text=linktext)
+    def get_link_from_linktext(self, html, linktext):
+        link = html.find('a', href=True, text=linktext)
 
         if link is not None:
             return link['href']
@@ -28,6 +30,18 @@ class Scraper(object):
         return self._get_all_html_from_tag_label_with_name(
             html, 'div',
             'class', classname
+        )
+
+    def get_html_with_aclass(self, html, classname):
+        return self._get_html_from_tag_label_with_name(
+            html, 'a',
+            'class', classname
+        )
+
+    def get_all_html_with_atitle(self, html, titlename):
+        return self._get_all_html_from_tag_label_with_name(
+            html, 'a',
+            'title', titlename
         )
 
     def get_html_items_with_tdclass(self, html, classname):

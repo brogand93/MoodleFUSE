@@ -23,8 +23,18 @@ class CourseHandler(MoodleHandler):
         course_contents = self.enter_course_and_get_contents(course)
         return self.parser.parse_course_category_titles(course_contents)
 
-    def add_new_category(self):
-        print self.moodle.modify_moodle(modify=True)
+    def add_new_category(self, categoryname):
+        course_html = self.moodle.set_modify_moodle(modify=True)
+        add_section_link = self.parser.get_add_section_link(course_html)
+        course_html_with_section = self.moodle.follow_link(add_section_link)
+        edit_category_link = self.parser.get_last_sections_edit_button(
+            course_html_with_section)
+        edit_category_html = self.moodle.follow_link(edit_category_link)
+        self.moodle.select_page_form()
+
+
+
+
 
     def enter_course_and_get_contents(self, course):
         courses_scrapper = self.moodle.get_courses()

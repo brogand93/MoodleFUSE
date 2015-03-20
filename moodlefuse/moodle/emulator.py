@@ -45,6 +45,12 @@ class Emulator(object):
         response = self.browser.open(url)
         return BeautifulSoup(response.read())
 
+    def set_form_to_first_form(self):
+        forms = self.browser.forms()
+        print forms
+        self.browser.form = forms[0]
+        print forms
+
     def set_form_to_form_with_control_value(self, value):
         for index, form in enumerate(self.browser.forms()):
             for control in form.controls:

@@ -40,6 +40,14 @@ class CourseParser(Parser):
         courses = self.scraper.get_text_from_html_list(courses_html)
         return self.remove_unicode(courses)
 
+    def get_last_sections_edit_button(self, course_html):
+        last_section_html = self.get_sections_settings_html(course_html)[-1]
+        return self.get_link_from_item(last_section_html)
+
+    def get_sections_settings_html(self, course_html):
+        return self.scraper.get_all_html_with_atitle(
+            course_html, 'Edit summary')
+
     def parse_course_category_titles(self, course_content):
         sections = self.scraper.get_text_from_taged_item(course_content, 'h3')
         return self.remove_unicode(sections)
@@ -49,6 +57,12 @@ class CourseParser(Parser):
             html, 'course-content')
 
         return course_html
+
+    def get_add_section_link(self, course_content):
+        add_section_html = self.scraper.get_html_with_aclass(
+            course_content, 'increase-sections')
+
+        return self.get_link_from_item(add_section_html)
 
     def parse_course_category_from_course(self, course_content, category):
         category_html = self.scraper.get_html_with_liarialabel(

@@ -17,11 +17,17 @@ class MoodleAPI(object):
     def upload_resources(self, source_link, destination_link):
         pass
 
-    def modify_moodle(self, modify=True):
+    def set_modify_moodle(self, modify=True):
         if modify is True:
             return self.emulator.turn_course_editing_on()
         else:
             return self.emulator.turn_course_editing_on()
+
+    def follow_link(self, link):
+        return self.emulator.open_link(link)
+
+    def select_page_form(self):
+        self.emulator.set_form_to_first_form()
 
     def download_resources(self, destination_link, source_link):
         self.emulator.download(destination_link, source_link)

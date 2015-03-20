@@ -14,3 +14,9 @@ class Parser(object):
 
     def remove_unicode(self, items):
         return [item.encode('utf-8') for item in items]
+
+    def get_link_from_item(self, item):
+        if item is not None:
+            return item['href']
+
+        return None
