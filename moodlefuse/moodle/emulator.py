@@ -52,7 +52,7 @@ class Emulator(object):
         print forms
 
     def set_form_to_form_with_control_value(self, value):
-        for index, form in enumerate(self.browser.forms()):
+        for form in self.browser.forms():
             for control in form.controls:
                 if control.value == value:
                     self.browser.form = form
