@@ -23,7 +23,7 @@ def setup():
 
 def _generate_args():
     """
-    Generate command line arguments for moodlefuse-configure.
+    Generate command line arguments for moodlefuse.
     @return: args.
     """
     parser = argparse.ArgumentParser()
