@@ -2,7 +2,9 @@
 # encoding: utf-8
 
 from moodlefuse.moodle.resources.resource_handler import ResourceHandler
+from moodlefuse.moodle.emulator.js_enabled_emulator import JsEmulator
 from moodlefuse.moodle.courses.course_handler import CourseHandler
+from moodlefuse.moodle.emulator.core_emulator import CoreEmulator
 from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.core import config
 
@@ -10,8 +12,12 @@ from moodlefuse.core import config
 class FileSystemTranslator(object):
 
     def __init__(self):
-        self.courses = CourseHandler()
-        self.resources = ResourceHandler()
+        emulator = CoreEmulator(config['USERNAME'], config['PASSWORD'])
+        js_emulator = JsEmulator(config['USERNAME'], config['PASSWORD'])
+        emulator.login()
+        js_emulator.login()
+        self.courses = CourseHandler(emulator, js_emulator)
+        self.resources = ResourceHandler(emulator, js_emulator)
 
     def _location_is_in_root(self, location):
         return len(location) is 0
@@ -116,7 +122,7 @@ class FileSystemTranslator(object):
         elif self._location_is_in_course(location):
             return location[0] in self.courses.get_courses_as_array()
         elif self._location_is_in_course_categorie(location):
-            return location[
-                1] in self.courses.get_course_categories_as_array(location[0])
+            return location[1] in \
+                self.courses.get_course_categories_as_array(location[0])
 
         return False

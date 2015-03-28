@@ -9,5 +9,5 @@ from moodlefuse.moodle.api import MoodleAPI
 
 class MoodleHandler(object):
 
-    def __init__(self):
-        self.moodle = MoodleAPI()
+    def __init__(self, emulator, js_emulator):
+        self.moodle = MoodleAPI(emulator, js_emulator)

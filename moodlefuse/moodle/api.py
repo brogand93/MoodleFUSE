@@ -4,15 +4,12 @@
 """Class to act as a bridge between the Moodle emulator and handlers
 """
 
-from moodlefuse.moodle.emulator import Emulator
-from moodlefuse.core import config
-
 
 class MoodleAPI(object):
 
-    def __init__(self):
-        self.emulator = Emulator(config['USERNAME'], config['PASSWORD'])
-        self.emulator.login()
+    def __init__(self, emulator, js_emulator):
+        self.emulator = emulator
+        self.js_emulator = js_emulator
 
     def upload_resources(self, source_link, destination_link):
         pass
@@ -26,8 +23,13 @@ class MoodleAPI(object):
     def follow_link(self, link):
         return self.emulator.open_link(link)
 
-    def select_page_form(self):
-        self.emulator.set_form_to_first_form()
+    def follow_link_with_js(self, link):
+        return self.js_emulator.open_link(link)
+
+    def change_category_name(self, newname):
+        self.js_emulator.check_form_checkbox('id_usedefaultname')
+        self.js_emulator.enter_text_into_textbox('id_name', newname)
+        self.js_emulator.close_form()
 
     def download_resources(self, destination_link, source_link):
         self.emulator.download(destination_link, source_link)

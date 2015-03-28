@@ -30,6 +30,7 @@ REQUIRES = [
     'requests',
     'fusepy',
     'mechanize',
+    'selenium',
     'beautifulsoup4'
 ]
 
@@ -48,6 +49,7 @@ setup(
         'moodlefuse.moodle',
         'moodlefuse.filesystem',
         'moodlefuse.moodle.courses',
+        'moodlefuse.moodle.emulator',
         'moodlefuse.moodle.resources',
         'moodlefuse.filesystem.files'
     ],

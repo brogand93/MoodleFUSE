@@ -12,8 +12,8 @@ from moodlefuse.moodle.handler import MoodleHandler
 
 class ResourceHandler(MoodleHandler):
 
-    def __init__(self):
-        super(self.__class__, self).__init__()
+    def __init__(self, emulator, js_emulator):
+        super(self.__class__, self).__init__(emulator, js_emulator)
         self.parser = ResourceParser()
 
     def get_file_names_as_array(self, category_contents):

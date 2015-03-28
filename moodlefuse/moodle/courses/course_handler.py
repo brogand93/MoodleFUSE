@@ -11,8 +11,8 @@ from moodlefuse.moodle.handler import MoodleHandler
 
 class CourseHandler(MoodleHandler):
 
-    def __init__(self):
-        super(self.__class__, self).__init__()
+    def __init__(self, emulator, js_emulator):
+        super(self.__class__, self).__init__(emulator, js_emulator)
         self.parser = CourseParser()
 
     def get_courses_as_array(self):
@@ -29,8 +29,8 @@ class CourseHandler(MoodleHandler):
         course_html_with_section = self.moodle.follow_link(add_section_link)
         edit_category_link = self.parser.get_last_sections_edit_button(
             course_html_with_section)
-        self.moodle.follow_link(edit_category_link)
-        self.moodle.select_page_form()
+        self.moodle.follow_link_with_js(edit_category_link)
+        self.moodle.change_category_name(categoryname)
 
     def enter_course_and_get_contents(self, course):
         courses_scrapper = self.moodle.get_courses()

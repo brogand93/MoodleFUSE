@@ -10,7 +10,7 @@ from mechanize import Browser, CookieJar
 from moodlefuse.moodle.exception import LoginException
 
 
-class Emulator(object):
+class CoreEmulator(object):
 
     def __init__(self, username, password):
         self.username = username
@@ -45,11 +45,17 @@ class Emulator(object):
         response = self.browser.open(url)
         return BeautifulSoup(response.read())
 
+    def check_form_checkbox(self, checkboxname):
+        self.browser.find_control(checkboxname).items[0].selected = True
+
+    def add_form_content(self, inputname, content):
+        self.browser.form.set_value(content, name=inputname)
+
+    def close_form(self):
+        self.browser.submmit()
+
     def set_form_to_first_form(self):
-        forms = self.browser.forms()
-        print forms
-        self.browser.form = forms[0]
-        print forms
+        self.browser.select_form(nr=0)
 
     def set_form_to_form_with_control_value(self, value):
         for form in self.browser.forms():
