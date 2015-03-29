@@ -44,6 +44,11 @@ class CourseParser(Parser):
         last_section_html = self.get_sections_settings_html(course_html)[-1]
         return self.get_link_from_item(last_section_html)
 
+    def get_section_edit_button(self, course_html, categoryname):
+        category_content =  self.scraper.get_html_with_liarialabel(course_html, categoryname)
+        add_resource_link = self.scraper.get_html_items_with_spanclass(category_content, 'section-modchooser-text')
+        print add_resource_link
+
     def get_sections_settings_html(self, course_html):
         return self.scraper.get_all_html_with_atitle(
             course_html, 'Edit summary')

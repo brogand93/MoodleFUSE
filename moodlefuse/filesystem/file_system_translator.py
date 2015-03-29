@@ -42,14 +42,9 @@ class FileSystemTranslator(object):
     def open_file(self, path):
         location = self.get_position_in_filesystem_as_array(path)
         if len(location) is 3:
-            course_contents = self.courses.enter_course_and_get_contents(
-                location[0])
-            category_contents = self.courses.get_course_category_contents(
-                course_contents,
-                location[1])
-            moodle_url = self.resources.get_file_path(
-                category_contents,
-                location[2])
+            course_contents = self.courses.enter_course_and_get_contents(location[0])
+            category_contents = self.courses.get_course_category_contents(course_contents, location[1])
+            moodle_url = self.resources.get_file_path(category_contents, location[2])
             if moodle_url is None:
                 return self.resources.create_file(location)
             else:
@@ -60,6 +55,8 @@ class FileSystemTranslator(object):
         if len(location) is 3:
             cache_path = get_cache_path_based_on_location(location)
             open(cache_path, 'w')
+            self.courses.enter_course_and_get_contents(location[0])
+            self.courses.modify_course_category(location[1])
             return cache_path
 
     def is_file(self, location):
@@ -98,19 +95,13 @@ class FileSystemTranslator(object):
         if self._location_is_in_root(location):
             dirents.extend(self.courses.get_courses_as_array())
         elif self._location_is_in_course(location):
-            dirents.extend(
-                self.courses.get_course_categories_as_array(
-                    location[0]))
+            dirents.extend(self.courses.get_course_categories_as_array(location[0]))
         elif self._location_is_in_course_categorie(location):
             if location[0] == '.Trash-1000':
                 return dirents
-            course_contents = self.courses.enter_course_and_get_contents(
-                location[0])
-            category_contents = self.courses.get_course_category_contents(
-                course_contents,
-                location[1])
-            dirents.extend(
-                self.resources.get_file_names_as_array(category_contents))
+            course_contents = self.courses.enter_course_and_get_contents(location[0])
+            category_contents = self.courses.get_course_category_contents(course_contents, location[1])
+            dirents.extend(self.resources.get_file_names_as_array(category_contents))
 
         return dirents
 

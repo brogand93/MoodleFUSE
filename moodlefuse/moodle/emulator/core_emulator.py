@@ -35,9 +35,6 @@ class CoreEmulator(object):
         if resp.geturl().endswith('/login/index.php'):
             raise LoginException(self.username)
 
-    def upload(self):
-        pass
-
     def download(self, destination, source):
         self.browser.retrieve(source, destination)
 
@@ -53,6 +50,9 @@ class CoreEmulator(object):
 
     def close_form(self):
         self.browser.submmit()
+
+    def get_current_url(self):
+        return self.browser.geturl()
 
     def set_form_to_first_form(self):
         self.browser.select_form(nr=0)

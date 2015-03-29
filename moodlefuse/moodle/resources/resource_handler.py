@@ -38,3 +38,6 @@ class ResourceHandler(MoodleHandler):
         cache_path = get_cache_path_based_on_location(location)
         with open(cache_path, 'w'):
             return cache_path
+
+    def add_resource(self, resourcepath, resourcename):
+        pass

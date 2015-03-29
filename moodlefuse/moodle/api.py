@@ -26,6 +26,9 @@ class MoodleAPI(object):
     def follow_link_with_js(self, link):
         return self.js_emulator.open_link(link)
 
+    def get_current_url(self):
+        return self.emulator.get_current_url()
+
     def change_category_name(self, newname):
         self.js_emulator.check_form_checkbox('id_usedefaultname')
         self.js_emulator.enter_text_into_textbox('id_name', newname)

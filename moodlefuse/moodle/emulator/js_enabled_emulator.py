@@ -36,5 +36,8 @@ class JsEmulator(object):
         element.clear()
         element.send_keys(text)
 
+    def upload(self, filepath, filename):
+        pass
+
     def close_form(self):
         self.driver.find_element_by_id("id_submitbutton").click()
