@@ -31,6 +31,7 @@ class ResourceHandler(MoodleHandler):
 
     def download_resource(self, location, moodle_url):
         cache_path = self.create_file(location)
+        moodle_url = moodle_url + "?forcedownload=1"
         self.moodle.download_resources(cache_path, moodle_url)
         return cache_path
 
@@ -39,5 +40,5 @@ class ResourceHandler(MoodleHandler):
         with open(cache_path, 'w'):
             return cache_path
 
-    def add_resource(self, resourcepath, resourcename):
-        pass
+    def add_resource(self, resource_path, category, resource_name):
+        self.moodle.add_new_resource(category, resource_name, resource_path)

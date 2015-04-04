@@ -54,9 +54,11 @@ class FileSystemTranslator(object):
         location = self.get_position_in_filesystem_as_array(path)
         if len(location) is 3:
             cache_path = get_cache_path_based_on_location(location)
-            open(cache_path, 'w')
-            self.courses.enter_course_and_get_contents(location[0])
-            self.courses.modify_course_category(location[1])
+            file = open(cache_path, 'w')
+            file.write(' ')
+            file.close()
+            self.courses.enter_course_with_js(location[0])
+            self.resources.add_resource(cache_path, location[1], location[2])
             return cache_path
 
     def is_file(self, location):

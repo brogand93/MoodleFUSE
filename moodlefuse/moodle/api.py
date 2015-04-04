@@ -29,6 +29,11 @@ class MoodleAPI(object):
     def get_current_url(self):
         return self.emulator.get_current_url()
 
+    def add_new_resource(self, category, resource_name, resource_path):
+        self.js_emulator.turn_editing_on()
+        self.js_emulator.open_add_resource_menu(category)
+        self.js_emulator.add_resource(resource_name, resource_path)
+
     def change_category_name(self, newname):
         self.js_emulator.check_form_checkbox('id_usedefaultname')
         self.js_emulator.enter_text_into_textbox('id_name', newname)

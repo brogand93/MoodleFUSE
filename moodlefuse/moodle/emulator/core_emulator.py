@@ -49,7 +49,7 @@ class CoreEmulator(object):
         self.browser.form.set_value(content, name=inputname)
 
     def close_form(self):
-        self.browser.submmit()
+        self.browser.submit()
 
     def get_current_url(self):
         return self.browser.geturl()

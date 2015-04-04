@@ -32,15 +32,16 @@ class CourseHandler(MoodleHandler):
         self.moodle.follow_link_with_js(edit_category_link)
         self.moodle.change_category_name(categoryname)
 
-    def modify_course_category(self, categoryname):
-        course_html = self.moodle.set_modify_moodle(modify=True)
-        self.parser.get_section_edit_button(course_html, categoryname)
-
     def enter_course_and_get_contents(self, course):
         courses_scrapper = self.moodle.get_courses()
         course_link = self.parser.get_course_link(courses_scrapper, course)
         course_page = self.moodle.get_course_contents(course_link)
         return self.parser.parse_course_content_from_page(course_page)
+
+    def enter_course_with_js(self, coursename):
+        courses_scrapper = self.moodle.get_courses()
+        course_link = self.parser.get_course_link(courses_scrapper, coursename)
+        self.moodle.follow_link_with_js(course_link)
 
     def get_course_category_contents(self, course_content, category):
         return self.parser.parse_course_category_from_course(

@@ -62,14 +62,6 @@ class Scraper(object):
             'aria-label', labelname
         )
 
-    def get_html_with_ahref(self, html, labelname):
-        print html
-        print labelname
-        return self._get_html_from_tag_label_with_name(
-            html, 'a',
-            'href', labelname
-        )
-
     def get_instances_from_span_list_with_type(self, spanlist, instance_type):
         instances = []
 
@@ -104,7 +96,7 @@ class Scraper(object):
 
         html = html.findAll(tag, attrs={
             label: name
-        })
+        })[0].parent
 
         return html
 
