@@ -74,8 +74,7 @@ class FileOperationOverrider(Operations):
         return os.close(fh)
 
     def rename(self, old, new):
-        print 'rename'
-        return os.rename(old, new)
+        self.translator.rename_file(old, new)
 
     def rmdir(self, path):
         print 'rmdir'

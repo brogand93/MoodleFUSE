@@ -41,7 +41,7 @@ class FileSystemTranslator(object):
 
     def open_file(self, path):
         location = self.get_position_in_filesystem_as_array(path)
-        if len(location) is 3:
+        if self._location_is_file(location):
             course_contents = self.courses.enter_course_and_get_contents(location[0])
             category_contents = self.courses.get_course_category_contents(course_contents, location[1])
             moodle_url = self.resources.get_file_path(category_contents, location[2])
@@ -50,9 +50,16 @@ class FileSystemTranslator(object):
             else:
                 return self.resources.download_resource(location, moodle_url)
 
+    def rename_file(self, old_path, new_path):
+        old_location = self.get_position_in_filesystem_as_array(old_path)
+        new_location = self.get_position_in_filesystem_as_array(new_path)
+        if self._location_is_file(old_location):
+            self.courses.enter_course_with_js(old_location[0])
+            self.resources.rename_resource(old_location[1], old_location[2], new_location[2])
+
     def create_file(self, path):
         location = self.get_position_in_filesystem_as_array(path)
-        if len(location) is 3:
+        if self._location_is_file(location):
             cache_path = get_cache_path_based_on_location(location)
             file = open(cache_path, 'w')
             file.write(' ')
@@ -117,5 +124,8 @@ class FileSystemTranslator(object):
         elif self._location_is_in_course_categorie(location):
             return location[1] in \
                 self.courses.get_course_categories_as_array(location[0])
-
+        elif self._location_is_file(location):
+            course_contents = self.courses.enter_course_and_get_contents(location[0])
+            category_contents = self.courses.get_course_category_contents(course_contents, location[1])
+            return location[2] in self.resources.get_file_names_as_array(category_contents)
         return False

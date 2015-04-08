@@ -11,9 +11,6 @@ class MoodleAPI(object):
         self.emulator = emulator
         self.js_emulator = js_emulator
 
-    def upload_resources(self, source_link, destination_link):
-        pass
-
     def set_modify_moodle(self, modify=True):
         if modify is True:
             return self.emulator.turn_course_editing_on()
@@ -33,11 +30,22 @@ class MoodleAPI(object):
         self.js_emulator.turn_editing_on()
         self.js_emulator.open_add_resource_menu(category)
         self.js_emulator.add_resource(resource_name, resource_path)
+        self.js_emulator.turn_editing_off()
 
-    def change_category_name(self, newname):
-        self.js_emulator.check_form_checkbox('id_usedefaultname')
-        self.js_emulator.enter_text_into_textbox('id_name', newname)
-        self.js_emulator.close_form()
+    def modify_existing_resource(self, category, resource_name, resource_path):
+        self.js_emulator.turn_editing_on()
+        self.js_emulator.open_edit_resource_menu(category, resource_name)
+        self.js_emulator.edit_resource_content(resource_path)
+        self.js_emulator.turn_editing_off()
+
+    def rename_existing_resource(self, category, old_resource_name, new_resource_name):
+        self.js_emulator.turn_editing_on()
+        self.js_emulator.open_edit_resource_menu(category, old_resource_name)
+        self.js_emulator.rename_file_from_edit_screen(new_resource_name)
+        self.js_emulator.turn_editing_off()
+
+    def change_category_name(self, new_name):
+        self.js_emulator.change_most_recent_categoryname(new_name)
 
     def download_resources(self, destination_link, source_link):
         self.emulator.download(destination_link, source_link)
@@ -50,8 +58,3 @@ class MoodleAPI(object):
             return self.emulator.get_course_categories(url)
         return None
 
-    def create_course_categories(self, categoryname):
-        pass
-
-    def remove_course_categorie(self, categoryname):
-        pass

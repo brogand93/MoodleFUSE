@@ -15,10 +15,7 @@ class ResourceParser(Parser):
 
     def parse_course_resources(self, category_content):
         resources_html = self._get_resource_html(category_content)
-
-        return self.scraper.get_instances_from_span_list_with_type(
-            resources_html, 'File'
-        )
+        return self.scraper.get_instances_from_span_list(resources_html)
 
     def parse_course_resource_url(self, category_content, filename):
         activity_instances = self.scraper.get_html_items_with_divclass(

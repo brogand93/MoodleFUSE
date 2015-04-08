@@ -31,8 +31,8 @@ class ResourceHandler(MoodleHandler):
 
     def download_resource(self, location, moodle_url):
         cache_path = self.create_file(location)
-        moodle_url = moodle_url + "?forcedownload=1"
-        self.moodle.download_resources(cache_path, moodle_url)
+        moodle_download_url = moodle_url + "?forcedownload=1"
+        self.moodle.download_resources(cache_path, moodle_download_url)
         return cache_path
 
     def create_file(self, location):
@@ -42,3 +42,9 @@ class ResourceHandler(MoodleHandler):
 
     def add_resource(self, resource_path, category, resource_name):
         self.moodle.add_new_resource(category, resource_name, resource_path)
+
+    def modify_resource(self, resource_path, category, resource_name):
+        self.moodle.modify_existing_resource(category, resource_name, resource_path)
+
+    def rename_resource(self, category, old_resource_name, new_resource_name):
+        self.moodle.rename_existing_resource(category, old_resource_name, new_resource_name)

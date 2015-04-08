@@ -62,13 +62,12 @@ class Scraper(object):
             'aria-label', labelname
         )
 
-    def get_instances_from_span_list_with_type(self, spanlist, instance_type):
+    def get_instances_from_span_list(self, span_list):
         instances = []
 
-        for span_item in spanlist:
+        for span_item in span_list:
             sections = span_item.get_text().split(" ")
-            if sections[1] == instance_type:
-                instances.append(sections[0])
+            instances.append(sections[0])
 
         return instances
 
@@ -96,7 +95,7 @@ class Scraper(object):
 
         html = html.findAll(tag, attrs={
             label: name
-        })[0].parent
+        })
 
         return html
 
