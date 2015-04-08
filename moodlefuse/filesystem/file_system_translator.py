@@ -55,7 +55,7 @@ class FileSystemTranslator(object):
         new_location = self.get_position_in_filesystem_as_array(new_path)
         if self._location_is_file(old_location):
             self.courses.enter_course_with_js(old_location[0])
-            self.resources.rename_resource(old_location[1], old_location[2], new_location[2])
+            self.resources.rename_resource(old_location[1], old_location[2], new_location[3])
 
     def create_file(self, path):
         location = self.get_position_in_filesystem_as_array(path)

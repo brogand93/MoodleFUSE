@@ -35,9 +35,12 @@ class JsEmulator(object):
         self.driver.find_element_by_id("id_submitbutton2").click()
 
     def rename_file_from_edit_screen(self, new_name):
+        time.sleep(.5)
         element = self.enter_text_into_textbox("id_name", new_name)
         element.send_keys(webdriver.common.keys.Keys.TAB)
         element = self.driver.switch_to.active_element
+        element.click()
+        element.send_keys(webdriver.common.keys.Keys.CONTROL, 'a')
         element.send_keys(new_name)
 
     def add_resource(self, resource_name, resource_path):

@@ -40,8 +40,7 @@ class MoodleAPI(object):
 
     def rename_existing_resource(self, category, old_resource_name, new_resource_name):
         self.js_emulator.turn_editing_on()
-        self.js_emulator.open_edit_resource_menu(category, old_resource_name)
-        self.js_emulator.rename_file_from_edit_screen(new_resource_name)
+        self.js_emulator.rename_file(category, old_resource_name, new_resource_name)
         self.js_emulator.turn_editing_off()
 
     def change_category_name(self, new_name):
