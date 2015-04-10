@@ -80,7 +80,6 @@ class FileOperationOverrider(Operations):
 
     def utimens(self, path, times=None):
         print 'utimens'
-        pass
 
     def write(self, path, buf, offset, fh):
         os.lseek(fh, offset, os.SEEK_SET)

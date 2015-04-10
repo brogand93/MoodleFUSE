@@ -72,9 +72,9 @@ class FileSystemTranslator(object):
         location = self.get_position_in_filesystem_as_array(path)
         if self._location_is_file(location):
             cache_path = get_cache_path_based_on_location(location)
-            file = open(cache_path, 'w')
-            file.write(' ')
-            file.close()
+            cache_file = open(cache_path, 'w')
+            cache_file.write(' ')
+            cache_file.close()
             self.courses.enter_course_with_js(location[0])
             self.resources.add_resource(cache_path, location[1], location[2])
             return cache_path
@@ -103,13 +103,14 @@ class FileSystemTranslator(object):
             cache_path = get_cache_path_based_on_location(location)
             self.use_cache_file_or_get_update_file(location, cache_path)
             st = os.lstat(cache_path)
-            return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
-                     'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+            return dict((key, getattr(st, key)) for key in (
+                'st_atime', 'st_ctime', 'st_gid', 'st_mode',
+                'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
         else:
             return self.get_directory_attrs()
 
     def get_directory_attrs(self):
-        uid, gid, pid = fuse_get_context()
+        uid, gid, _ = fuse_get_context()
         return {
             'st_ctime': time(),
             'st_mtime': time(),
