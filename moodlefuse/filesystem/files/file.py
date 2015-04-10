@@ -8,11 +8,8 @@ from time import time
 
 class File(object):
 
-    def __init__(self, name, url, **kwargs):
-        self.name = name
-        self.url = url
-
-        uid, gid = fuse_get_context()
+    def __init__(self):
+        uid, gid, _ = fuse_get_context()
         self.attrs = {
             'st_mode': (S_IFREG | 0o755),
             'st_mtime': time(),
@@ -23,5 +20,5 @@ class File(object):
             'st_size': 0
         }
 
-    def __str__(self):
-        return "%s - %s" % (self.__class__.__name__, self.name)
+    def get_aattrs(self):
+        return self.attrs

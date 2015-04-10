@@ -6,10 +6,9 @@ from moodlefuse.moodle.emulator.js_enabled_emulator import JsEmulator
 from moodlefuse.moodle.courses.course_handler import CourseHandler
 from moodlefuse.moodle.emulator.core_emulator import CoreEmulator
 from moodlefuse.helpers import get_cache_path_based_on_location
+from moodlefuse.filesystem.files.cache_file import CacheFile
+from moodlefuse.filesystem.files.directory import Directory
 from moodlefuse.core import config
-
-from fuse import fuse_get_context
-from time import time
 
 import os
 
@@ -51,7 +50,7 @@ class FileSystemTranslator(object):
             category_contents = self.courses.get_course_category_contents(course_contents, location[1])
             moodle_url = self.resources.get_file_path(category_contents, location[2])
             if moodle_url is None:
-                return self.resources.create_file(location)
+                return CacheFile.create_file(location)
             else:
                 return self.resources.download_resource(location, moodle_url)
 
@@ -102,25 +101,9 @@ class FileSystemTranslator(object):
         if self.is_file(location):
             cache_path = get_cache_path_based_on_location(location)
             self.use_cache_file_or_get_update_file(location, cache_path)
-            st = os.lstat(cache_path)
-            return dict((key, getattr(st, key)) for key in (
-                'st_atime', 'st_ctime', 'st_gid', 'st_mode',
-                'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+            return CacheFile(cache_path).get_aattrs()
         else:
-            return self.get_directory_attrs()
-
-    def get_directory_attrs(self):
-        uid, gid, _ = fuse_get_context()
-        return {
-            'st_ctime': time(),
-            'st_mtime': time(),
-            'st_nlink': 0,
-            'st_size': 0,
-            'st_mode': 16877,
-            'st_gid': gid,
-            'st_uid': uid,
-            'st_atime': time()
-        }
+            return Directory().get_aattrs()
 
     def get_directory_contents_based_on_path(self, path):
         location = self.get_position_in_filesystem_as_array(path)

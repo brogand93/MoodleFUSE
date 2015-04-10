@@ -6,7 +6,7 @@
 """
 
 from moodlefuse.moodle.resources.resource_parser import ResourceParser
-from moodlefuse.helpers import get_cache_path_based_on_location
+from moodlefuse.filesystem.files.cache_file import CacheFile
 from moodlefuse.moodle.handler import MoodleHandler
 
 
@@ -30,15 +30,10 @@ class ResourceHandler(MoodleHandler):
         )
 
     def download_resource(self, location, moodle_url):
-        cache_path = self.create_file(location)
+        cache_path = CacheFile.create_file(location)
         moodle_download_url = moodle_url + "?forcedownload=1"
         self.moodle.download_resources(cache_path, moodle_download_url)
         return cache_path
-
-    def create_file(self, location):
-        cache_path = get_cache_path_based_on_location(location)
-        with open(cache_path, 'w'):
-            return cache_path
 
     def add_resource(self, resource_path, category, resource_name):
         self.moodle.add_new_resource(category, resource_name, resource_path)
