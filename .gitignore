@@ -2,6 +2,10 @@
 __pycache__/
 *.py[cod]
 
+# Coverage reports
+cover
+.coverage
+
 # C extensions
 *.so
 
