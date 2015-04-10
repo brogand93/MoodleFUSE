@@ -26,6 +26,13 @@ class MoodleAPI(object):
     def get_current_url(self):
         return self.emulator.get_current_url()
 
+    def get_resource_size(self, category, resource_name):
+        self.js_emulator.turn_editing_on()
+        self.js_emulator.open_edit_resource_menu(category, resource_name)
+        size = self.js_emulator.get_resource_size()
+        self.js_emulator.turn_editing_off()
+        return size
+
     def add_new_resource(self, category, resource_name, resource_path):
         self.js_emulator.turn_editing_on()
         self.js_emulator.open_add_resource_menu(category)

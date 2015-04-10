@@ -8,6 +8,11 @@ from moodlefuse.moodle.emulator.core_emulator import CoreEmulator
 from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.core import config
 
+from fuse import fuse_get_context
+from time import time
+
+import os
+
 
 class FileSystemTranslator(object):
 
@@ -57,6 +62,12 @@ class FileSystemTranslator(object):
             self.courses.enter_course_with_js(old_location[0])
             self.resources.rename_resource(old_location[1], old_location[2], new_location[3])
 
+    def modify_file(self, path):
+        location = self.get_position_in_filesystem_as_array(path)
+        if self._location_is_file(location):
+            self.courses.enter_course_with_js(location[0])
+            self.resources.modify_resource(path, location[1], location[2])
+
     def create_file(self, path):
         location = self.get_position_in_filesystem_as_array(path)
         if self._location_is_file(location):
@@ -79,23 +90,36 @@ class FileSystemTranslator(object):
             self.courses.enter_course_and_get_contents(location[0])
             self.courses.add_new_category(location[1])
 
+    def use_cache_file_or_get_update_file(self, location, cache_path):
+        if not os.path.isfile(cache_path):
+            course_contents = self.courses.enter_course_and_get_contents(location[0])
+            category_contents = self.courses.get_course_category_contents(course_contents, location[1])
+            moodle_url = self.resources.get_file_path(category_contents, location[2])
+            self.resources.download_resource(location, moodle_url)
+
     def get_file_attributes(self, path):
         location = self.get_position_in_filesystem_as_array(path)
-        attributes = {
-            'st_ctime': 1,
-            'st_mtime': 2,
-            'st_nlink': 7,
-            'st_size': 4096,
-            'st_gid': 1000,
-            'st_uid': 1000,
-            'st_atime': 1
-        }
         if self.is_file(location):
-            attributes['st_mode'] = 33188
+            cache_path = get_cache_path_based_on_location(location)
+            self.use_cache_file_or_get_update_file(location, cache_path)
+            st = os.lstat(cache_path)
+            return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime',
+                     'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
         else:
-            attributes['st_mode'] = 16877
+            return self.get_directory_attrs()
 
-        return attributes
+    def get_directory_attrs(self):
+        uid, gid, pid = fuse_get_context()
+        return {
+            'st_ctime': time(),
+            'st_mtime': time(),
+            'st_nlink': 0,
+            'st_size': 0,
+            'st_mode': 16877,
+            'st_gid': gid,
+            'st_uid': uid,
+            'st_atime': time()
+        }
 
     def get_directory_contents_based_on_path(self, path):
         location = self.get_position_in_filesystem_as_array(path)

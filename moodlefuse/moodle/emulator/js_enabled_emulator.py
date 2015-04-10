@@ -47,11 +47,15 @@ class JsEmulator(object):
         self.driver.find_element_by_xpath("//span[contains(text(), 'File') and @class='typename']").click()
         self.driver.find_element_by_name("submitbutton").click()
         self.rename_file_from_edit_screen(resource_name)
-        self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
         self.edit_resource_content(resource_path)
         self.driver.find_element_by_id("id_submitbutton2").click()
 
     def edit_resource_content(self, resource_path):
+        time.sleep(.5)
+        self.driver.find_element_by_class_name('fp-mainfile').click()
+        self.driver.find_element_by_class_name('fp-file-delete').click()
+        self.driver.find_element_by_class_name('fp-dlg-butconfirm').click()
+        self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
         element = self.driver.find_element_by_css_selector("input[type='file']")
         element.send_keys(resource_path)
         self.driver.find_element_by_class_name("fp-upload-btn").click()
