@@ -29,6 +29,12 @@ class ResourceHandler(MoodleHandler):
             filename
         )
 
+    def get_assignment_url(self, category_contents, assignment):
+        return self.parser.parse_course_assignment_url(
+            category_contents,
+            assignment
+        )
+
     def is_assignment(self, category_contents, filename):
         return self.parser.parse_course_assignment_url(
             category_contents,

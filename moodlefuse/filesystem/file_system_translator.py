@@ -36,6 +36,9 @@ class FileSystemTranslator(object):
                 return CacheFile.create_file(location)
             else:
                 return self.resources.download_resource(location, moodle_url)
+        elif PathParser.is_assignment(location):
+            return self.assignments.get_grades_csv(location)
+
 
     def rename_file(self, old_path, new_path):
         old_location = PathParser.get_position_in_filesystem_as_array(old_path)
@@ -70,15 +73,17 @@ class FileSystemTranslator(object):
             self.courses.add_new_category(location[1])
 
     def use_cache_file_or_get_update_file(self, location, cache_path):
-        if not os.path.isfile(cache_path):
+        if self.is_assignment_grading_form(location):
+            CacheFile.create_file(location)
+        elif not os.path.isfile(cache_path):
             course_contents = self.courses.enter_course_and_get_contents(location[0])
             category_contents = self.courses.get_course_category_contents(course_contents, location[1])
             moodle_url = self.resources.get_file_path(category_contents, location[2])
             self.resources.download_resource(location, moodle_url)
 
-    def is_assignment_description(self, location):
+    def is_assignment_grading_form(self, location):
         if(PathParser.is_assignment(location)):
-            return location[3] == 'description'
+            return location[3] == 'grades.csv'
         return False
 
     def file_is_assignment(self, location):
@@ -88,7 +93,7 @@ class FileSystemTranslator(object):
 
     def represent_as_directory(self, location):
         return self.file_is_assignment(location) and not \
-               self.is_assignment_description(location)
+               self.is_assignment_grading_form(location)
 
     def represent_as_file(self, location):
         return (PathParser.is_file(location) or
