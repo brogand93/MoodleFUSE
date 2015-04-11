@@ -10,8 +10,8 @@ from moodlefuse.core import setup, config
 
 class MoodleFuse(object):
 
-    def __init__(self):
-        setup()
+    def __init__(self, cmdline_args=None):
+        setup(cmdline_args)
         self._create_filesystem_root()
         Filesystem(config['LOCAL_MOODLE_FOLDER'])
 

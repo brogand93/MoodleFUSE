@@ -29,6 +29,12 @@ class ResourceHandler(MoodleHandler):
             filename
         )
 
+    def is_assignment(self, category_contents, filename):
+        return self.parser.parse_course_assignment_url(
+            category_contents,
+            filename
+        ) is not None
+
     def download_resource(self, location, moodle_url):
         cache_path = CacheFile.create_file(location)
         moodle_download_url = moodle_url + "?forcedownload=1"

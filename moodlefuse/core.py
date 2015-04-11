@@ -13,12 +13,24 @@ from ConfigParser import SafeConfigParser
 config = {}
 
 
-def setup():
-    args = _generate_args()
-    profile = args.pop('profile')
-    config['DEBUG'] = args.pop('debug')
-    config_file = _load_config_file()
-    _config_from_config_profile(config_file, profile)
+def setup(settings=None):
+    if settings is not None:
+        load_settings_from_object(settings)
+    else:
+        args = _generate_args()
+        profile = args.pop('profile')
+        config['DEBUG'] = args.pop('debug')
+        config_file = _load_config_file()
+        _config_from_config_profile(config_file, profile)
+
+
+def load_settings_from_object(settings):
+    config['DEBUG'] = settings['DEBUG']
+    config['MOODLE_WEB_ADDRESS'] = settings['MOODLE_WEB_ADDRESS']
+    config['MOODLE_INDEX_ADDRESS'] = settings['MOODLE_INDEX_ADDRESS']
+    config['LOCAL_MOODLE_FOLDER'] = settings['LOCAL_MOODLE_FOLDER']
+    config['USERNAME'] = settings['USERNAME']
+    config['PASSWORD'] = settings['PASSWORD']
 
 
 def _generate_args():
@@ -45,6 +57,7 @@ def _generate_args():
     )
 
     args = parser.parse_args()
+
 
     return vars(args)
 

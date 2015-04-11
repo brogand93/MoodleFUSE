@@ -25,6 +25,14 @@ class ResourceParser(Parser):
             activity_instances, 'File', filename
         )
 
+    def parse_course_assignment_url(self, category_content, filename):
+        activity_instances = self.scraper.get_html_items_with_divclass(
+            category_content, 'activityinstance')
+
+        return self.scraper.get_link_from_span_list_with_type_and_name(
+            activity_instances, 'Assignment', filename
+        )
+
     def _get_resource_html(self, category_content):
         return self.scraper.get_html_items_with_spanclass(
             category_content, 'instancename')
