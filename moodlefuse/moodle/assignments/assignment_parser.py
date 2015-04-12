@@ -17,6 +17,10 @@ class AssignmentParser(Parser):
         names = []
         names_list = self.scraper.get_html_items_with_tdclass(assignment_content, 'cell c2')
         for name_item in names_list:
-            names.append(name_item.get_text())
+            name = name_item.get_text()
+            if name != '':
+                name = name.replace(" ", "_")
+                name = name + "_submission"
+                names.append(name)
 
         return names

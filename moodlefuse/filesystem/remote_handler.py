@@ -57,7 +57,7 @@ class RemoteHandler():
         return self.resources.get_assignment_url(category_contents, location[2])
 
     def get_remote_assignment_info(self):
-        self.assignments.get_assignment_info_as_array()
+        return self.assignments.get_assignment_info_as_array()
 
     def get_remote_assignment_submissions(self, location):
         assignment_url = self.get_remote_assignment_path(location)

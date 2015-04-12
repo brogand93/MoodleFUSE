@@ -72,6 +72,7 @@ class CoreEmulator(object):
     def filter_assignment_submissions(self):
         self.browser.form = list(self.browser.forms())[2]
         self.browser.form["filter"] = ["submitted"]
+        self.browser.form["perpage"] = ["100"]
         response = self.browser.submit()
         return BeautifulSoup(response.read())
 
