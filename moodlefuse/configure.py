@@ -71,7 +71,6 @@ class Configurer(object):
 
         setup_model('sqlite:///' + database_file)
 
-
     def _generate_args(self):
         parser = argparse.ArgumentParser(
             'Command line utility for configuring moodlefuse'

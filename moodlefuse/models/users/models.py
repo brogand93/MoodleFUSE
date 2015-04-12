@@ -1,7 +1,7 @@
-from moodlefuse.model_manager import Base
 from sqlalchemy import Column, String
+from moodlefuse.session import Base
 
- 
+
 class User(Base):
     __tablename__ = 'users'
     username = Column(String(255), primary_key=True)

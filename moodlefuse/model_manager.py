@@ -1,12 +1,11 @@
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-
 Base = declarative_base()
 
 session = None
+
 
 def setup_model(database_file):
     global session
@@ -16,6 +15,7 @@ def setup_model(database_file):
     Base.metadata.bind = engine
     Base.metadata.create_all(engine)
     session = s()
+
 
 class Service(object):
     __model__ = None
@@ -31,11 +31,6 @@ class Service(object):
         session.add(model)
         session.commit()
         return model
-
-    def get_password(self, primarykey):
-        from moodlefuse.models.users import User
-        user_object =  session.query(User).filter(User.username == primarykey).one()
-        return user_object.password
 
     def create(self, **kwargs):
         return self.save(self.__model__(**kwargs))

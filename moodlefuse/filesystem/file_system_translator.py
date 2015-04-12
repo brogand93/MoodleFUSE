@@ -39,7 +39,6 @@ class FileSystemTranslator(object):
         elif PathParser.is_assignment(location):
             return self.remote_handler.get_remote_grading_csv(location)
 
-
     def rename_file(self, old_path, new_path):
         old_location = PathParser.get_position_in_filesystem_as_array(old_path)
         new_location = PathParser.get_position_in_filesystem_as_array(new_path)
@@ -72,7 +71,7 @@ class FileSystemTranslator(object):
             self.remote_handler.download_updated_file(location, moodle_url)
 
     def is_assignment_grading_form(self, location):
-        if(PathParser.is_assignment(location)):
+        if PathParser.is_assignment(location):
             return location[3] == 'grades.csv'
         return False
 
@@ -86,14 +85,13 @@ class FileSystemTranslator(object):
 
     def represent_as_directory(self, location):
         return self.file_is_assignment(location) and not \
-               self.is_assignment_grading_form(location)
+            self.is_assignment_grading_form(location)
 
     def represent_as_file(self, location):
         return (PathParser.is_file(location) or
-               PathParser.is_assignment(location) or
-               PathParser.is_assignment_submission(location)) and not \
-               self.represent_as_directory(location)
-
+                PathParser.is_assignment(location) or
+                PathParser.is_assignment_submission(location)) and not \
+            self.represent_as_directory(location)
 
     def get_file_attributes(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
@@ -103,7 +101,6 @@ class FileSystemTranslator(object):
             return CacheFile(cache_path).get_aattrs()
         else:
             return Directory().get_aattrs()
-
 
     def get_directory_contents_based_on_path(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)

@@ -10,7 +10,6 @@ from moodlefuse.moodle.assignments.assignment_parser import AssignmentParser
 from moodlefuse.moodle.handler import MoodleHandler
 
 
-
 class AssignmentHandler(MoodleHandler):
 
     def __init__(self, emulator, js_emulator):
@@ -34,4 +33,3 @@ class AssignmentHandler(MoodleHandler):
 
     def get_grades_csv(self, location):
         return self.fill_grades_file_with_template(location)
-

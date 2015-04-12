@@ -204,6 +204,7 @@ valid-classmethod-first-arg=cls
 valid-metaclass-classmethod-first-arg=mcs
 
 disable=E1002
+disable=W0603
 
 
 [IMPORTS]
@@ -237,7 +238,7 @@ ignored-argument-names=_.*
 max-locals=20
 
 # Maximum number of return / yield for function / method body
-max-returns=6
+max-returns=7
 
 # Maximum number of branch for function / method body
 max-branches=16

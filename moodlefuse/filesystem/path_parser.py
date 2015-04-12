@@ -3,6 +3,7 @@
 
 from moodlefuse.core import config
 
+
 class PathParser(object):
 
     @staticmethod

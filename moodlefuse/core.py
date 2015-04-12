@@ -24,12 +24,13 @@ def setup(settings=None):
         config_file = _load_config_file()
         _config_from_config_profile(config_file, profile)
 
+
 def load_database():
     database_file = os.path.join(
         os.path.expanduser('~'),
         '.moodlefuse/moodlefuse.sqlite'
     )
-    setup('sqlite:///' + database_file)
+    setup_model('sqlite:///' + database_file)
 
 
 def load_settings_from_object(settings):
@@ -65,7 +66,6 @@ def _generate_args():
     )
 
     args = parser.parse_args()
-
 
     return vars(args)
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-class RemoteHandler():
+
+class RemoteHandler(object):
 
     def __init__(self, courses, resources, assignments):
         self.courses = courses
@@ -42,7 +43,6 @@ class RemoteHandler():
     def remove_resource(self, location):
         self.courses.enter_course_with_js(location[0])
         self.resources.remove_resource(location[1], location[2])
-
 
     def rename_resource(self, old_location, new_location):
         self.courses.enter_course_with_js(old_location[0])

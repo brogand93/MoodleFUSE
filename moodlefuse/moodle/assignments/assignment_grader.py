@@ -5,6 +5,7 @@ from moodlefuse.helpers import get_cache_path_based_on_location
 
 import csv
 
+
 class AssignmentGrader(object):
 
     def __init__(self):

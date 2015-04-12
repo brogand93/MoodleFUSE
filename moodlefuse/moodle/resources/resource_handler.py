@@ -55,7 +55,7 @@ class ResourceHandler(MoodleHandler):
     def modify_resource(self, resource_path, category, resource_name):
         self.moodle.modify_existing_resource(category, resource_name, resource_path)
 
-    def remove_resource(self,category, resource_name):
+    def remove_resource(self, category, resource_name):
         self.moodle.remove_existing_resource(category, resource_name)
 
     def rename_resource(self, category, old_resource_name, new_resource_name):
