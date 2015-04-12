@@ -60,11 +60,18 @@ class CoreEmulator(object):
     def set_form_to_form_with_control_value(self, value):
         for form in self.browser.forms():
             for control in form.controls:
+
                 if control.value == value:
                     self.browser.form = form
 
     def turn_course_editing_on(self):
         self.set_form_to_form_with_control_value('Turn editing on')
+        response = self.browser.submit()
+        return BeautifulSoup(response.read())
+
+    def filter_assignment_submissions(self):
+        self.browser.form = list(self.browser.forms())[2]
+        self.browser.form["filter"] = ["submitted"]
         response = self.browser.submit()
         return BeautifulSoup(response.read())
 

@@ -35,6 +35,9 @@ class JsEmulator(object):
         self.rename_file_from_edit_screen(new_name)
         self.driver.find_element_by_id("id_submitbutton2").click()
 
+    def open_assignment_grading_and_submission_page(self):
+        self.driver.find_element_by_xpath("//a[containts(text(), 'View/grade all submissions')]").click()
+
     def rename_file_from_edit_screen(self, new_name):
         time.sleep(.5)
         element = self.enter_text_into_textbox("id_name", new_name)

@@ -28,11 +28,10 @@ class CacheFile(File):
         )
 
     @staticmethod
-    def create_file(location):
+    def create_file(location, content=None):
         cache_path = get_cache_path_based_on_location(location)
-        with open(cache_path, 'w'):
+        with open(cache_path, 'w') as cache_file:
+            if content is not None:
+                cache_file.write(content)
+            cache_file.close()
             return cache_path
-
-    @staticmethod
-    def write_to_file(location):
-        cache_path = get_cache_path_based_on_location(location)

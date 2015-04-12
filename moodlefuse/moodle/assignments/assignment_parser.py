@@ -12,3 +12,11 @@ class AssignmentParser(Parser):
 
     def __init__(self):
         super(AssignmentParser, self).__init__()
+
+    def get_all_assignment_names(self, assignment_content):
+        names = []
+        names_list = self.scraper.get_html_items_with_tdclass(assignment_content, 'cell c2')
+        for name_item in names_list:
+            names.append(name_item.get_text())
+
+        return names
