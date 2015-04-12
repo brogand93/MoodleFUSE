@@ -45,6 +45,11 @@ class MoodleAPI(object):
         self.js_emulator.add_resource(resource_name, resource_path)
         self.js_emulator.turn_editing_off()
 
+    def remove_existing_resource(self, category, resource_name):
+        self.js_emulator.turn_editing_on()
+        self.js_emulator.delete_resource(category, resource_name)
+        self.js_emulator.turn_editing_off()
+
     def modify_existing_resource(self, category, resource_name, resource_path):
         self.js_emulator.turn_editing_on()
         self.js_emulator.open_edit_resource_menu(category, resource_name)

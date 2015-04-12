@@ -78,6 +78,9 @@ class FileOperationOverrider(Operations):
         with open(cache_path, 'r+') as cache_file:
             cache_file.truncate(length)
 
+    def unlink(self, path):
+        self.translator.remove_resource(path)
+
     def utimens(self, path, times=None):
         pass
 
@@ -97,5 +100,3 @@ class FileOperationOverrider(Operations):
     readlink = None
 
     symlink = None
-
-    unlink = None

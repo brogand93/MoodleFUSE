@@ -30,6 +30,17 @@ class JsEmulator(object):
         element.find_element_by_xpath(".//a[contains(text(), 'Edit')]").click()
         element.find_element_by_xpath(".//span[contains(text(), 'Edit settings')]").click()
 
+    def delete_resource(self, category, resource_name):
+        xpath = "//li[@aria-label='{0}']//span[contains(text(), '{1}')]".format(
+            category, resource_name
+        )
+        element = self.driver.find_element_by_xpath(xpath)
+        element = element.find_element_by_xpath("../../..")
+        element.find_element_by_xpath(".//a[contains(text(), 'Edit')]").click()
+        element.find_element_by_xpath(".//span[contains(text(), 'Delete')]").click()
+        alert = self.driver.switch_to_alert()
+        alert.accept()
+
     def rename_file(self, category, old_name, new_name):
         self.open_edit_resource_menu(category, old_name)
         self.rename_file_from_edit_screen(new_name)

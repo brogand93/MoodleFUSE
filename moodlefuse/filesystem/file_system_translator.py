@@ -76,6 +76,11 @@ class FileSystemTranslator(object):
             return location[3] == 'grades.csv'
         return False
 
+    def remove_resource(self, path):
+        location = PathParser.get_position_in_filesystem_as_array(path)
+        if PathParser.is_file(location):
+            return self.remote_handler.remove_resource(location)
+
     def file_is_assignment(self, location):
         return self.remote_handler.is_valid_assignment(location)
 
