@@ -31,7 +31,9 @@ REQUIRES = [
     'fusepy',
     'mechanize',
     'selenium',
-    'beautifulsoup4'
+    'beautifulsoup4',
+    'alembic',
+    'sqlalchemy'
 ]
 
 setup(

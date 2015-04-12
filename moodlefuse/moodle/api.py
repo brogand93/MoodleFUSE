@@ -36,9 +36,6 @@ class MoodleAPI(object):
     def filter_assignment_submissions(self):
         return self.emulator.filter_assignment_submissions()
 
-    def get_all_submission_names(self):
-        pass
-
     def add_new_resource(self, category, resource_name, resource_path):
         self.js_emulator.turn_editing_on()
         self.js_emulator.open_add_resource_menu(category)

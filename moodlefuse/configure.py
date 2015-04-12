@@ -6,8 +6,11 @@
 
 import os
 import argparse
+import getpass
 
+from alembic import command
 from ConfigParser import SafeConfigParser
+from alembic.config import Config as AlembicConfig
 
 
 def main():
@@ -18,7 +21,8 @@ class Configurer(object):
 
     def __init__(self):
         config_folder = self._create_config_folder()
-        self._create_config_file(config_folder)
+        database = self._create_user_database()
+        self._create_configuration(config_folder)
         self._create_filesystem_folder()
         self._create_file_cache()
 
@@ -38,13 +42,31 @@ class Configurer(object):
         os.chmod(cache_folder, 0o700)
         return cache_folder
 
-    def _create_config_file(self, config_folder):
+    def _create_configuration(self, config_folder):
         args = self._generate_args()
         profile = args.pop('profile')
         config_file_path = config_folder + '/moodlefuse.conf'
         config = self._modify_config_profile(config_file_path, profile)
+        self._add_user_to_database(config, profile)
         config_file = open(config_file_path, 'w+')
         config.write(config_file)
+
+    def _create_user_database(self):
+        database_file = os.path.join(
+            os.path.expanduser('~'),
+            '.moodlefuse/moodlefuse.sqlite'
+        )
+
+        if not os.path.exists(database_file):
+            directory = os.path.join(os.path.dirname(__file__), '../alembic')
+            config = AlembicConfig(os.path.join(
+                directory,
+                'alembic.ini'
+            ))
+            config.set_main_option('script_location', directory)
+            command.upgrade(config, 'head', sql=False, tag=None)
+
+        return 'sqlite:///' + database_file
 
     def _generate_args(self):
         parser = argparse.ArgumentParser(
@@ -97,12 +119,16 @@ class Configurer(object):
             'Moodle username', 'username'
         )
 
-        config = self._set_attribute_of_profile(
-            config, profile, 'password',
-            'Moodle password', 'password'
+        return config
+
+    def _add_user_to_database(self, config, profile):
+        attribute_value = self._read_in_config_attribute_or_use_default(
+            "Moodle Username", ''
         )
 
-        return config
+        config.set(profile, 'username', attribute_value)
+        password = getpass.getpass('Moodle password:')
+        print password
 
     def _set_attribute_of_profile(self, config, profile, attribute, message, default):
         if config.has_option(profile, attribute):
@@ -114,6 +140,7 @@ class Configurer(object):
         )
 
         config.set(profile, attribute, attribute_value)
+
         return config
 
     def _read_in_config_attribute_or_use_default(self, message, default):

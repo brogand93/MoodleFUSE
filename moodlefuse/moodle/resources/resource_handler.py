@@ -19,11 +19,13 @@ class ResourceHandler(MoodleHandler):
     def get_file_names_as_array(self, category_contents):
         if category_contents is None:
             return []
+
         return self.parser.parse_course_resources(category_contents)
 
     def get_file_path(self, category_contents, filename):
         if category_contents is None:
             return []
+
         return self.parser.parse_course_resource_url(
             category_contents,
             filename
