@@ -47,13 +47,17 @@ setup(
     license='Apache License (2.0)',
     package_data={},
     packages=[
+        'alembic',
         'moodlefuse',
         'moodlefuse.moodle',
+        'moodlefuse.models',
         'moodlefuse.filesystem',
+        'moodlefuse.models.users',
         'moodlefuse.moodle.courses',
         'moodlefuse.moodle.emulator',
         'moodlefuse.moodle.resources',
-        'moodlefuse.filesystem.files'
+        'moodlefuse.filesystem.files',
+        'moodlefuse.moodle.assignments',
     ],
     include_package_data=True,
     zip_safe=False,

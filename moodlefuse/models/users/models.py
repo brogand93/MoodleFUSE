@@ -1,14 +1,11 @@
-from sqlalchemy.ext.declarative import declarative_base
+from moodlefuse.model_manager import Base
 from sqlalchemy import Column, String
- 
- 
-Base = declarative_base()
- 
+
  
 class User(Base):
     __tablename__ = 'users'
-    apikey = Column(String(255), primary_key=True)
-    secretkey = Column(String(255), unique=True)
+    username = Column(String(255), primary_key=True)
+    password = Column(String(255))
 
     def __init__(self, username, password):
         self.username = username

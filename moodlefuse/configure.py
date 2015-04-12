@@ -12,6 +12,9 @@ from alembic import command
 from ConfigParser import SafeConfigParser
 from alembic.config import Config as AlembicConfig
 
+from moodlefuse.model_manager import setup_model
+from moodlefuse.services import USERS
+
 
 def main():
     Configurer()
@@ -21,7 +24,7 @@ class Configurer(object):
 
     def __init__(self):
         config_folder = self._create_config_folder()
-        database = self._create_user_database()
+        self._create_user_database()
         self._create_configuration(config_folder)
         self._create_filesystem_folder()
         self._create_file_cache()
@@ -66,7 +69,8 @@ class Configurer(object):
             config.set_main_option('script_location', directory)
             command.upgrade(config, 'head', sql=False, tag=None)
 
-        return 'sqlite:///' + database_file
+        setup_model('sqlite:///' + database_file)
+
 
     def _generate_args(self):
         parser = argparse.ArgumentParser(
@@ -114,21 +118,19 @@ class Configurer(object):
             'Local Moodle folder name', 'moodle'
         )
 
-        config = self._set_attribute_of_profile(
-            config, profile, 'username',
-            'Moodle username', 'username'
-        )
-
         return config
 
     def _add_user_to_database(self, config, profile):
-        attribute_value = self._read_in_config_attribute_or_use_default(
-            "Moodle Username", ''
+        username = self._read_in_config_attribute_or_use_default(
+            "Moodle Username []", ''
         )
 
-        config.set(profile, 'username', attribute_value)
-        password = getpass.getpass('Moodle password:')
-        print password
+        config.set(profile, 'username', username)
+        password = getpass.getpass('Moodle password []:')
+        USERS.create(
+            username=username,
+            password=password
+        )
 
     def _set_attribute_of_profile(self, config, profile, attribute, message, default):
         if config.has_option(profile, attribute):

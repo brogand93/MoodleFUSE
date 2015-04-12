@@ -9,6 +9,7 @@ import sys
 import argparse
 
 from ConfigParser import SafeConfigParser
+from moodlefuse.model_manager import setup_model
 
 config = {}
 
@@ -22,6 +23,13 @@ def setup(settings=None):
         config['DEBUG'] = args.pop('debug')
         config_file = _load_config_file()
         _config_from_config_profile(config_file, profile)
+
+def load_database():
+    database_file = os.path.join(
+        os.path.expanduser('~'),
+        '.moodlefuse/moodlefuse.sqlite'
+    )
+    setup('sqlite:///' + database_file)
 
 
 def load_settings_from_object(settings):
