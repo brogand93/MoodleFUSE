@@ -27,10 +27,13 @@ the remote Moodle file.
 
 The list of supported operations is (Assuming appropriate user rights on Moodle):
 
--	Addition of courses
+-   Listing of courses
+-   Listing of course secctions
 -	Addition of course sections
--	Deletion of course sections
+-	Renaming of course sections
+-   Listing of course files
 -	Addition of course files
 -	Deletion of course files
+-   Renaming of course files
 -	Modification of course files
 
