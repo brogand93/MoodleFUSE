@@ -35,5 +35,9 @@ The list of supported operations is (Assuming appropriate user rights on Moodle)
 -	Addition of course files
 -	Deletion of course files
 -   Renaming of course files
+-   Viewing of course files
 -	Modification of course files
-
+-   Listing of assignments
+-   Listing of assignment submissions
+-   Viewing of assignment submissions
+-   Grading of assignment submissions
