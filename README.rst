@@ -2,10 +2,6 @@
 MoodleFUSE
 ==========
 
-Work in progress
-----------------
-This project is still in the development phase and is currently unfit for usage.
-
 Moodle filesystem sync with FUSE
 ################################
 
@@ -27,10 +23,17 @@ the remote Moodle file.
 
 The list of supported operations is (Assuming appropriate user rights on Moodle):
 
--	Addition of courses
+-   Listing of courses
+-   Listing of course secctions
 -	Addition of course sections
--	Deletion of course sections
+-	Renaming of course sections
+-   Listing of course files
 -	Addition of course files
 -	Deletion of course files
+-   Renaming of course files
+-   Viewing of course files
 -	Modification of course files
-
+-   Listing of assignments
+-   Listing of assignment submissions
+-   Viewing of assignment submissions
+-   Grading of assignment submissions
