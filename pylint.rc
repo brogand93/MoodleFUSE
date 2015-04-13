@@ -203,8 +203,7 @@ valid-classmethod-first-arg=cls
 # List of valid names for the first argument in a metaclass class method.
 valid-metaclass-classmethod-first-arg=mcs
 
-disable=E1002
-disable=W0603
+disable=E1002, W0603
 
 
 [IMPORTS]
