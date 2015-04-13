@@ -23,6 +23,7 @@ def setup(settings=None):
         config['DEBUG'] = args.pop('debug')
         config_file = _load_config_file()
         _config_from_config_profile(config_file, profile)
+        load_database()
 
 
 def load_database():

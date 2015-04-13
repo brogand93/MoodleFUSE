@@ -3,7 +3,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
 
-from moodlefuse.model_manager import session
+from moodlefuse.model_manager import session, Base
 
 import os
 
@@ -12,7 +12,7 @@ import os
 # access to the values within the .ini file in use.
 config = context.config
 
-target_metadata = session.metadata
+target_metadata = None
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -65,6 +65,11 @@ def run_migrations_online():
         config.get_section(config.config_ini_section),
         prefix='sqlalchemy.',
         poolclass=pool.NullPool)
+
+    if session is not None:
+        target_metadata = session.metadata
+    else:
+        target_metadata = Base.metadata
 
     with connectable.connect() as connection:
         context.configure(

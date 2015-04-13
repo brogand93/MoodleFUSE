@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm.exc import NoResultFound
 
 Base = declarative_base()
 
@@ -25,6 +26,13 @@ class Service(object):
         if not valid_type and raise_error:
             raise ValueError('%s is not of type %s' % (model, self.__model__))
         return valid_type
+
+    def get(self, User, primarykey):
+        try:
+            user_object = session.query(User).filter(User.username == primarykey).one()
+            return user_object
+        except NoResultFound:
+            return None
 
     def save(self, model):
         self._isinstance(model)

@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String
-from moodlefuse.session import Base
+from moodlefuse.model_manager import Base
 
 
 class User(Base):

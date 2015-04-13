@@ -12,6 +12,7 @@ from alembic import command
 from ConfigParser import SafeConfigParser
 from alembic.config import Config as AlembicConfig
 
+from moodlefuse.models.users import User
 from moodlefuse.model_manager import setup_model
 from moodlefuse.services import USERS
 
@@ -117,19 +118,46 @@ class Configurer(object):
             'Local Moodle folder name', 'moodle'
         )
 
-        return config
-
-    def _add_user_to_database(self, config, profile):
-        username = self._read_in_config_attribute_or_use_default(
-            "Moodle Username []", ''
+        config = self._set_attribute_of_profile(
+            config, profile, 'username',
+            'Moodle Username', ''
         )
 
-        config.set(profile, 'username', username)
-        password = getpass.getpass('Moodle password []:')
+        return config
+
+    def _get_hidden_password(self, found_user):
+        return '*' * len(found_user.password)
+
+    def _add_user_to_database(self, config, profile):
+        username = config.get(profile, 'username')
+
+        found_user = USERS.get(User, username)
+
+        password = self._get_new_password_or_return_old(found_user)
+
         USERS.create(
             username=username,
             password=password
         )
+
+        return config
+
+    def _get_new_password_or_return_old(self, found_user):
+        password_hidden = ''
+        if found_user is not None:
+            password_hidden = self._get_hidden_password(found_user)
+            USERS.delete(found_user)
+
+        password = self._read_in_config_attribute_or_use_default(
+            'Moodle Password',
+            password_hidden,
+            getpass.getpass
+        )
+
+        if password == password_hidden and found_user is not None:
+            password = found_user.password
+
+        return password
 
     def _set_attribute_of_profile(self, config, profile, attribute, message, default):
         if config.has_option(profile, attribute):
@@ -137,15 +165,16 @@ class Configurer(object):
 
         attribute_value = self._read_in_config_attribute_or_use_default(
             message,
-            default
+            default,
+            raw_input
         )
 
         config.set(profile, attribute, attribute_value)
 
         return config
 
-    def _read_in_config_attribute_or_use_default(self, message, default):
-        attribute = raw_input(message + ' [' + default + ']: ')
+    def _read_in_config_attribute_or_use_default(self, message, default, method):
+        attribute = method(message + ' [' + default + ']: ')
         if attribute == '':
             attribute = default
 
