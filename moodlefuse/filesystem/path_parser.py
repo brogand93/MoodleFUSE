@@ -33,6 +33,7 @@ class PathParser(object):
     @staticmethod
     def get_position_in_filesystem_as_array(path):
         path = path.replace(config['LOCAL_MOODLE_FOLDER'] + '/', '')
+
         if len(path) is 0:
             return []
 

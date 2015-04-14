@@ -7,5 +7,6 @@ from fuse import FUSE
 
 class Filesystem(object):
 
-    def __init__(self, mount):
-        FUSE(FileOperationOverrider(mount), mount, foreground=True)
+    def __init__(self, mount, testing=False):
+        if not testing:
+            FUSE(FileOperationOverrider(mount), mount, foreground=True)

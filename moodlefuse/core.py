@@ -16,7 +16,7 @@ config = {}
 
 def setup(settings=None):
     if settings is not None:
-        load_settings_from_object(settings)
+        from_object(settings)
     else:
         args = _generate_args()
         profile = args.pop('profile')
@@ -34,13 +34,10 @@ def load_database():
     setup_model('sqlite:///' + database_file)
 
 
-def load_settings_from_object(settings):
-    config['DEBUG'] = settings['DEBUG']
-    config['MOODLE_WEB_ADDRESS'] = settings['MOODLE_WEB_ADDRESS']
-    config['MOODLE_INDEX_ADDRESS'] = settings['MOODLE_INDEX_ADDRESS']
-    config['LOCAL_MOODLE_FOLDER'] = settings['LOCAL_MOODLE_FOLDER']
-    config['USERNAME'] = settings['USERNAME']
-    config['PASSWORD'] = settings['PASSWORD']
+def from_object(obj):
+    for key in dir(obj):
+        if key.isupper():
+            config[key] = getattr(obj, key)
 
 
 def _generate_args():

@@ -12,10 +12,10 @@ from moodlefuse.services import USERS
 
 class MoodleFuse(object):
 
-    def __init__(self, settings=None):
+    def __init__(self, settings=None, testing=None):
         setup(settings)
         self._create_filesystem_root()
-        Filesystem(config['LOCAL_MOODLE_FOLDER'])
+        Filesystem(config['LOCAL_MOODLE_FOLDER'], testing)
 
     def _create_filesystem_root(self):
         moodle_fs_path = config['LOCAL_MOODLE_FOLDER']

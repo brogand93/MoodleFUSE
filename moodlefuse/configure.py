@@ -140,7 +140,6 @@ class Configurer(object):
             password=password
         )
 
-        return config
 
     def _get_new_password_or_return_old(self, found_user):
         password_hidden = ''

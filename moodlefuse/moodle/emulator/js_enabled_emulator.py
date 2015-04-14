@@ -81,8 +81,11 @@ class JsEmulator(object):
         self.close_form()
 
     def login(self):
-        _MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
-        self.driver.get(_MOODLE_LOGIN_URL)
+        if not config['MOODLE_WEB_ADDRESS'].endswith('php') and not config['MOODLE_WEB_ADDRESS'].endswith('html'):
+            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
+        else:
+            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS']
+        self.driver.get(MOODLE_LOGIN_URL)
         element = self.driver.find_element_by_id("username")
         element.send_keys(self.username)
         element = self.driver.find_element_by_id("password")

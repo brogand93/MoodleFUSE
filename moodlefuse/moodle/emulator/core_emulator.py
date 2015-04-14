@@ -23,7 +23,11 @@ class CoreEmulator(object):
         self.browser.set_cookiejar(self.cookiejar)
 
     def login(self):
-        MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
+        if not config['MOODLE_WEB_ADDRESS'].endswith('php') and not config['MOODLE_WEB_ADDRESS'].endswith('html'):
+            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
+        else:
+            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS']
+
         self.browser.open(MOODLE_LOGIN_URL)
         self.browser.select_form(
             predicate=lambda form: form.attrs.get('id') == 'login'
