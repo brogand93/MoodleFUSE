@@ -94,8 +94,5 @@ class CoreEmulator(object):
     def get_course_resource_names(self, url):
         return self.open_link(url)
 
-    def download_resourse(self, resourcename):
-        pass
-
-    def upload_resource(self):
-        pass
+    def close(self):
+        self.browser.close()

@@ -14,6 +14,9 @@ class FileOperationOverrider(Operations):
         self.root = os.path.realpath(root)
         self.translator = FileSystemTranslator()
 
+    def end_operations(self):
+        self.translator.close_browsers()
+
     def __call__(self, op, path, *args):
         return super(FileOperationOverrider, self).__call__(
             op, self.root + path, *args

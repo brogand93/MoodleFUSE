@@ -71,3 +71,8 @@ class MoodleAPI(object):
         if url is not None:
             return self.emulator.get_course_categories(url)
         return None
+
+    def close_api(self):
+        self.js_emulator.close()
+        self.emulator.close()
+

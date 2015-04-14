@@ -115,3 +115,6 @@ class JsEmulator(object):
 
     def close_form(self):
         self.driver.find_element_by_id("id_submitbutton").click()
+
+    def close(self):
+        self.driver.quit()

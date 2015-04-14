@@ -19,14 +19,18 @@ import os
 class FileSystemTranslator(object):
 
     def __init__(self):
-        emulator = CoreEmulator(config['USERNAME'], config['PASSWORD'])
-        js_emulator = JsEmulator(config['USERNAME'], config['PASSWORD'])
-        emulator.login()
-        js_emulator.login()
-        courses = CourseHandler(emulator, js_emulator)
-        resources = ResourceHandler(emulator, js_emulator)
-        assignments = AssignmentHandler(emulator, js_emulator)
+        self.emulator = CoreEmulator(config['USERNAME'], config['PASSWORD'])
+        self.js_emulator = JsEmulator(config['USERNAME'], config['PASSWORD'])
+        self.emulator.login()
+        self.js_emulator.login()
+        courses = CourseHandler(self.emulator, self.js_emulator)
+        resources = ResourceHandler(self.emulator, self.js_emulator)
+        assignments = AssignmentHandler(self.emulator, self.js_emulator)
         self.remote_handler = RemoteHandler(courses, resources, assignments)
+
+    def close_browsers(self):
+        self.emulator.close()
+        self.js_emulator.close()
 
     def open_file(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)

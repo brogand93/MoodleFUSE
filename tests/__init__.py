@@ -27,7 +27,7 @@ class MoodleFuseAppTestCase(MoodleFuseTestCase):
 
     @classmethod
     def tearDownClass(cls):
-        pass
+        cls.ops.end_operations()
 
     def setUp(self):
         self.utils = TestUtils()
