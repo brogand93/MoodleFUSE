@@ -1,129 +1,139 @@
-
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" xml:lang="en">
-<head>
-    <title>Moodle Demo: Log in to the site</title>
-    <link rel="shortcut icon" href="http://192.168.56.103/moodle/theme/image.php/standard/theme/1423338114/favicon" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="moodle, Moodle Demo: Log in to the site" />
-<script type="text/javascript">
-//<![CDATA[
-var M = {}; M.yui = {};
-M.pageloadstarttime = new Date();
-M.cfg = {"wwwroot":"http:\/\/192.168.56.103\/moodle","sesskey":"CMjzd1nYWJ","loadingicon":"http:\/\/192.168.56.103\/moodle\/theme\/image.php\/standard\/core\/1423338114\/i\/loading_small","themerev":"1423338114","slasharguments":1,"theme":"standard","jsrev":"1423338114","svgicons":true};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
-var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''};if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else me.path=component+'/'+component+'.'+me.type};
-YUI_config = {"debug":false,"base":"http:\/\/192.168.56.103\/moodle\/lib\/yuilib\/3.13.0\/","comboBase":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?","combine":true,"filter":null,"insertBefore":"firstthemesheet","groups":{"yui2":{"base":"http:\/\/192.168.56.103\/moodle\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?m\/1423338114\/","combine":true,"comboBase":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?","ext":false,"root":"m\/1423338114\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":null,"modules":{"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-formchangechecker":{"requires":["base","event-focus"]},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-formautosubmit":{"requires":["base","event-key"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-calendar-eventmanager":{"requires":["base","node","event-mouseenter","overlay","moodle-calendar-eventmanager-skin"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-block_navigation-navigation":{"requires":["base","io-base","node","event-synthetic","event-delegate","json-parse"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-notification-alert"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-theme_bootstrapbase-bootstrap":{"requires":["node","selector-css3"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"http:\/\/192.168.56.103\/moodle\/lib\/javascript.php\/1423338114\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker"]}}};
-M.yui.loader = {modules: {}};
-
-//]]>
-</script>
-<link rel="stylesheet" type="text/css" href="http://192.168.56.103/moodle/theme/yui_combo.php?3.13.0/cssreset/cssreset-min.css&amp;3.13.0/cssfonts/cssfonts-min.css&amp;3.13.0/cssgrids/cssgrids-min.css&amp;3.13.0/cssbase/cssbase-min.css" /><link rel="stylesheet" type="text/css" href="http://192.168.56.103/moodle/theme/yui_combo.php?rollup/3.13.0/yui-moodlesimple-min.css" /><script type="text/javascript" src="http://192.168.56.103/moodle/theme/yui_combo.php?rollup/3.13.0/yui-moodlesimple-min.js"></script><script type="text/javascript" src="http://192.168.56.103/moodle/theme/yui_combo.php?rollup/1423338114/mcore-min.js"></script><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="http://192.168.56.103/moodle/theme/styles.php/standard/1423338114/all" />
-<script type="text/javascript" src="http://192.168.56.103/moodle/lib/javascript.php/1423338114/lib/javascript-static.js"></script>
-
-<meta name="robots" content="noindex" /></head>
-<body id="page-login-index" class="format-site  path-login safari dir-ltr lang-en yui-skin-sam yui3-skin-sam 192-168-56-103--moodle pagelayout-login course-1 context-1 notloggedin content-only">
-<div class="skiplinks"><a class="skip" href="#maincontent">Skip to main content</a></div>
-<script type="text/javascript">
-//<![CDATA[
-document.body.className += ' jsenabled';
-//]]>
-</script>
-
-<div id="page">
-    <div id="page-header">
-                <h1 class="headermain">Moodle Demo</h1>
-        <div class="headermenu"><div class="logininfo">You are not logged in.</div></div>                                    <div class="navbar clearfix">
-                <div class="breadcrumb"><span class="accesshide">Page path</span><nav><ul><li><a href="../homepage.html">Home</a></li><li> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25BA;</span> <span tabindex="0">Log in to the site</span></li></ul></nav></div>
-                <div class="navbutton"> </div>
+   <head>
+      <title>Moodle Demo</title>
+      <meta name="description" content="" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="keywords" content="moodle, Moodle Demo" />
+      <meta http-equiv="pragma" content="no-cache" />
+      <meta http-equiv="expires" content="0" />
+      <link rel="stylesheet" type="text/css" href="../css/cssbase-min.css" />
+      <link rel="stylesheet" type="text/css" href="../css/yui-moodlesimple-min.css" />
+      <script type="text/javascript" src="../javascript/yui-moodlesimple-min.js"></script>
+      <script type="text/javascript" src="../javascript/mcore-min.js"></script><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script>
+      <link rel="stylesheet" type="text/css" href="../themes/all" />
+      <script type="text/javascript" src="../javascript/javascript-static.js"></script>
+   </head>
+   <body id="page-login-index" class="format-site  path-login safari dir-ltr lang-en yui-skin-sam yui3-skin-sam 192-168-56-103--moodle pagelayout-login course-1 context-1 notloggedin content-only">
+      <div class="skiplinks"><a class="skip" href="#maincontent">Skip to main content</a></div>
+      <script type="text/javascript">
+         //<![CDATA[
+         document.body.className += ' jsenabled';
+         //]]>
+      </script>
+      <div id="page">
+         <div id="page-header">
+            <h1 class="headermain">Moodle Demo</h1>
+            <div class="headermenu">
+               <div class="logininfo">You are not logged in.</div>
             </div>
+            <div class="navbar clearfix">
+               <div class="breadcrumb">
+                  <span class="accesshide">Page path</span>
+                  <nav>
+                     <ul>
+                        <li><a href="../homepage.html">Home</a></li>
+                        <li> <span class="accesshide " ><span class="arrow_text">/</span>&nbsp;</span><span class="arrow sep">&#x25BA;</span> <span tabindex="0">Log in to the site</span></li>
+                     </ul>
+                  </nav>
+               </div>
+               <div class="navbutton"> </div>
             </div>
-<!-- END OF HEADER -->
-
-    <div id="page-content">
-        <div id="region-main-box">
-            <div id="region-post-box">
-
-                <div id="region-main-wrap">
-                    <div id="region-main">
+         </div>
+         <!-- END OF HEADER -->
+         <div id="page-content">
+            <div id="region-main-box">
+               <div id="region-post-box">
+                  <div id="region-main-wrap">
+                     <div id="region-main">
                         <div class="region-content">
-                                                        <div role="main"><span id="maincontent"></span><div class="loginbox clearfix onecolumn">
-  <div class="loginpanel">
-    <h2>Log in</h2>
-      <div class="subcontent loginsub">
-        <div class="loginerrors"><a id="loginerrormessage" class="accesshide" href="#">Your session has timed out.  Please login again.</a><span class="error"><img class="icon icon-pre" alt="Error" src="http://192.168.56.103/moodle/theme/image.php/standard/core/1423338114/i/warning" />Your session has timed out.  Please login again.</span></div>        <form action="../homepage.html" method="post" id="login"  >
-          <div class="loginform">
-            <div class="form-label"><label for="username">Username</label></div>
-            <div class="form-input">
-              <input type="text" name="username" id="username" size="15" value="admin" />
+                           <div role="main">
+                              <span id="maincontent"></span>
+                              <div class="loginbox clearfix onecolumn">
+                                 <div class="loginpanel">
+                                    <h2>Log in</h2>
+                                    <div class="subcontent loginsub">
+                                       <div class="loginerrors"><a id="loginerrormessage" class="accesshide" href="#">Your session has timed out.  Please login again.</a><span class="error">Your session has timed out.  Please login again.</span></div>
+                                       <form action="../homepage.html" method="post" id="login"  >
+                                          <div class="loginform">
+                                             <div class="form-label"><label for="username">Username</label></div>
+                                             <div class="form-input">
+                                                <input type="text" name="username" id="username" size="15" value="admin" />
+                                             </div>
+                                             <div class="clearer">
+                                                <!-- -->
+                                             </div>
+                                             <div class="form-label"><label for="password">Password</label></div>
+                                             <div class="form-input">
+                                                <input type="password" name="password" id="password" size="15" value=""  />
+                                             </div>
+                                          </div>
+                                          <div class="clearer">
+                                             <!-- -->
+                                          </div>
+                                          <div class="rememberpass">
+                                             <input type="checkbox" name="rememberusername" id="rememberusername" value="1" checked="checked" />
+                                             <label for="rememberusername">Remember username</label>
+                                          </div>
+                                          <div class="clearer">
+                                             <!-- -->
+                                          </div>
+                                          <input type="submit" id="loginbtn" value="Log in" />
+                                          <div class="forgetpass"><a href="forgot_password.php">Forgotten your username or password?</a></div>
+                                       </form>
+                                       <div class="desc">
+                                          Cookies must be enabled in your browser<span class="helptooltip"></span>
+                                       </div>
+                                    </div>
+                                    <div class="subcontent guestsub">
+                                       <div class="desc">
+                                          Some courses may allow guest access        
+                                       </div>
+                                       <form action="index.php" method="post" id="guestlogin">
+                                          <div class="guestform">
+                                             <input type="hidden" name="username" value="guest" />
+                                             <input type="hidden" name="password" value="guest" />
+                                             <input type="submit" value="Log in as a guest" />
+                                          </div>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-            <div class="clearer"><!-- --></div>
-            <div class="form-label"><label for="password">Password</label></div>
-            <div class="form-input">
-              <input type="password" name="password" id="password" size="15" value=""  />
-            </div>
-          </div>
-            <div class="clearer"><!-- --></div>
-                            <div class="rememberpass">
-                  <input type="checkbox" name="rememberusername" id="rememberusername" value="1" checked="checked" />
-                  <label for="rememberusername">Remember username</label>
-              </div>
-                        <div class="clearer"><!-- --></div>
-          <input type="submit" id="loginbtn" value="Log in" />
-          <div class="forgetpass"><a href="forgot_password.php">Forgotten your username or password?</a></div>
-        </form>
-        <div class="desc">
-            Cookies must be enabled in your browser<span class="helptooltip"><a href="http://192.168.56.103/moodle/help.php?component=moodle&amp;identifier=cookiesenabled&amp;lang=en" title="Help with Cookies must be enabled in your browser" aria-haspopup="true" target="_blank"><img src="http://192.168.56.103/moodle/theme/image.php/standard/core/1423338114/help" alt="Help with Cookies must be enabled in your browser" class="iconhelp" /></a></span>        </div>
+         </div>
+         <!-- START OF FOOTER -->
+         <div id="page-footer" class="clearfix">
+            <p class="helplink"></p>
+            <div class="logininfo">You are not logged in.</div>
+            <div class="homelink"><a href="../homepage.html">Home</a></div>
+         </div>
+         <div class="clearfix"></div>
       </div>
-
-      <div class="subcontent guestsub">
-        <div class="desc">
-          Some courses may allow guest access        </div>
-        <form action="index.php" method="post" id="guestlogin">
-          <div class="guestform">
-            <input type="hidden" name="username" value="guest" />
-            <input type="hidden" name="password" value="guest" />
-            <input type="submit" value="Log in as a guest" />
-          </div>
-        </form>
-      </div>
-     </div>
-</div>
-</div>                                                    </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-        </div>
-    </div>
-
-<!-- START OF FOOTER -->
-            <div id="page-footer" class="clearfix">
-        <p class="helplink"></p>
-        <div class="logininfo">You are not logged in.</div><div class="homelink"><a href="../homepage.html">Home</a></div>    </div>
-        <div class="clearfix"></div>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","morehelp":"More help","loadinghelp":"Loading...","cancel":"Cancel","yes":"Yes","confirm":"Confirm","no":"No","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"block":{"addtodock":"Move this to the dock","undockitem":"Undock this item","dockblock":"Dock {$a} block","undockblock":"Undock {$a} block","undockall":"Undock all","hidedockpanel":"Hide the dock panel","hidepanel":"Hide panel"},"langconfig":{"thisdirectionvertical":"btt"},"admin":{"confirmation":"Confirmation"}};
-//]]>
-</script>
-<script type="text/javascript">
-//<![CDATA[
-YUI().use('node', function(Y) {
-M.util.load_flowplayer();
-setTimeout("fix_column_widths()", 20);
-M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
-});
-M.util.help_popups.setup(Y);
-M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
-});
- M.util.js_pending('random552bebcb035ca2'); Y.on('domready', function() { M.util.focus_login_error(Y);  M.util.js_complete('random552bebcb035ca2'); });
- M.util.js_pending('random552bebcb035ca3'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random552bebcb035ca3'); });
-
-});
-//]]>
-</script>
-</body>
+      <script type="text/javascript">
+         //<![CDATA[
+         M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","morehelp":"More help","loadinghelp":"Loading...","cancel":"Cancel","yes":"Yes","confirm":"Confirm","no":"No","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"block":{"addtodock":"Move this to the dock","undockitem":"Undock this item","dockblock":"Dock {$a} block","undockblock":"Undock {$a} block","undockall":"Undock all","hidedockpanel":"Hide the dock panel","hidepanel":"Hide panel"},"langconfig":{"thisdirectionvertical":"btt"},"admin":{"confirmation":"Confirmation"}};
+         //]]>
+      </script>
+      <script type="text/javascript">
+         //<![CDATA[
+         YUI().use('node', function(Y) {
+         M.util.load_flowplayer();
+         setTimeout("fix_column_widths()", 20);
+         M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
+         });
+         M.util.help_popups.setup(Y);
+         M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
+         });
+          M.util.js_pending('random552bebcb035ca2'); Y.on('domready', function() { M.util.focus_login_error(Y);  M.util.js_complete('random552bebcb035ca2'); });
+          M.util.js_pending('random552bebcb035ca3'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random552bebcb035ca3'); });
+         
+         });
+         //]]>
+      </script>
+   </body>
 </html>

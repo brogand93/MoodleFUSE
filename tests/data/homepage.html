@@ -1,152 +1,221 @@
-
 <!DOCTYPE html>
 <html  dir="ltr" lang="en" xml:lang="en">
-<head>
-    <title>Moodle Demo</title>
-    <link rel="shortcut icon" href="http://192.168.56.103/moodle/theme/image.php/standard/theme/1423338114/favicon" />
-    <meta name="description" content="" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="moodle, Moodle Demo" />
-<meta http-equiv="pragma" content="no-cache" />
-<meta http-equiv="expires" content="0" />
-<script type="text/javascript">
-//<![CDATA[
-var M = {}; M.yui = {};
-M.pageloadstarttime = new Date();
-M.cfg = {"wwwroot":"http:\/\/192.168.56.103\/moodle","sesskey":"tyLhqkGwDV","loadingicon":"http:\/\/192.168.56.103\/moodle\/theme\/image.php\/standard\/core\/1423338114\/i\/loading_small","themerev":"1423338114","slasharguments":1,"theme":"standard","jsrev":"1423338114","svgicons":true};var yui1ConfigFn = function(me) {if(/-skin|reset|fonts|grids|base/.test(me.name)){me.type='css';me.path=me.path.replace(/\.js/,'.css');me.path=me.path.replace(/\/yui2-skin/,'/assets/skins/sam/yui2-skin')}};
-var yui2ConfigFn = function(me) {var parts=me.name.replace(/^moodle-/,'').split('-'),component=parts.shift(),module=parts[0],min='-min';if(/-(skin|core)$/.test(me.name)){parts.pop();me.type='css';min=''};if(module){var filename=parts.join('-');me.path=component+'/'+module+'/'+filename+min+'.'+me.type}else me.path=component+'/'+component+'.'+me.type};
-YUI_config = {"debug":false,"base":"http:\/\/192.168.56.103\/moodle\/lib\/yuilib\/3.13.0\/","comboBase":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?","combine":true,"filter":null,"insertBefore":"firstthemesheet","groups":{"yui2":{"base":"http:\/\/192.168.56.103\/moodle\/lib\/yuilib\/2in3\/2.9.0\/build\/","comboBase":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?","combine":true,"ext":false,"root":"2in3\/2.9.0\/build\/","patterns":{"yui2-":{"group":"yui2","configFn":yui1ConfigFn}}},"moodle":{"name":"moodle","base":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?m\/1423338114\/","combine":true,"comboBase":"http:\/\/192.168.56.103\/moodle\/theme\/yui_combo.php?","ext":false,"root":"m\/1423338114\/","patterns":{"moodle-":{"group":"moodle","configFn":yui2ConfigFn}},"filter":null,"modules":{"moodle-core-actionmenu":{"requires":["base","event","node-event-simulate"]},"moodle-core-tooltip":{"requires":["base","node","io-base","moodle-core-notification","json-parse","widget-position","widget-position-align","event-outside","cache-base"]},"moodle-core-lockscroll":{"requires":["plugin","base-build"]},"moodle-core-formchangechecker":{"requires":["base","event-focus"]},"moodle-core-dock":{"requires":["base","node","event-custom","event-mouseenter","event-resize","escape","moodle-core-dock-loader"]},"moodle-core-dock-loader":{"requires":["escape"]},"moodle-core-blocks":{"requires":["base","node","io","dom","dd","dd-scroll","moodle-core-dragdrop","moodle-core-notification"]},"moodle-core-notification":{"requires":["moodle-core-notification-dialogue","moodle-core-notification-alert","moodle-core-notification-confirm","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]},"moodle-core-notification-dialogue":{"requires":["base","node","panel","escape","event-key","dd-plugin","moodle-core-lockscroll"]},"moodle-core-notification-alert":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-confirm":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-exception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-notification-ajaxexception":{"requires":["moodle-core-notification-dialogue"]},"moodle-core-popuphelp":{"requires":["moodle-core-tooltip"]},"moodle-core-formautosubmit":{"requires":["base","event-key"]},"moodle-core-chooserdialogue":{"requires":["base","panel","moodle-core-notification"]},"moodle-calendar-eventmanager":{"requires":["base","node","event-mouseenter","overlay","moodle-calendar-eventmanager-skin"]},"moodle-course-categoryexpander":{"requires":["node","event-key"]},"moodle-course-util":{"requires":["node"],"use":["moodle-course-util-base"],"submodules":{"moodle-course-util-base":{},"moodle-course-util-section":{"requires":["node","moodle-course-util-base"]},"moodle-course-util-cm":{"requires":["node","moodle-course-util-base"]}}},"moodle-course-management":{"requires":["base","node","io-base","moodle-core-notification-exception","json-parse","dd-constrain","dd-proxy","dd-drop","dd-delegate","node-event-delegate"]},"moodle-mod_quiz-autosave":{"requires":["base","node","event","event-valuechange","node-event-delegate","io-form"]},"moodle-block_navigation-navigation":{"requires":["base","io-base","node","event-synthetic","event-delegate","json-parse"]},"moodle-filter_glossary-autolinker":{"requires":["base","node","io-base","json-parse","event-delegate","overlay","moodle-core-notification-alert"]},"moodle-tool_capability-search":{"requires":["base","node"]},"moodle-theme_bootstrapbase-bootstrap":{"requires":["node","selector-css3"]},"moodle-assignfeedback_editpdf-editor":{"requires":["base","event","node","io","graphics","json","event-move","event-resize","querystring-stringify-simple","moodle-core-notification-dialog","moodle-core-notification-exception","moodle-core-notification-ajaxexception"]}}}},"modules":{"core_filepicker":{"name":"core_filepicker","fullpath":"http:\/\/192.168.56.103\/moodle\/lib\/javascript.php\/1423338114\/repository\/filepicker.js","requires":["base","node","node-event-simulate","json","async-queue","io-base","io-upload-iframe","io-form","yui2-treeview","panel","cookie","datatable","datatable-sort","resize-plugin","dd-plugin","escape","moodle-core_filepicker"]}}};
-M.yui.loader = {modules: {}};
-
-//]]>
-</script>
-<link rel="stylesheet" type="text/css" href="http://192.168.56.103/moodle/theme/yui_combo.php?3.13.0/cssreset/cssreset-min.css&amp;3.13.0/cssfonts/cssfonts-min.css&amp;3.13.0/cssgrids/cssgrids-min.css&amp;3.13.0/cssbase/cssbase-min.css" /><link rel="stylesheet" type="text/css" href="http://192.168.56.103/moodle/theme/yui_combo.php?rollup/3.13.0/yui-moodlesimple-min.css" /><script type="text/javascript" src="http://192.168.56.103/moodle/theme/yui_combo.php?rollup/3.13.0/yui-moodlesimple-min.js"></script><script type="text/javascript" src="http://192.168.56.103/moodle/theme/yui_combo.php?rollup/1423338114/mcore-min.js"></script><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script><link rel="stylesheet" type="text/css" href="http://192.168.56.103/moodle/theme/styles.php/standard/1423338114/all" />
-<script type="text/javascript" src="http://192.168.56.103/moodle/lib/javascript.php/1423338114/lib/javascript-static.js"></script>
-</head>
-<body id="page-site-index" class="format-site course path-site safari dir-ltr lang-en yui-skin-sam yui3-skin-sam 192-168-56-103--moodle pagelayout-frontpage course-1 context-3 notloggedin ">
-<div class="skiplinks"><a class="skip" href="#maincontent">Skip to main content</a></div>
-<script type="text/javascript">
-//<![CDATA[
-document.body.className += ' jsenabled';
-//]]>
-</script>
-
-
-<div id="page">
-
-    <div id="page-header" class="clearfix">
-        <h1 class="headermain">Moodle Demo</h1>
-        <div class="headermenu"><div class="logininfo">You are not logged in. (<a href="http://192.168.56.103/moodle/login/index.php">Log in</a>)</div></div>
+   <head>
+      <title>Moodle Demo</title>
+      <meta name="description" content="" />
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      <meta name="keywords" content="moodle, Moodle Demo" />
+      <meta http-equiv="pragma" content="no-cache" />
+      <meta http-equiv="expires" content="0" />
+      <link rel="stylesheet" type="text/css" href="css/cssbase-min.css" />
+      <link rel="stylesheet" type="text/css" href="css/yui-moodlesimple-min.css" />
+      <script type="text/javascript" src="javascript/yui-moodlesimple-min.js"></script><script type="text/javascript" src="javascript/mcore-min.js"></script><script id="firstthemesheet" type="text/css">/** Required in order to fix style inclusion problems in IE with YUI **/</script>
+      <link rel="stylesheet" type="text/css" href="themes/all" />
+      <script type="text/javascript" src="javascript/javascript-static.js"></script>
+   </head>
+   <body id="page-site-index" class="format-site course path-site safari dir-ltr lang-en yui-skin-sam yui3-skin-sam 192-168-56-103--moodle pagelayout-frontpage course-1 context-3 notloggedin ">
+      <div class="skiplinks"><a class="skip" href="#maincontent">Skip to main content</a></div>
+      <script type="text/javascript">
+         //<![CDATA[
+         document.body.className += ' jsenabled';
+         //]]>
+      </script>
+      <div id="page">
+         <div id="page-header" class="clearfix">
+            <h1 class="headermain">Moodle Demo</h1>
+            <div class="headermenu">
+               <div class="logininfo">You are not logged in. (<a href="login/index.html">Log in</a>)</div>
             </div>
-<!-- END OF HEADER -->
-
-    <div id="page-content">
-        <div id="region-main-box">
-            <div id="region-post-box">
-
-                <div id="region-main-wrap">
-                    <div id="region-main">
+         </div>
+         <!-- END OF HEADER -->
+         <div id="page-content">
+            <div id="region-main-box">
+               <div id="region-post-box">
+                  <div id="region-main-wrap">
+                     <div id="region-main">
                         <div class="region-content">
-                            <div role="main"><span id="maincontent"></span><a href="#skipavailablecourses" class="skip-block">Skip available courses</a><div id="frontpage-course-list"><h2>Available courses</h2><div class="courses frontpage-course-list-all"><div class="coursebox clearfix odd first" data-courseid="4" data-type="1"><div class="info"><h3 class="coursename"><a class="" href="course_contents_edit_off.html">testcourse3</a></h3><div class="moreinfo"></div></div><div class="content"></div></div><div class="coursebox clearfix even" data-courseid="3" data-type="1"><div class="info"><h3 class="coursename"><a class="" href="course_contents_edit_off.html">testcourse2</a></h3><div class="moreinfo"></div></div><div class="content"></div></div><div class="coursebox clearfix odd last" data-courseid="2" data-type="1"><div class="info"><h3 class="coursename"><a class="" href="course_contents_edit_off.html">testcourse</a></h3><div class="moreinfo"></div></div><div class="content"></div></div></div></div><span class="skip-block-to" id="skipavailablecourses"></span><br /></div>                        </div>
-                    </div>
-                </div>
-
-                                <div id="region-pre" class="block-region">
-                    <div class="region-content">
-                            <a href="#sb-2" class="skip-block">Skip Navigation</a><div id="inst4" class="block_navigation  block" role="navigation" data-block="navigation" data-instanceid="4" aria-labelledby="instance-4-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-4-header">Navigation</h2></div></div><div class="content"><ul class="block_tree list"><li class="type_unknown depth_1 contains_branch current_branch" aria-expanded="true"><p class="tree_item branch active_tree_node canexpand navigation_node"><a href="http://192.168.56.103/moodle/">Home</a></p><ul><li class="type_system depth_2 collapsed contains_branch" aria-expanded="false"><p class="tree_item branch" id="expandable_branch_0_courses"><a href="http://192.168.56.103/moodle/course/index.php">Courses</a></p></li></ul></li></ul></div></div><span id="sb-2" class="skip-block-to"></span>
-                    </div>
-                </div>
-
-                                <div id="region-post" class="block-region">
-                    <div class="region-content">
-                           <a href="#sb-5" class="skip-block">Skip Calendar</a><div id="inst3" class="block_calendar_month  block" role="complementary" data-block="calendar_month" data-instanceid="3" aria-labelledby="instance-3-header" data-dockable="1"><div class="header"><div class="title"><div class="block_action"></div><h2 id="instance-3-header">Calendar</h2></div></div><div class="content"><table class="minicalendar calendartable" summary="April 2015 Calendar"><caption><div class="calendar-controls"><a class="arrow_link previous" href="http://192.168.56.103/moodle/?time=1425168000" title="Previous month"><span class="arrow ">&#x25C4;</span><span class="accesshide " >&nbsp;<span class="arrow_text">Previous month</span></span></a><span class="hide"> | </span><span class="current"><a title="This month" href="http://192.168.56.103/moodle/calendar/view.php?view=month&amp;time=1428680258&amp;course=1">April 2015</a></span><span class="hide"> | </span><a class="arrow_link next" href="http://192.168.56.103/moodle/?time=1430434800" title="Next month"><span class="accesshide " ><span class="arrow_text">Next month</span>&nbsp;</span><span class="arrow ">&#x25BA;</span></a><span class="clearer"><!-- --></span>
-</div></caption><tr class="weekdays"><th scope="col"><abbr title="Sunday">Sun</abbr></th>
-<th scope="col"><abbr title="Monday">Mon</abbr></th>
-<th scope="col"><abbr title="Tuesday">Tue</abbr></th>
-<th scope="col"><abbr title="Wednesday">Wed</abbr></th>
-<th scope="col"><abbr title="Thursday">Thu</abbr></th>
-<th scope="col"><abbr title="Friday">Fri</abbr></th>
-<th scope="col"><abbr title="Saturday">Sat</abbr></th>
-</tr><tr><td class="dayblank">&nbsp;</td>
-<td class="dayblank">&nbsp;</td>
-<td class="dayblank">&nbsp;</td>
-<td class="day">1</td>
-<td class="day">2</td>
-<td class="day">3</td>
-<td class="weekend day">4</td>
-</tr><tr><td class="weekend day">5</td>
-<td class="day">6</td>
-<td class="day">7</td>
-<td class="day">8</td>
-<td class="day">9</td>
-<td class="day today eventnone"><span class="accesshide " >Today Friday, 10 April </span><a id="calendar_tooltip_1" href="#">10</a></td>
-<td class="weekend day">11</td>
-</tr><tr><td class="weekend day">12</td>
-<td class="day">13</td>
-<td class="day">14</td>
-<td class="day">15</td>
-<td class="day">16</td>
-<td class="day">17</td>
-<td class="weekend day">18</td>
-</tr><tr><td class="weekend day">19</td>
-<td class="day">20</td>
-<td class="day">21</td>
-<td class="day">22</td>
-<td class="day">23</td>
-<td class="day">24</td>
-<td class="weekend day">25</td>
-</tr><tr><td class="weekend day">26</td>
-<td class="day">27</td>
-<td class="day">28</td>
-<td class="day">29</td>
-<td class="day">30</td>
-<td class="dayblank">&nbsp;</td><td class="dayblank">&nbsp;</td></tr></table></div></div><span id="sb-5" class="skip-block-to"></span>                    </div>
-                </div>
-
+                           <div role="main">
+                              <span id="maincontent"></span><a href="#skipavailablecourses" class="skip-block">Skip available courses</a>
+                              <div id="frontpage-course-list">
+                                 <h2>Available courses</h2>
+                                 <div class="courses frontpage-course-list-all">
+                                    <div class="coursebox clearfix odd first" data-courseid="4" data-type="1">
+                                       <div class="info">
+                                          <h3 class="coursename"><a class="" href="course_contents_edit_off.html">testcourse3</a></h3>
+                                          <div class="moreinfo"></div>
+                                       </div>
+                                       <div class="content"></div>
+                                    </div>
+                                    <div class="coursebox clearfix even" data-courseid="3" data-type="1">
+                                       <div class="info">
+                                          <h3 class="coursename"><a class="" href="course_contents_edit_off.html">testcourse2</a></h3>
+                                          <div class="moreinfo"></div>
+                                       </div>
+                                       <div class="content"></div>
+                                    </div>
+                                    <div class="coursebox clearfix odd last" data-courseid="2" data-type="1">
+                                       <div class="info">
+                                          <h3 class="coursename"><a class="" href="course_contents_edit_off.html">testcourse</a></h3>
+                                          <div class="moreinfo"></div>
+                                       </div>
+                                       <div class="content"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <span class="skip-block-to" id="skipavailablecourses"></span><br />
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div id="region-pre" class="block-region">
+                     <div class="region-content">
+                        <a href="#sb-2" class="skip-block">Skip Navigation</a>
+                        <div id="inst4" class="block_navigation  block" role="navigation" data-block="navigation" data-instanceid="4" aria-labelledby="instance-4-header" data-dockable="1">
+                           <div class="header">
+                              <div class="title">
+                                 <div class="block_action"></div>
+                                 <h2 id="instance-4-header">Navigation</h2>
+                              </div>
+                           </div>
+                           <div class="content">
+                              <ul class="block_tree list">
+                                 <li class="type_unknown depth_1 contains_branch current_branch" aria-expanded="true">
+                                    <p class="tree_item branch active_tree_node canexpand navigation_node"></p>
+                                    <ul>
+                                       <li class="type_system depth_2 collapsed contains_branch" aria-expanded="false">
+                                          <p class="tree_item branch" id="expandable_branch_0_courses"></p>
+                                       </li>
+                                    </ul>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                        <span id="sb-2" class="skip-block-to"></span>
+                     </div>
+                  </div>
+                  <div id="region-post" class="block-region">
+                     <div class="region-content">
+                        <a href="#sb-5" class="skip-block">Skip Calendar</a>
+                        <div id="inst3" class="block_calendar_month  block" role="complementary" data-block="calendar_month" data-instanceid="3" aria-labelledby="instance-3-header" data-dockable="1">
+                           <div class="header">
+                              <div class="title">
+                                 <div class="block_action"></div>
+                                 <h2 id="instance-3-header">Calendar</h2>
+                              </div>
+                           </div>
+                           <div class="content">
+                              <table class="minicalendar calendartable" summary="April 2015 Calendar">
+                                 <caption>
+                                    <div class="calendar-controls">
+                                       <a class="arrow_link previous" title="Previous month"><span class="arrow ">&#x25C4;</span><span class="accesshide " >&nbsp;<span class="arrow_text">Previous month</span></span></a><span class="hide"> | </span><span class="current"><a title="This month" >April 2015</a></span><span class="hide"> | </span><a class="arrow_link next" title="Next month"><span class="accesshide " ><span class="arrow_text">Next month</span>&nbsp;</span><span class="arrow ">&#x25BA;</span></a>
+                                       <span class="clearer">
+                                          <!-- -->
+                                       </span>
+                                    </div>
+                                 </caption>
+                                 <tr class="weekdays">
+                                    <th scope="col"><abbr title="Sunday">Sun</abbr></th>
+                                    <th scope="col"><abbr title="Monday">Mon</abbr></th>
+                                    <th scope="col"><abbr title="Tuesday">Tue</abbr></th>
+                                    <th scope="col"><abbr title="Wednesday">Wed</abbr></th>
+                                    <th scope="col"><abbr title="Thursday">Thu</abbr></th>
+                                    <th scope="col"><abbr title="Friday">Fri</abbr></th>
+                                    <th scope="col"><abbr title="Saturday">Sat</abbr></th>
+                                 </tr>
+                                 <tr>
+                                    <td class="dayblank">&nbsp;</td>
+                                    <td class="dayblank">&nbsp;</td>
+                                    <td class="dayblank">&nbsp;</td>
+                                    <td class="day">1</td>
+                                    <td class="day">2</td>
+                                    <td class="day">3</td>
+                                    <td class="weekend day">4</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="weekend day">5</td>
+                                    <td class="day">6</td>
+                                    <td class="day">7</td>
+                                    <td class="day">8</td>
+                                    <td class="day">9</td>
+                                    <td class="day today eventnone"><span class="accesshide " >Today Friday, 10 April </span><a id="calendar_tooltip_1" href="#">10</a></td>
+                                    <td class="weekend day">11</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="weekend day">12</td>
+                                    <td class="day">13</td>
+                                    <td class="day">14</td>
+                                    <td class="day">15</td>
+                                    <td class="day">16</td>
+                                    <td class="day">17</td>
+                                    <td class="weekend day">18</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="weekend day">19</td>
+                                    <td class="day">20</td>
+                                    <td class="day">21</td>
+                                    <td class="day">22</td>
+                                    <td class="day">23</td>
+                                    <td class="day">24</td>
+                                    <td class="weekend day">25</td>
+                                 </tr>
+                                 <tr>
+                                    <td class="weekend day">26</td>
+                                    <td class="day">27</td>
+                                    <td class="day">28</td>
+                                    <td class="day">29</td>
+                                    <td class="day">30</td>
+                                    <td class="dayblank">&nbsp;</td>
+                                    <td class="dayblank">&nbsp;</td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </div>
+                        <span id="sb-5" class="skip-block-to"></span>                    
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
-
-<!-- START OF FOOTER -->
-    <div id="page-footer">
-        <p class="helplink">
-                </p>
-
-        <div class="logininfo">You are not logged in. (<a href="http://192.168.56.103/moodle/login/index.php">Log in</a>)</div><div class="sitelink"><a title="Moodle" href="http://moodle.org/"><img style="width:100px;height:30px" src="http://192.168.56.103/moodle/theme/image.php/standard/core/1423338114/moodlelogo" alt="moodlelogo" /></a></div>    </div>
-    <div class="clearfix"></div>
-</div>
-<script type="text/javascript">
-//<![CDATA[
-M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","viewallcourses":"View all courses","morehelp":"More help","loadinghelp":"Loading...","cancel":"Cancel","yes":"Yes","confirm":"Confirm","no":"No","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"block":{"addtodock":"Move this to the dock","undockitem":"Undock this item","dockblock":"Dock {$a} block","undockblock":"Undock {$a} block","undockall":"Undock all","hidedockpanel":"Hide the dock panel","hidepanel":"Hide panel"},"langconfig":{"thisdirectionvertical":"btt"},"admin":{"confirmation":"Confirmation"}};
-//]]>
-</script>
-<script type="text/javascript">
-//<![CDATA[
-var navtreeexpansions4 = [{"id":"expandable_branch_0_courses","key":"courses","type":0}];
-//]]>
-</script>
-<script type="text/javascript">
-//<![CDATA[
-YUI().use('node', function(Y) {
-M.util.load_flowplayer();
-setTimeout("fix_column_widths()", 20);
-M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
-});
-M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-block_navigation-navigation",function() {M.block_navigation.init_add_tree({"id":"4","instance":"4","candock":true,"courselimit":"20","expansionlimit":0});
-});
-M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-block_navigation-navigation",function() {M.block_navigation.init_add_tree({"id":"5","instance":"5","candock":true});
-});
-M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-calendar-eventmanager",function() {M.core_calendar.add_event({"eventId":"calendar_tooltip_1","title":"Today Friday, 10 April","content":"No events"});
-});
-M.util.help_popups.setup(Y);
-M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
-});
-M.util.init_block_hider(Y, {"id":"inst4","title":"Navigation","preference":"block4hidden","tooltipVisible":"Hide Navigation block","tooltipHidden":"Show Navigation block"});
-M.util.init_block_hider(Y, {"id":"inst3","title":"Calendar","preference":"block3hidden","tooltipVisible":"Hide Calendar block","tooltipHidden":"Show Calendar block"});
- M.util.js_pending('random5527ee427f1524'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random5527ee427f1524'); });
-
-});
-//]]>
-</script>
-</body>
+         </div>
+         <!-- START OF FOOTER -->
+         <div id="page-footer">
+            <p class="helplink">
+            </p>
+            <div class="logininfo">You are not logged in. (<a href="login/index.html">Log in</a>)</div>
+         </div>
+         <div class="clearfix"></div>
+      </div>
+      <script type="text/javascript">
+         //<![CDATA[
+         M.str = {"moodle":{"lastmodified":"Last modified","name":"Name","error":"Error","info":"Information","viewallcourses":"View all courses","morehelp":"More help","loadinghelp":"Loading...","cancel":"Cancel","yes":"Yes","confirm":"Confirm","no":"No","areyousure":"Are you sure?","closebuttontitle":"Close","unknownerror":"Unknown error"},"repository":{"type":"Type","size":"Size","invalidjson":"Invalid JSON string","nofilesattached":"No files attached","filepicker":"File picker","logout":"Logout","nofilesavailable":"No files available","norepositoriesavailable":"Sorry, none of your current repositories can return files in the required format.","fileexistsdialogheader":"File exists","fileexistsdialog_editor":"A file with that name has already been attached to the text you are editing.","fileexistsdialog_filemanager":"A file with that name has already been attached","renameto":"Rename to \"{$a}\"","referencesexist":"There are {$a} alias\/shortcut files that use this file as their source","select":"Select"},"block":{"addtodock":"Move this to the dock","undockitem":"Undock this item","dockblock":"Dock {$a} block","undockblock":"Undock {$a} block","undockall":"Undock all","hidedockpanel":"Hide the dock panel","hidepanel":"Hide panel"},"langconfig":{"thisdirectionvertical":"btt"},"admin":{"confirmation":"Confirmation"}};
+         //]]>
+      </script>
+      <script type="text/javascript">
+         //<![CDATA[
+         var navtreeexpansions4 = [{"id":"expandable_branch_0_courses","key":"courses","type":0}];
+         //]]>
+      </script>
+      <script type="text/javascript">
+         //<![CDATA[
+         YUI().use('node', function(Y) {
+         M.util.load_flowplayer();
+         setTimeout("fix_column_widths()", 20);
+         M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-dock-loader",function() {M.core.dock.loader.initLoader();
+         });
+         M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-block_navigation-navigation",function() {M.block_navigation.init_add_tree({"id":"4","instance":"4","candock":true,"courselimit":"20","expansionlimit":0});
+         });
+         M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-block_navigation-navigation",function() {M.block_navigation.init_add_tree({"id":"5","instance":"5","candock":true});
+         });
+         M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-calendar-eventmanager",function() {M.core_calendar.add_event({"eventId":"calendar_tooltip_1","title":"Today Friday, 10 April","content":"No events"});
+         });
+         M.util.help_popups.setup(Y);
+         M.yui.galleryversion="2010.04.08-12-35";Y.use("moodle-core-popuphelp",function() {M.core.init_popuphelp();
+         });
+         M.util.init_block_hider(Y, {"id":"inst4","title":"Navigation","preference":"block4hidden","tooltipVisible":"Hide Navigation block","tooltipHidden":"Show Navigation block"});
+         M.util.init_block_hider(Y, {"id":"inst3","title":"Calendar","preference":"block3hidden","tooltipVisible":"Hide Calendar block","tooltipHidden":"Show Calendar block"});
+          M.util.js_pending('random5527ee427f1524'); Y.on('domready', function() { M.util.js_complete("init");  M.util.js_complete('random5527ee427f1524'); });
+         
+         });
+         //]]>
+      </script>
+   </body>
 </html>
