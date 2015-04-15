@@ -4,7 +4,6 @@
 true_resources = [
     '.',
     '..',
-    u'resource.txt',
     u'r'
 ]
 

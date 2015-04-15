@@ -1,6 +1,6 @@
 from tests import MoodleFuseAppTestCase
 from tests.categories.data.categories_results import true_categories, false_categories
-
+from fuse import FuseOSError
 
 class CourseCategoriesTestCase(MoodleFuseAppTestCase):
 
@@ -15,3 +15,10 @@ class CourseCategoriesTestCase(MoodleFuseAppTestCase):
             self.filesystem_root + '/testcourse', None))
 
         assert self.utils.lists_are_not_equal(files, false_categories)
+
+    def enter_course_category_invalid_course_category_test(self):
+        self.assertRaises(FuseOSError, lambda:
+                self.ops.access(
+                    self.filesystem_root + '/testcourse/invalidcategory', None
+                )
+        )

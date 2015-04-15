@@ -5,6 +5,7 @@ import os
 
 from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.filesystem.files.file import File
+from moodlefuse.core import config
 
 
 class CacheFile(File):
@@ -29,7 +30,10 @@ class CacheFile(File):
 
     @staticmethod
     def create_file(location, content=None):
-        cache_path = get_cache_path_based_on_location(location)
+        if config.has_key('DOWNLOADS'):
+            cache_path = config['DOWNLOADS'] + '/testfile'
+        else:
+            cache_path = get_cache_path_based_on_location(location)
         with open(cache_path, 'w') as cache_file:
             if content is not None:
                 cache_file.write(content)

@@ -21,7 +21,8 @@ class AssignmentHandler(MoodleHandler):
         return ['Submissions', 'grades.csv']
 
     def get_assignment_submissions(self, assignment_url):
-        assignment_url = assignment_url + "&action=grading"
+        if not 'grading' in assignment_url:
+            assignment_url = assignment_url + "&action=grading"
         self.moodle.follow_link(assignment_url)
         assignment_submissions = self.moodle.filter_assignment_submissions()
         return self.parser.get_all_assignment_names(assignment_submissions)
