@@ -4,6 +4,9 @@ source = moodlefuse
 omit =
     *__init__*
     *__main__*
+    moodlefuse/configure.py
+    moodlefuse/model_manager.py
+    moodlefuse/core.py
 
 [report]
 exclude_lines =
