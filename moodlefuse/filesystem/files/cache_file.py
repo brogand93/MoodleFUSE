@@ -30,7 +30,7 @@ class CacheFile(File):
 
     @staticmethod
     def create_file(location, content=None):
-        if config.has_key('DOWNLOADS'):
+        if 'DOWNLOADS' in config:
             cache_path = config['DOWNLOADS'] + '/testfile'
         else:
             cache_path = get_cache_path_based_on_location(location)

@@ -21,7 +21,7 @@ class AssignmentHandler(MoodleHandler):
         return ['Submissions', 'grades.csv']
 
     def get_assignment_submissions(self, assignment_url):
-        if not 'grading' in assignment_url:
+        if 'grading' not in assignment_url:
             assignment_url = assignment_url + "&action=grading"
         self.moodle.follow_link(assignment_url)
         assignment_submissions = self.moodle.filter_assignment_submissions()

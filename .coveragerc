@@ -7,6 +7,7 @@ omit =
     moodlefuse/configure.py
     moodlefuse/model_manager.py
     moodlefuse/core.py
+    moodlefuse/moodle/emulator/js_enabled_emulator.py
 
 [report]
 exclude_lines =

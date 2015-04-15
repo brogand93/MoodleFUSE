@@ -75,4 +75,3 @@ class MoodleAPI(object):
     def close_api(self):
         self.js_emulator.close()
         self.emulator.close()
-
