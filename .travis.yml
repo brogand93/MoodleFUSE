@@ -1,7 +1,7 @@
 language: python
 python:
 - '2.7'
-beore_install:
+before_install:
 - sudo apt-get update -qq
 - sudo apt-get install -qq libfuse-dev pkg-config fuse user-mode-linux
 - sudo mknod /dev/fuse c 10 229
