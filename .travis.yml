@@ -1,6 +1,9 @@
 language: python
 python:
 - '2.7'
+beore_install:
+- sudo apt-get update -qq
+- sudo apt-get install -qq libfuse-dev fuse user-mode-linux
 install:
 - pip install pylint
 - pip install pep8
