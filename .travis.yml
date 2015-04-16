@@ -1,6 +1,8 @@
 language: python
 python:
 - '2.7'
+env:
+  - run_with_fuse.sh
 beore_install:
 - sudo apt-get update -qq
 - sudo apt-get install -qq libfuse-dev fuse user-mode-linux
