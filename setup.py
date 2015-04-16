@@ -30,7 +30,7 @@ REQUIRES = [
     'requests',
     'fusepy',
     'mechanize',
-    'selenium',
+    'selenium==2.45.0',
     'beautifulsoup4',
     'alembic',
     'sqlalchemy'
