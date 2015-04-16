@@ -109,34 +109,31 @@ class FileSystemTranslator(object):
     def get_directory_contents_based_on_path(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
         dirents = ['.', '..']
+        handle = {
+            PathParser.is_in_root(location): self.remote_handler.get_remote_courses,
+            PathParser.is_in_course(location): self.remote_handler.get_remote_categories,
+            PathParser.is_in_course_categorie(location): self.remote_handler.get_remote_resourse_names,
+            PathParser.is_file(location): self.remote_handler.get_remote_assignment_info,
+            PathParser.is_assignment(location): self.remote_handler.get_remote_assignment_names,
+        }
 
-        if PathParser.is_in_root(location):
-            dirents.extend(self.remote_handler.get_remote_courses())
-        elif PathParser.is_in_course(location):
-            dirents.extend(self.remote_handler.get_remote_categories(location))
-        elif PathParser.is_in_course_categorie(location):
-            dirents.extend(self.remote_handler.get_remote_resourse_names(location))
-        elif PathParser.is_file(location):
-            dirents.extend(self.remote_handler.get_remote_assignment_info())
-        elif PathParser.is_assignment(location):
-            dirents.extend(self.remote_handler.get_remote_assignment_names(location))
+        if True in handle:
+            dirents.extend((handle.get(True))(location))
 
         return dirents
 
     def path_exists_in_moodle(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
+        handle = {
+            PathParser.is_in_root(location): self.remote_handler.is_valid_root,
+            PathParser.is_in_course(location): self.remote_handler.is_valid_course,
+            PathParser.is_in_course_categorie(location): self.remote_handler.is_valid_category,
+            PathParser.is_file(location): self.remote_handler.is_valid_resource,
+            PathParser.is_assignment(location): self.remote_handler.is_valid_assignment_info,
+            PathParser.is_assignment_submission(location): self.remote_handler.is_valid_assignment_submission
+        }
 
-        if PathParser.is_in_root(location):
-            return True
-        elif PathParser.is_in_course(location):
-            return self.remote_handler.is_valid_course(location)
-        elif PathParser.is_in_course_categorie(location):
-            return self.remote_handler.is_valid_category(location)
-        elif PathParser.is_file(location):
-            return self.remote_handler.is_valid_resource(location)
-        elif PathParser.is_assignment(location):
-            return self.remote_handler.is_valid_assignment_ifo(location)
-        elif PathParser.is_assignment_submission(location):
-            return self.remote_handler.is_valid_assignment_submission(location)
-
-        return False
+        if True in handle:
+            return (handle.get(True))(location)
+        else:
+            return False

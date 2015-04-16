@@ -22,7 +22,7 @@ class RemoteHandler(object):
     def get_remote_grading_csv(self, location):
         return self.assignments.get_grades_csv(location)
 
-    def get_remote_courses(self):
+    def get_remote_courses(self, location=None):
         return self.courses.get_courses_as_array()
 
     def get_remote_categories(self, location):
@@ -61,7 +61,7 @@ class RemoteHandler(object):
         category_contents = self.get_category_contents(location)
         return self.resources.get_assignment_url(category_contents, location[2])
 
-    def get_remote_assignment_info(self):
+    def get_remote_assignment_info(self, location=None):
         return self.assignments.get_assignment_info_as_array()
 
     def get_remote_assignment_submissions(self, location):
@@ -70,6 +70,9 @@ class RemoteHandler(object):
 
     def download_updated_file(self, location, moodle_url):
         return self.resources.download_resource(location, moodle_url)
+
+    def is_valid_root(self, location=None):
+        return True
 
     def is_valid_course(self, location):
         return location[0] in self.get_remote_courses()
@@ -84,7 +87,7 @@ class RemoteHandler(object):
         category_contents = self.get_category_contents(location)
         return self.resources.is_assignment(category_contents, location[2])
 
-    def is_valid_assignment_ifo(self, location):
+    def is_valid_assignment_info(self, location):
         return location[3] in self.get_remote_assignment_info()
 
     def is_valid_assignment_submission(self, location):

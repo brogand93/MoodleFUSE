@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 from moodlefuse.helpers import get_cache_path_based_on_location
-
+from moodlefuse.core import config
 import csv
 
 
@@ -12,7 +12,10 @@ class AssignmentGrader(object):
         pass
 
     def format_csv(self, location):
-        csv_path = get_cache_path_based_on_location(location)
+        if 'DOWNLOADS' in config:
+            csv_path = config['DOWNLOADS'] + '/grades.csv'
+        else:
+            csv_path = get_cache_path_based_on_location(location)
         with open(csv_path, 'wt') as f:
             writer = csv.writer(f)
             writer.writerow(('Name', 'Email Address', 'Grade'))
