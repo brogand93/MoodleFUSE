@@ -104,13 +104,15 @@ class Configurer(object):
         config = self._set_attribute_of_profile(
             config, profile, 'moodle_web_address',
             'Moodle server address',
-            'hhtp://www.loop.dcu.ie'
+            'http://www.moodle.com'
         )
+
+        default_index = config.get(profile, 'moodle_web_address')
 
         config = self._set_attribute_of_profile(
             config, profile, 'moodle_index_address',
             'Moodle index address',
-            'hhtp://www.loop.dcu.ie/my'
+            default_index
         )
 
         config = self._set_attribute_of_profile(
