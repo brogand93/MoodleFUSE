@@ -12,3 +12,6 @@ install:
 script:
 - pep8 --ignore=E501 *.py moodlefuse
 - pylint --rcfile=pylint.rc *.py moodlefuse
+- nosetests --with-coverage --cover-erase --cover-package=moodlefuse --nocapture --nologcapture
+after_success:
+- coveralls
