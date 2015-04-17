@@ -33,7 +33,8 @@ REQUIRES = [
     'selenium==2.45.0',
     'beautifulsoup4',
     'alembic',
-    'sqlalchemy'
+    'sqlalchemy',
+    'xvfbwrapper'
 ]
 
 setup(

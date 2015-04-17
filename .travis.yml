@@ -6,6 +6,7 @@ before_install:
 - sudo apt-get install -qq libfuse-dev pkg-config fuse user-mode-linux
 - sudo mknod /dev/fuse c 10 229
 - sudo chmod 666 /dev/fuse
+- sudo apt-get install -qq xvfb
 install:
 - pip install pylint
 - pip install pep8

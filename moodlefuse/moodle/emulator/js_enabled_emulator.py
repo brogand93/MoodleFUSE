@@ -4,6 +4,7 @@
 import time
 from selenium import webdriver
 from moodlefuse.core import config
+from xvfbwrapper import Xvfb
 
 
 class JsEmulator(object):
@@ -14,6 +15,10 @@ class JsEmulator(object):
         self.setup_emulator()
 
     def setup_emulator(self):
+        self.vdisplay = Xvfb(width=1280, height=720)
+        self.vdisplay.xvfb_cmd.append('-noreset')
+        self.vdisplay.xvfb_cmd.append('-ac')
+        self.vdisplay.start()
         self.driver = webdriver.Firefox()
 
     def open_add_resource_menu(self, category):
@@ -118,3 +123,4 @@ class JsEmulator(object):
 
     def close(self):
         self.driver.quit()
+        self.vdisplay.stop()
