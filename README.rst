@@ -7,12 +7,11 @@ Moodle filesystem sync with FUSE
 
 .. image:: https://travis-ci.org/BroganD1993/MoodleFUSE.svg?branch=master
     :target: https://travis-ci.org/BroganD1993/MoodleFUSE
-    
+.. image:: https://coveralls.io/repos/BroganD1993/MoodleFUSE/badge.svg?branch=master 
+    :target: https://coveralls.io/r/BroganD1993/MoodleFUSE?branch=master
 .. image:: https://badge.waffle.io/brogand1993/moodlefuse.svg?label=ready&title=Ready 
     :target: https://waffle.io/brogand1993/moodlefuse
-    
- .. image:: https://coveralls.io/repos/BroganD1993/MoodleFUSE/badge.svg?branch=master 
-    :target: https://coveralls.io/r/BroganD1993/MoodleFUSE?branch=master
+
  
 Moodle is WIT`s online learning platform used in schools and universities all around the world. Uploading 
 and downloading files from Moodle can take time for lecturers and students. It first involves logging into 
