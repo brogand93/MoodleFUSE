@@ -21,7 +21,9 @@ class CoreEmulator(object):
         self.browser = Browser()
         self.browser.set_handle_robots(False)
         self.browser.addheaders = [
-            ('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.132 Safari/537.36'),
+            ('User-Agent',
+             'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
+             (KHTML, like Gecko) Chrome/34.0.1847.132 Safari/537.36'),
             ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'),
             ('Cache-Control', 'max-age=0'),
             ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'),
