@@ -6,4 +6,5 @@ MOODLE_INDEX_ADDRESS = 'file://' + os.path.dirname(os.path.realpath(__file__)) +
 LOCAL_MOODLE_FOLDER = os.path.join(os.path.expanduser('~'), 'tmp')
 USERNAME = 'testuser'
 PASSWORD = 'testpassword'
+TEST_DATA = 'file://' + os.path.dirname(os.path.realpath(__file__))
 DOWNLOADS = os.path.dirname(os.path.realpath(__file__)) + '/downloads'

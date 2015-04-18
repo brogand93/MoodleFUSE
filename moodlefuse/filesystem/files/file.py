@@ -20,5 +20,5 @@ class File(object):
             'st_size': 0
         }
 
-    def get_aattrs(self):
+    def get_attrs(self):
         return self.attrs

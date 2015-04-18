@@ -20,11 +20,12 @@ class CoreEmulator(object):
     def setup_emulator(self):
         self.browser = Browser()
         self.browser.addheaders = [
-            ('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11'),
-            ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'),
+            ('User-Agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.132 Safari/537.36'),
+            ('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'),
+            ('Cache-Control', 'max-age=0'),
             ('Accept-Charset', 'ISO-8859-1,utf-8;q=0.7,*;q=0.3'),
-            ('Accept-Encoding', 'none'),
-            ('Accept-Language', 'en-US,en;q=0.8'),
+            ('Accept-Encoding', 'gzip,deflate,sdch'),
+            ('Accept-Language', 'en-GB,en-US;q=0.8,en;q=0.6'),
             ('Connection', 'keep-alive')
         ]
         self.cookiejar = CookieJar()
@@ -48,6 +49,11 @@ class CoreEmulator(object):
             raise LoginException(self.username)
 
     def download(self, destination, source):
+        source = str(source)
+        if not source.startswith('http://') and not source.startswith('file://'):
+            print config
+            source = config['TEST_DATA'] + '/' + source
+
         self.browser.retrieve(source, destination)
 
     def open_link(self, url):
