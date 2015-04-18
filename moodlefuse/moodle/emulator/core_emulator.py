@@ -34,7 +34,6 @@ class CoreEmulator(object):
         self.cookiejar = CookieJar()
         self.browser.set_cookiejar(self.cookiejar)
 
-
     def login(self):
         if not config['MOODLE_WEB_ADDRESS'].endswith('php') and not config['MOODLE_WEB_ADDRESS'].endswith('html'):
             MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
