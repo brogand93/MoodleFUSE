@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding: utf-8
-
+from moodlefuse.moodle.resources.resource_errors import UnableToDownloadResource
 from tests.resources.data.resources_results import true_resources, false_resources
 from tests import MoodleFuseAppTestCase
 from tests.data import settings
@@ -48,6 +48,13 @@ class ResourcesTestCase(MoodleFuseAppTestCase):
                 'st_size',
                 'st_uid'
             )
+        )
+
+    def get_resource_attributes_invalid_path_test(self):
+        self.assertRaises(UnableToDownloadResource, lambda:
+                self.ops.getattr(
+                    self.filesystem_root + '/testcourse/week3/dev'
+                )
         )
 
     def get_resource_attributes_invalid_resource_test(self):

@@ -8,27 +8,24 @@ from moodlefuse.exception import MoodleFuseException
 
 
 class MoodleException(MoodleFuseException):
+    def __init__(self, specific_debug_info):
+        debug_info = "Moodle action failed to complete - " + specific_debug_info
+        super(MoodleException, self).__init__(debug_info)
 
+
+class UnableToToggleEditing(MoodleException):
     def __init__(self):
-        self.debug_info = "Moodle action failed to complete"
-
-    def __str__(self):
-        return str(MoodleFuseException + self.debug_info)
+        debug_info = "Could not toggle editing button"
+        super(UnableToToggleEditing, self).__init__(debug_info)
 
 
 class LoginException(MoodleException):
-
-    def __init__(self, username):
-        self.debug_info = "Failed to log into account for " + username
-
-    def __str__(self):
-        return str(MoodleException + self.debug_info)
+    def __init__(self):
+        debug_info = "Failed to log into account for username provided in config"
+        super(MoodleException, self).__init__(debug_info)
 
 
 class NotFoundException(MoodleException):
-
-    def __init__(self, url):
-        self.debug_info = "Coukd not connect to the url" + url
-
-    def __str__(self):
-        return repr(MoodleException + self.debug_info)
+    def __init__(self):
+        debug_info = "Could not connect to the login URL provided in config"
+        super(NotFoundException, self).__init__(debug_info)

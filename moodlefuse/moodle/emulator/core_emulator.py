@@ -7,7 +7,10 @@
 from bs4 import BeautifulSoup
 from moodlefuse.core import config
 from mechanize import Browser, CookieJar
-from moodlefuse.moodle.exception import LoginException
+from moodlefuse.moodle import exception
+from moodlefuse.moodle.courses import course_errors
+from moodlefuse.moodle.resources import resource_errors
+from moodlefuse.helpers import throws_moodlefuse_error
 
 
 class CoreEmulator(object):
@@ -34,13 +37,17 @@ class CoreEmulator(object):
         self.cookiejar = CookieJar()
         self.browser.set_cookiejar(self.cookiejar)
 
-    def login(self):
+    @throws_moodlefuse_error(exception.NotFoundException)
+    def open_login_page(self):
         if not config['MOODLE_WEB_ADDRESS'].endswith('php') and not config['MOODLE_WEB_ADDRESS'].endswith('html'):
             MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
         else:
             MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS']
 
         self.browser.open(MOODLE_LOGIN_URL)
+
+    def login(self):
+        self.open_login_page()
         self.browser.select_form(
             predicate=lambda form: form.attrs.get('id') == 'login'
         )
@@ -49,8 +56,9 @@ class CoreEmulator(object):
         resp = self.browser.submit()
 
         if resp.geturl().endswith('/login/index.php'):
-            raise LoginException(self.username)
+            raise exception.LoginException()
 
+    @throws_moodlefuse_error(resource_errors.UnableToDownloadResource)
     def download(self, destination, source):
         source = str(source)
         if not source.startswith('http://') and not source.startswith('file://'):
@@ -84,6 +92,7 @@ class CoreEmulator(object):
                 if control.value == value:
                     self.browser.form = form
 
+    @throws_moodlefuse_error(exception.UnableToToggleEditing)
     def turn_course_editing_on(self):
         self.set_form_to_form_with_control_value('Turn editing on')
         response = self.browser.submit()
@@ -96,17 +105,21 @@ class CoreEmulator(object):
         response = self.browser.submit()
         return BeautifulSoup(response.read())
 
+    @throws_moodlefuse_error(exception.UnableToToggleEditing)
     def turn_course_editing_off(self):
         self.set_form_to_form_with_control_value('Turn editing off')
         response = self.browser.submit()
         return BeautifulSoup(response.read())
 
+    @throws_moodlefuse_error(course_errors.InvalidMoodleIndex)
     def get_courses(self):
         return self.open_link(config['MOODLE_INDEX_ADDRESS'])
 
+    @throws_moodlefuse_error(course_errors.UnableToObtainCategoryList)
     def get_course_categories(self, url):
         return self.open_link(url)
 
+    @throws_moodlefuse_error(resource_errors.UnableToObtainResourceList)
     def get_course_resource_names(self, url):
         return self.open_link(url)
 

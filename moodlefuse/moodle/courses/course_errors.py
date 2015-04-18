@@ -4,23 +4,28 @@
 """Class to handle errors relating to course incidents.
 """
 
-
 from moodlefuse.moodle.exception import MoodleException
 
 
-class UnableToObtainCourseList(MoodleException):
-
+class InvalidMoodleIndex(MoodleException):
     def __init__(self):
-        self.debug_info = "Failed to obtain course list from Moodle"
+        debug_info = "Index page supplied in config is invalid"
+        super(InvalidMoodleIndex, self).__init__(debug_info)
 
-    def __str__(self):
-        return repr(MoodleException + self.debug_info)
+
+class UnableToObtainCourseList(MoodleException):
+    def __init__(self):
+        debug_info = "Failed to obtain course list from Moodle"
+        super(UnableToObtainCourseList, self).__init__(debug_info)
+
+
+class UnableToOAddCourseCategory(MoodleException):
+    def __init__(self):
+        debug_info = "Failed to create c ategory in Moodle"
+        super(UnableToOAddCourseCategory, self).__init__(debug_info)
 
 
 class UnableToObtainCategoryList(MoodleException):
-
     def __init__(self):
-        self.debug_info = "Failed to obtain course category list from Moodle"
-
-    def __str__(self):
-        return repr(MoodleException + self.debug_info)
+        debug_info = "Failed to obtain course category list from Moodle"
+        super(UnableToObtainCategoryList, self).__init__(debug_info)
