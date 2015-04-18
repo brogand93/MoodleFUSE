@@ -52,7 +52,6 @@ class CoreEmulator(object):
     def download(self, destination, source):
         source = str(source)
         if not source.startswith('http://') and not source.startswith('file://'):
-            print config
             source = config['TEST_DATA'] + '/' + source
 
         self.browser.retrieve(source, destination)

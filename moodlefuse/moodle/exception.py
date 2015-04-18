@@ -19,7 +19,7 @@ class MoodleException(MoodleFuseException):
 class LoginException(MoodleException):
 
     def __init__(self, username):
-        self.debug_info = "Failed to log into account"
+        self.debug_info = "Failed to log into account for " + username
 
     def __str__(self):
         return str(MoodleException + self.debug_info)
