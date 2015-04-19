@@ -1,7 +1,11 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+#!/usr/bin/env python
+# encoding: utf-8
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+
 
 Base = declarative_base()
 

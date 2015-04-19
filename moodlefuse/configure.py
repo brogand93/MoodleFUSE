@@ -4,16 +4,16 @@
 """Class to configure MoodleFUSE
 """
 
-import os
 import argparse
 import getpass
+import os
 
-from alembic import command
-from ConfigParser import SafeConfigParser
 from alembic.config import Config as AlembicConfig
+from ConfigParser import SafeConfigParser
+from alembic import command
 
-from moodlefuse.models.users import User
 from moodlefuse.model_manager import setup_model
+from moodlefuse.models.users import User
 from moodlefuse.services import USERS
 
 

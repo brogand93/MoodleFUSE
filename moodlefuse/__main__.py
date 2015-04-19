@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Entry point for the MoodleFUSE application
+"""
+
 from moodlefuse import MoodleFuse
 
 

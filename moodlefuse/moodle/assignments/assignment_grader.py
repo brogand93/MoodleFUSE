@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to handle assignment grading for lecturers.
+"""
+
+import csv
+
 from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.core import config
-import csv
 
 
 class AssignmentGrader(object):

@@ -1,15 +1,20 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to spin up a javscript enabled browser to handle Moodle
+   interaction
+"""
+
 import time
 
-from selenium import webdriver
-from moodlefuse.core import config
-from moodlefuse.helpers import throws_moodlefuse_error
-from moodlefuse.moodle import exception
-from moodlefuse.moodle.courses import course_errors
-from moodlefuse.moodle.resources import resource_errors
 from xvfbwrapper import Xvfb
+
+from moodlefuse.moodle.resources import resource_errors
+from moodlefuse.helpers import throws_moodlefuse_error
+from moodlefuse.moodle.courses import course_errors
+from moodlefuse.moodle import exception
+from moodlefuse.core import config
+from selenium import webdriver
 
 
 class JsEmulator(object):

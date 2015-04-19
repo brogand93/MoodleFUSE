@@ -1,19 +1,22 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to translate filesystem events to Moodle actions
+"""
+
+import os
+
 from moodlefuse.moodle.assignments.assignment_handler import AssignmentHandler
 from moodlefuse.moodle.resources.resource_handler import ResourceHandler
-from moodlefuse.filesystem.remote_handler import RemoteHandler
 from moodlefuse.moodle.emulator.js_enabled_emulator import JsEmulator
 from moodlefuse.moodle.courses.course_handler import CourseHandler
 from moodlefuse.moodle.emulator.core_emulator import CoreEmulator
 from moodlefuse.helpers import get_cache_path_based_on_location
+from moodlefuse.filesystem.remote_handler import RemoteHandler
 from moodlefuse.filesystem.files.cache_file import CacheFile
 from moodlefuse.filesystem.files.directory import Directory
 from moodlefuse.filesystem.path_parser import PathParser
 from moodlefuse.core import config
-
-import os
 
 
 class FileSystemTranslator(object):

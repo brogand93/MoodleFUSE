@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import os
+"""Filesystem operations classs, overrides FUSE operations
+"""
+
 import errno
+import os
+
+from fuse import FuseOSError, Operations
 
 from moodlefuse.filesystem.file_system_translator import FileSystemTranslator
-from fuse import FuseOSError, Operations
 
 
 class FileOperationOverrider(Operations):

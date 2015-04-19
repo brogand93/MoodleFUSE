@@ -1,4 +1,11 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+"""Class to handle moodlefuse user models
+"""
+
 from sqlalchemy import Column, String
+
 from moodlefuse.model_manager import Base
 
 

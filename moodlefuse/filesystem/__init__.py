@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from moodlefuse.filesystem.file_operations import FileOperationOverrider
+"""MoodleFUSE filesystem initialization
+"""
+
 from fuse import FUSE
+
+from moodlefuse.filesystem.file_operations import FileOperationOverrider
 
 
 class Filesystem(object):

@@ -4,11 +4,13 @@
 """Class to setup MoodleFUSE
 """
 
-import os
-import sys
 import argparse
+import sys
+import os
 
 from ConfigParser import SafeConfigParser
+
+from moodlefuse.helpers import get_password_for_user
 from moodlefuse.model_manager import setup_model
 
 config = {}
@@ -21,9 +23,9 @@ def setup(settings=None):
         args = _generate_args()
         profile = args.pop('profile')
         config['DEBUG'] = args.pop('debug')
+        load_database()
         config_file = _load_config_file()
         _config_from_config_profile(config_file, profile)
-        load_database()
 
 
 def load_database():
@@ -41,10 +43,6 @@ def from_object(obj):
 
 
 def _generate_args():
-    """
-    Generate command line arguments for moodlefuse.
-    @return: args.
-    """
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
@@ -69,10 +67,6 @@ def _generate_args():
 
 
 def _load_config_file():
-    """
-    Checks that the user's configuration file exists and returns its path.
-    @return: The path to the user's configuration file.
-    """
     config_file = os.path.join(
         os.path.expanduser('~'),
         '.moodlefuse/moodlefuse.conf'
@@ -83,23 +77,15 @@ def _load_config_file():
 
     return config_file
 
-
-def _config_from_config_profile(config_file, profile):
-    """
-    Configures moodlefuse app based on configuration profile.
-    @param config_file: current config file configuration.
-    @param profile: the profile to set the attribute in.
-    """
-    configuration = SafeConfigParser()
-    configuration.read(config_file)
-
-    if not configuration.has_section(profile):
-        sys.exit(
+def _config_doesnt_exist(profile):
+    sys.exit(
             'No profile matching ' +
             profile +
             ' found in configuration, please run moodlefuse-configure -p ' +
-            profile)
+            profile
+    )
 
+def _save_config(configuration, profile):
     for attribute in configuration.options(profile):
         if attribute == 'local_moodle_folder':
             config[attribute.upper()] = str(
@@ -112,3 +98,20 @@ def _config_from_config_profile(config_file, profile):
                 ))
         else:
             config[attribute.upper()] = configuration.get(profile, attribute)
+
+
+def _config_from_config_profile(config_file, profile):
+    configuration = SafeConfigParser()
+    configuration.read(config_file)
+
+    if not configuration.has_section(profile):
+        _config_doesnt_exist(profile)
+
+    config['PASSWORD'] = get_password_for_user(
+        configuration.get(
+            profile,
+            'username'
+        )
+    )
+
+    _save_config(configuration, profile)

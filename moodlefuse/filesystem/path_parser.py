@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to parse a filesystem path
+"""
+
 from moodlefuse.core import config
 
 

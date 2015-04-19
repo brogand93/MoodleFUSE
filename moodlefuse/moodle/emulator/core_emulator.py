@@ -46,8 +46,15 @@ class CoreEmulator(object):
 
         self.browser.open(MOODLE_LOGIN_URL)
 
+
     def login(self):
-        self.open_login_page()
+        if not config['MOODLE_WEB_ADDRESS'].endswith('php') and not config['MOODLE_WEB_ADDRESS'].endswith('html'):
+            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
+        else:
+            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS']
+
+
+        self.browser.open(MOODLE_LOGIN_URL)
         self.browser.select_form(
             predicate=lambda form: form.attrs.get('id') == 'login'
         )
@@ -56,7 +63,7 @@ class CoreEmulator(object):
         resp = self.browser.submit()
 
         if resp.geturl().endswith('/login/index.php'):
-            raise exception.LoginException()
+            raise Exception
 
     @throws_moodlefuse_error(resource_errors.UnableToDownloadResource)
     def download(self, destination, source):

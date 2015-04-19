@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""MoodleFUSE initialization
+"""
+
 import os
 import errno
 
 from moodlefuse.filesystem import Filesystem
 from moodlefuse.core import setup, config
-
 from moodlefuse.services import USERS
 
 

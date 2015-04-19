@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+import os
 
 from functools import wraps
 
-import os
+from moodlefuse.models.users import User
+from moodlefuse.services import USERS
 
 
 def get_cache_path_based_on_location(location):
@@ -22,3 +24,10 @@ def throws_moodlefuse_error(moodlefuse_error):
                 raise moodlefuse_error()
         return wraps(f)(wrapped)
     return inner
+
+
+def get_password_for_user(username):
+    return USERS.get(
+        User,
+        username
+    )

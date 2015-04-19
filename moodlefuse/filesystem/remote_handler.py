@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
+"""Class to carry out Moodle operations
+"""
+
 
 class RemoteHandler(object):
 
