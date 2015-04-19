@@ -16,6 +16,7 @@ from moodlefuse.filesystem.remote_handler import RemoteHandler
 from moodlefuse.filesystem.files.cache_file import CacheFile
 from moodlefuse.filesystem.files.directory import Directory
 from moodlefuse.filesystem.path_parser import PathParser
+from moodlefuse.moodle import assignments
 from moodlefuse.core import config
 
 
@@ -26,10 +27,10 @@ class FileSystemTranslator(object):
         self.js_emulator = JsEmulator(config['USERNAME'], config['PASSWORD'])
         self.emulator.login()
         self.js_emulator.login()
-        courses = CourseHandler(self.emulator, self.js_emulator)
-        resources = ResourceHandler(self.emulator, self.js_emulator)
-        assignments = AssignmentHandler(self.emulator, self.js_emulator)
-        self.remote_handler = RemoteHandler(courses, resources, assignments)
+        course = CourseHandler(self.emulator, self.js_emulator)
+        resource = ResourceHandler(self.emulator, self.js_emulator)
+        assignment = AssignmentHandler(self.emulator, self.js_emulator)
+        self.remote_handler = RemoteHandler(course, resource, assignment)
 
     def close_browsers(self):
         self.emulator.close()
@@ -79,7 +80,7 @@ class FileSystemTranslator(object):
 
     def is_assignment_grading_form(self, location):
         if PathParser.is_assignment(location):
-            return location[3] == 'grades.csv'
+            return location[3] == assignments.GRADES_FILENAME
 
         return False
 

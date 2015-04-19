@@ -11,7 +11,7 @@ from moodlefuse.moodle.emulator.emulator import Emulator
 from moodlefuse.moodle.resources import resource_errors
 from moodlefuse.helpers import throws_moodlefuse_error
 from moodlefuse.moodle.courses import course_errors
-from moodlefuse.moodle import exception
+from moodlefuse.moodle import exception, attributes
 from moodlefuse.core import config
 from moodlefuse import moodle
 
@@ -32,7 +32,7 @@ class CoreEmulator(Emulator):
     def login(self):
         self.open_login_page(self.browser.open)
         self.browser.select_form(
-            predicate=lambda form: form.attrs.get('id') == 'login'
+            predicate=lambda form: form.attrs.get('id') == attributes.LOGIN
         )
         self.browser.form.set_value(self.username, name='username')
         self.browser.form.set_value(self.password, name='password')

@@ -25,12 +25,6 @@ class UnableToDownloadResource(MoodleException):
         super(UnableToDownloadResource, self).__init__(debug_info)
 
 
-class UnableToFindFileOnServer(MoodleException):
-    def __init__(self):
-        debug_info = "Unable to find file on server"
-        super(UnableToFindFileOnServer, self).__init__(debug_info)
-
-
 class UnableToRenameFile(MoodleException):
     def __init__(self):
         debug_info = "Unable to rename moodle file"

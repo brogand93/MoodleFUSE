@@ -21,6 +21,7 @@ SUBMIT_ID = 'id_submitbutton'
 SUBMIT2_ID = 'id_submitbutton2'
 DEFAULT_NAME_ID = 'id_usedefaultname'
 
+LOGIN = 'login'
 MODULES = 'mymodules'
 FIRST_CELL = 'cell c0'
 SUBMIT = 'submitbutton'

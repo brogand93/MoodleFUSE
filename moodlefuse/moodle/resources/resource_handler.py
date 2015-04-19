@@ -8,6 +8,7 @@
 from moodlefuse.moodle.resources.resource_parser import ResourceParser
 from moodlefuse.filesystem.files.cache_file import CacheFile
 from moodlefuse.moodle.handler import MoodleHandler
+from moodlefuse.moodle import resources
 
 
 class ResourceHandler(MoodleHandler):
@@ -47,7 +48,7 @@ class ResourceHandler(MoodleHandler):
         cache_path = CacheFile.create_file(location)
 
         if 'forcedownload' not in moodle_url:
-            moodle_download_url = moodle_url + "?forcedownload=1"
+            moodle_download_url = moodle_url + resources.DOWNLOAD_URL_EXTENSION
         else:
             moodle_download_url = moodle_url
 

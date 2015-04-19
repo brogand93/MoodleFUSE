@@ -13,4 +13,6 @@ class Filesystem(object):
 
     def __init__(self, mount, testing=False):
         if not testing:
-            FUSE(FileOperationOverrider(mount), mount, foreground=True)
+            operations_control = FileOperationOverrider(mount)
+            FUSE(operations_control, mount, foreground=True)
+            operations_control.end_operations()
