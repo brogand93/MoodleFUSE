@@ -6,6 +6,7 @@
 """
 
 from moodlefuse.moodle.parser import Parser
+from moodlefuse.moodle import assignments
 
 
 class AssignmentParser(Parser):
@@ -20,7 +21,7 @@ class AssignmentParser(Parser):
             name = name_item.get_text()
             if name != '':
                 name = name.replace(" ", "_")
-                name = name + "_submission"
+                name = name + assignments.SUBMISSION_LISTING_END
                 names.append(name)
 
         return names

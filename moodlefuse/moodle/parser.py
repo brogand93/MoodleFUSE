@@ -5,6 +5,7 @@
 """
 
 from moodlefuse.moodle.scraper import Scraper
+from moodlefuse.moodle import attributes
 
 
 class Parser(object):
@@ -13,10 +14,10 @@ class Parser(object):
         self.scraper = Scraper()
 
     def remove_unicode(self, items):
-        return [item.encode('utf-8') for item in items]
+        return [item.encode(attributes.ENCODING) for item in items]
 
     def get_link_from_item(self, item):
         if item is not None:
-            return item['href']
+            return item[attributes.LINKTEXT]
 
         return None

@@ -10,18 +10,18 @@ import time
 from selenium import webdriver
 from xvfbwrapper import Xvfb
 
+from moodlefuse.moodle.emulator.emulator import Emulator
 from moodlefuse.moodle.resources import resource_errors
 from moodlefuse.helpers import throws_moodlefuse_error
 from moodlefuse.moodle.courses import course_errors
-from moodlefuse.moodle import exception
-from moodlefuse.core import config
+from moodlefuse.moodle import exception, paths
+from moodlefuse.moodle import attributes
 
 
-class JsEmulator(object):
+class JsEmulator(Emulator):
 
     def __init__(self, username, password):
-        self.username = username
-        self.password = password
+        super(JsEmulator, self).__init__(username, password)
         self.setup_emulator()
 
     def setup_emulator(self):
@@ -32,28 +32,24 @@ class JsEmulator(object):
         self.driver = webdriver.Firefox()
 
     def open_add_resource_menu(self, category):
-        element = self.driver.find_element_by_xpath("//li[@aria-label='{0}']".format(category))
-        resource_menu = element.find_element_by_class_name('section-modchooser-text')
+        element = self.driver.find_element_by_xpath(paths.CATEGORY.format(category))
+        resource_menu = element.find_element_by_class_name(attributes.SECTION)
         resource_menu.click()
 
     def open_edit_resource_menu(self, category, resource_name):
-        xpath = "//li[@aria-label='{0}']//span[contains(text(), '{1}')]".format(
-            category, resource_name
-        )
+        xpath = paths.RESOURCE.format(category, resource_name)
         element = self.driver.find_element_by_xpath(xpath)
-        element = element.find_element_by_xpath("../../..")
-        element.find_element_by_xpath(".//a[contains(text(), 'Edit')]").click()
-        element.find_element_by_xpath(".//span[contains(text(), 'Edit settings')]").click()
+        element = element.find_element_by_xpath(paths.THIRD_PARENT)
+        element.find_element_by_xpath(paths.EDIT_BUTTON).click()
+        element.find_element_by_xpath(paths.SETTINGS).click()
 
     @throws_moodlefuse_error(resource_errors.UnableToRemoveFile)
     def delete_resource(self, category, resource_name):
-        xpath = "//li[@aria-label='{0}']//span[contains(text(), '{1}')]".format(
-            category, resource_name
-        )
+        xpath = paths.RESOURCE.format(category, resource_name)
         element = self.driver.find_element_by_xpath(xpath)
-        element = element.find_element_by_xpath("../../..")
-        element.find_element_by_xpath(".//a[contains(text(), 'Edit')]").click()
-        element.find_element_by_xpath(".//span[contains(text(), 'Delete')]").click()
+        element = element.find_element_by_xpath(paths.THIRD_PARENT)
+        element.find_element_by_xpath(paths.EDIT_BUTTON).click()
+        element.find_element_by_xpath(paths.DELETE).click()
         alert = self.driver.switch_to_alert()
         alert.accept()
 
@@ -61,14 +57,11 @@ class JsEmulator(object):
     def rename_file(self, category, old_name, new_name):
         self.open_edit_resource_menu(category, old_name)
         self.rename_file_from_edit_screen(new_name)
-        self.driver.find_element_by_id("id_submitbutton2").click()
-
-    def open_assignment_grading_and_submission_page(self):
-        self.driver.find_element_by_xpath("//a[containts(text(), 'View/grade all submissions')]").click()
+        self.driver.find_element_by_id(attributes.SUBMIT2_ID).click()
 
     def rename_file_from_edit_screen(self, new_name):
         time.sleep(.5)
-        element = self.enter_text_into_textbox("id_name", new_name)
+        element = self.enter_text_into_textbox(attributes.NAME_ID, new_name)
         element.send_keys(webdriver.common.keys.Keys.TAB)
         element = self.driver.switch_to.active_element
         element.click()
@@ -77,45 +70,37 @@ class JsEmulator(object):
 
     @throws_moodlefuse_error(resource_errors.UnableToAddFile)
     def add_resource(self, resource_name, resource_path):
-        self.driver.find_element_by_xpath("//span[contains(text(), 'File') and @class='typename']").click()
-        self.driver.find_element_by_name("submitbutton").click()
+        self.driver.find_element_by_xpath(paths.FILE).click()
+        self.driver.find_element_by_name(attributes.SUBMIT).click()
         self.rename_file_from_edit_screen(resource_name)
         self.edit_resource_content(resource_path)
-        self.driver.find_element_by_id("id_submitbutton2").click()
+        self.driver.find_element_by_id(attributes.SUBMIT2_ID).click()
 
     @throws_moodlefuse_error(resource_errors.UnableToModifyFile)
     def edit_resource_content(self, resource_path):
         time.sleep(.5)
-        self.driver.find_element_by_class_name('fp-mainfile').click()
-        self.driver.find_element_by_class_name('fp-file-delete').click()
-        self.driver.find_element_by_class_name('fp-dlg-butconfirm').click()
-        self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
-        element = self.driver.find_element_by_css_selector("input[type='file']")
+        self.driver.find_element_by_class_name(attributes.FILE_CONTENT).click()
+        self.driver.find_element_by_class_name(attributes.DELETE_FILE).click()
+        self.driver.find_element_by_class_name(attributes.CONFIRM).click()
+        self.driver.find_element_by_xpath(paths.UPLOAD).click()
+        element = self.driver.find_element_by_css_selector(attributes.FILE)
         element.send_keys(resource_path)
-        self.driver.find_element_by_class_name("fp-upload-btn").click()
+        self.driver.find_element_by_class_name(attributes.UPLOAD).click()
 
     @throws_moodlefuse_error(course_errors.UnableToOAddCourseCategory)
     def change_most_recent_categoryname(self, new_name):
-        self.check_form_checkbox('id_usedefaultname')
-        self.enter_text_into_textbox('id_name', new_name)
+        self.check_form_checkbox(attributes.DEFAULT_NAME_ID)
+        self.enter_text_into_textbox(attributes.NAME_ID, new_name)
         self.close_form()
-
-    @throws_moodlefuse_error(exception.NotFoundException)
-    def open_login_page(self):
-        if not config['MOODLE_WEB_ADDRESS'].endswith('php') and not config['MOODLE_WEB_ADDRESS'].endswith('html'):
-            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS'] + '/login/index.php'
-        else:
-            MOODLE_LOGIN_URL = config['MOODLE_WEB_ADDRESS']
-        self.driver.get(MOODLE_LOGIN_URL)
 
     @throws_moodlefuse_error(exception.LoginException)
     def login(self):
-        self.open_login_page()
-        element = self.driver.find_element_by_id("username")
+        self.open_login_page(self.driver.get)
+        element = self.driver.find_element_by_id(attributes.USERNAME_ID)
         element.send_keys(self.username)
-        element = self.driver.find_element_by_id("password")
+        element = self.driver.find_element_by_id(attributes.PASSWORD_ID)
         element.send_keys(self.password)
-        self.driver.find_element_by_id("loginbtn").click()
+        self.driver.find_element_by_id(attributes.LOGIN_ID).click()
 
     def open_link(self, url):
         self.driver.get(url)
@@ -131,17 +116,17 @@ class JsEmulator(object):
         return element
 
     @throws_moodlefuse_error(exception.UnableToToggleEditing)
-    def turn_editing_on(self):
-        element = self.driver.find_element_by_xpath("//* [@type='submit'][@value='Turn editing on']")
+    def turn_course_editing_on(self):
+        element = self.driver.find_element_by_xpath(paths.EDIT_ON)
         element.click()
 
     @throws_moodlefuse_error(exception.UnableToToggleEditing)
-    def turn_editing_off(self):
-        element = self.driver.find_element_by_xpath("//* [@type='submit'][@value='Turn editing off']")
+    def turn_course_editing_off(self):
+        element = self.driver.find_element_by_xpath(paths.EDIT_OFF)
         element.click()
 
     def close_form(self):
-        self.driver.find_element_by_id("id_submitbutton").click()
+        self.driver.find_element_by_id(attributes.SUBMIT_ID).click()
 
     def close(self):
         self.driver.quit()

@@ -6,6 +6,7 @@
 
 import csv
 
+from moodlefuse.moodle.assignments import GRADES_FILENAME
 from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.core import config
 
@@ -17,7 +18,7 @@ class AssignmentGrader(object):
 
     def format_csv(self, location):
         if 'DOWNLOADS' in config:
-            csv_path = config['DOWNLOADS'] + '/grades.csv'
+            csv_path = config['DOWNLOADS'] + '/' + GRADES_FILENAME
         else:
             csv_path = get_cache_path_based_on_location(location)
         with open(csv_path, 'wt') as f:

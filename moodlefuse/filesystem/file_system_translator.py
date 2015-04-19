@@ -80,6 +80,7 @@ class FileSystemTranslator(object):
     def is_assignment_grading_form(self, location):
         if PathParser.is_assignment(location):
             return location[3] == 'grades.csv'
+
         return False
 
     def remove_resource(self, path):

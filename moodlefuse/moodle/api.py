@@ -23,16 +23,6 @@ class MoodleAPI(object):
     def follow_link_with_js(self, link):
         return self.js_emulator.open_link(link)
 
-    def get_current_url(self):
-        return self.emulator.get_current_url()
-
-    def get_resource_size(self, category, resource_name):
-        self.js_emulator.turn_editing_on()
-        self.js_emulator.open_edit_resource_menu(category, resource_name)
-        size = self.js_emulator.get_resource_size()
-        self.js_emulator.turn_editing_off()
-        return size
-
     def filter_assignment_submissions(self):
         return self.emulator.filter_assignment_submissions()
 

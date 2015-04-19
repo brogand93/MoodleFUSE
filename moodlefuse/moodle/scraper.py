@@ -5,6 +5,8 @@
    information.
 """
 
+from moodlefuse.moodle import attributes
+
 
 class Scraper(object):
 
@@ -13,53 +15,53 @@ class Scraper(object):
         return self.get_link_from_linktext(div_html, linktext)
 
     def get_link_from_linktext(self, html, linktext):
-        link = html.find('a', href=True, text=linktext)
+        link = html.find(attributes.LINK, href=True, text=linktext)
 
         if link is not None:
-            return link['href']
+            return link[attributes.LINKTEXT]
 
         return link
 
     def get_html_with_divclass(self, html, classname):
         return self._get_html_from_tag_label_with_name(
-            html, 'div',
-            'class', classname
+            html, attributes.DIV,
+            attributes.CLASS, classname
         )
 
     def get_html_items_with_divclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
-            html, 'div',
-            'class', classname
+            html, attributes.DIV,
+            attributes.CLASS, classname
         )
 
     def get_html_with_aclass(self, html, classname):
         return self._get_html_from_tag_label_with_name(
-            html, 'a',
-            'class', classname
+            html, attributes.LINK,
+            attributes.CLASS, classname
         )
 
     def get_all_html_with_atitle(self, html, titlename):
         return self._get_all_html_from_tag_label_with_name(
-            html, 'a',
-            'title', titlename
+            html, attributes.LINK,
+            attributes.TITLE, titlename
         )
 
     def get_html_items_with_tdclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
-            html, 'td',
-            'class', classname
+            html, attributes.TABLE,
+            attributes.CLASS, classname
         )
 
     def get_html_items_with_spanclass(self, html, classname):
         return self._get_all_html_from_tag_label_with_name(
-            html, 'span',
-            'class', classname
+            html, attributes.SPAN,
+            attributes.CLASS, classname
         )
 
     def get_html_with_liarialabel(self, html, labelname):
         return self._get_html_from_tag_label_with_name(
-            html, 'li',
-            'aria-label', labelname
+            html, attributes.LIST,
+            attributes.LABEL, labelname
         )
 
     def get_instances_from_span_list(self, span_list):
@@ -75,7 +77,7 @@ class Scraper(object):
         for span_item in spanlist:
             sections = span_item.get_text().split(" ")
             if sections[1] == instance_type and sections[0] == name:
-                return span_item.find('a', href=True)['href']
+                return span_item.find(attributes.LINK, href=True)[attributes.LINKTEXT]
 
         return None
 

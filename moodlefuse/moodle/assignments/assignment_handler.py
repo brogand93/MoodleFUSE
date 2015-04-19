@@ -8,6 +8,7 @@
 from moodlefuse.moodle.assignments.assignment_grader import AssignmentGrader
 from moodlefuse.moodle.assignments.assignment_parser import AssignmentParser
 from moodlefuse.moodle.handler import MoodleHandler
+from moodlefuse.moodle import assignments
 
 
 class AssignmentHandler(MoodleHandler):
@@ -18,11 +19,11 @@ class AssignmentHandler(MoodleHandler):
         self.parser = AssignmentParser()
 
     def get_assignment_info_as_array(self):
-        return ['Submissions', 'grades.csv']
+        return [assignments.SUBMISSIONS_FILENAME, assignments.GRADES_FILENAME]
 
     def get_assignment_submissions(self, assignment_url):
         if 'grading' not in assignment_url:
-            assignment_url = assignment_url + "&action=grading"
+            assignment_url = assignment_url + assignments.GRADING_URL_EXTENSION
         self.moodle.follow_link(assignment_url)
         assignment_submissions = self.moodle.filter_assignment_submissions()
         return self.parser.get_all_assignment_names(assignment_submissions)

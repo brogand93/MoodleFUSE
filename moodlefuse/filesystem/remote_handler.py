@@ -4,6 +4,8 @@
 """Class to carry out Moodle operations
 """
 
+FUSE_TRASH = '.Trash-1000'
+
 
 class RemoteHandler(object):
 
@@ -17,7 +19,7 @@ class RemoteHandler(object):
         return self.courses.get_course_category_contents(course_contents, location[1])
 
     def get_remote_resourse_names(self, location):
-        if location[0] == '.Trash-1000':
+        if location[0] == FUSE_TRASH:
             return None
         category_contents = self.get_category_contents(location)
         return self.resources.get_file_names_as_array(category_contents)
