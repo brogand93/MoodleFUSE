@@ -38,3 +38,6 @@ The list of supported operations is (Assuming appropriate user rights on Moodle)
 -   Listing of assignment submissions
 -   Viewing of assignment submissions
 -   Grading of assignment submissions
+
+User guide for MoodleFUSE can be viewed on the `wiki 
+<https://github.com/BroganD1993/MoodleFUSE/wiki/User-Guide/>`_.
