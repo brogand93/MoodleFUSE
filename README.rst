@@ -5,6 +5,8 @@ MoodleFUSE
 Moodle filesystem sync with FUSE
 ################################
 
+.. image:: https://badge.fury.io/py/moodlefuse.png
+    :target: https://pypi.python.org/pypi/moodlefuse
 .. image:: https://travis-ci.org/BroganD1993/MoodleFUSE.svg?branch=master
     :target: https://travis-ci.org/BroganD1993/MoodleFUSE
 .. image:: https://coveralls.io/repos/BroganD1993/MoodleFUSE/badge.svg?branch=master 
