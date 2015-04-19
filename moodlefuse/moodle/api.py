@@ -4,6 +4,8 @@
 """Class to act as a bridge between the Moodle emulator and handlers
 """
 
+from moodlefuse.moodle import requires_editing_moodle
+
 
 class MoodleAPI(object):
 
@@ -15,7 +17,7 @@ class MoodleAPI(object):
         if modify is True:
             return self.emulator.turn_course_editing_on()
         else:
-            return self.emulator.turn_course_editing_on()
+            return self.emulator.turn_course_editing_off()
 
     def follow_link(self, link):
         return self.emulator.open_link(link)
@@ -26,28 +28,25 @@ class MoodleAPI(object):
     def filter_assignment_submissions(self):
         return self.emulator.filter_assignment_submissions()
 
+    @requires_editing_moodle()
     def add_new_resource(self, category, resource_name, resource_path):
-        self.js_emulator.turn_editing_on()
         self.js_emulator.open_add_resource_menu(category)
         self.js_emulator.add_resource(resource_name, resource_path)
-        self.js_emulator.turn_editing_off()
 
+    @requires_editing_moodle()
     def remove_existing_resource(self, category, resource_name):
-        self.js_emulator.turn_editing_on()
         self.js_emulator.delete_resource(category, resource_name)
-        self.js_emulator.turn_editing_off()
 
+    @requires_editing_moodle()
     def modify_existing_resource(self, category, resource_name, resource_path):
-        self.js_emulator.turn_editing_on()
         self.js_emulator.open_edit_resource_menu(category, resource_name)
         self.js_emulator.edit_resource_content(resource_path)
-        self.js_emulator.turn_editing_off()
 
+    @requires_editing_moodle()
     def rename_existing_resource(self, category, old_resource_name, new_resource_name):
-        self.js_emulator.turn_editing_on()
         self.js_emulator.rename_file(category, old_resource_name, new_resource_name)
-        self.js_emulator.turn_editing_off()
 
+    @requires_editing_moodle()
     def change_category_name(self, new_name):
         self.js_emulator.change_most_recent_categoryname(new_name)
 

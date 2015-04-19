@@ -75,7 +75,7 @@ class FileOperationOverrider(Operations):
         self.translator.rename_file(old, new)
 
     def rmdir(self, path):
-        return os.rmdir(path)
+        pass
 
     def statfs(self, path):
         return dict(f_bsize=512, f_blocks=4096, f_bavail=2048)
