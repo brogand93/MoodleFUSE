@@ -30,4 +30,4 @@ def get_password_for_user(username):
     return USERS.get(
         User,
         username
-    )
+    ).password

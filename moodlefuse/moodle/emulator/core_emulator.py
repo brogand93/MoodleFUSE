@@ -45,7 +45,6 @@ class CoreEmulator(object):
 
         self.browser.open(MOODLE_LOGIN_URL)
 
-    @throws_moodlefuse_error(exception.LoginException)
     def login(self):
         self.open_login_page()
         self.browser.select_form(
