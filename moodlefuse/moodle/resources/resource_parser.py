@@ -6,6 +6,7 @@
 """
 
 from moodlefuse.moodle.parser import Parser
+from moodlefuse.moodle import attributes
 
 
 class ResourceParser(Parser):
@@ -19,7 +20,7 @@ class ResourceParser(Parser):
 
     def parse_course_resource_url(self, category_content, filename):
         activity_instances = self.scraper.get_html_items_with_divclass(
-            category_content, 'activityinstance')
+            category_content, attributes.INSTANCE)
 
         return self.scraper.get_link_from_span_list_with_type_and_name(
             activity_instances, 'File', filename
@@ -27,7 +28,7 @@ class ResourceParser(Parser):
 
     def parse_course_assignment_url(self, category_content, filename):
         activity_instances = self.scraper.get_html_items_with_divclass(
-            category_content, 'activityinstance')
+            category_content, attributes.INSTANCE)
 
         return self.scraper.get_link_from_span_list_with_type_and_name(
             activity_instances, 'Assignment', filename
@@ -35,4 +36,4 @@ class ResourceParser(Parser):
 
     def _get_resource_html(self, category_content):
         return self.scraper.get_html_items_with_spanclass(
-            category_content, 'instancename')
+            category_content, attributes.INSTANCE_NAME)

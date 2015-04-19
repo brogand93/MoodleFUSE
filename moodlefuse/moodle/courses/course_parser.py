@@ -6,6 +6,7 @@
 """
 
 from moodlefuse.moodle.parser import Parser
+from moodlefuse.moodle import attributes
 
 
 class CourseParser(Parser):
@@ -21,21 +22,21 @@ class CourseParser(Parser):
 
     def _html_is_table_format(self, course_html):
         return self.scraper.get_html_with_divclass(
-            course_html, 'courses frontpage-course-list-all') is None
+            course_html, attributes.COURSES) is None
 
     def _parse_flat_courses(self, course_html):
         course_html = self.scraper.get_html_with_divclass(
-            course_html, 'courses frontpage-course-list-all')
+            course_html, attributes.COURSES)
 
         courses = course_html.findAll(text=True)
         return self.remove_unicode(courses)
 
     def _parse_table_courses(self, course_html):
         course_table = self.scraper.get_html_with_divclass(
-            course_html, 'mymodules')
+            course_html, attributes.MODULES)
 
         courses_html = self.scraper.get_html_items_with_tdclass(
-            course_table, 'cell c0')
+            course_table, attributes.FIRST_CELL)
 
         courses = self.scraper.get_text_from_html_list(courses_html)
         return self.remove_unicode(courses)
@@ -46,7 +47,7 @@ class CourseParser(Parser):
 
     def get_sections_settings_html(self, course_html):
         return self.scraper.get_all_html_with_atitle(
-            course_html, 'Edit summary')
+            course_html, attributes.EDIT_SUMMARY)
 
     def parse_course_category_titles(self, course_content):
         sections = self.scraper.get_text_from_taged_item(course_content, 'h3')
@@ -54,13 +55,13 @@ class CourseParser(Parser):
 
     def parse_course_content_from_page(self, html):
         course_html = self.scraper.get_html_with_divclass(
-            html, 'course-content')
+            html, attributes.COURSE_CONTENT)
 
         return course_html
 
     def get_add_section_link(self, course_content):
         add_section_html = self.scraper.get_html_with_aclass(
-            course_content, 'increase-sections')
+            course_content, attributes.INCREASE_SECTIONS)
 
         return self.get_link_from_item(add_section_html)
 
@@ -73,6 +74,6 @@ class CourseParser(Parser):
 
     def get_course_link(self, course_scraper, course):
         course_link = self.scraper.get_link_from_linktext_in_divclass(
-            course_scraper, 'courses frontpage-course-list-all', course)
+            course_scraper, attributes.COURSES, course)
 
         return course_link
