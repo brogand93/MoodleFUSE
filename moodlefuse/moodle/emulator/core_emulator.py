@@ -4,13 +4,14 @@
 """Class to spin up a headless browser to handle Moodle interaction
 """
 
-from bs4 import BeautifulSoup
-from moodlefuse.core import config
 from mechanize import Browser, CookieJar
-from moodlefuse.moodle import exception
-from moodlefuse.moodle.courses import course_errors
+from moodlefuse.core import config
+from bs4 import BeautifulSoup
+
 from moodlefuse.moodle.resources import resource_errors
 from moodlefuse.helpers import throws_moodlefuse_error
+from moodlefuse.moodle.courses import course_errors
+from moodlefuse.moodle import exception
 
 
 class CoreEmulator(object):
