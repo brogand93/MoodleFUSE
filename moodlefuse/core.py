@@ -77,13 +77,15 @@ def _load_config_file():
 
     return config_file
 
+
 def _config_doesnt_exist(profile):
     sys.exit(
-            'No profile matching ' +
-            profile +
-            ' found in configuration, please run moodlefuse-configure -p ' +
-            profile
+        'No profile matching ' +
+        profile +
+        ' found in configuration, please run moodlefuse-configure -p ' +
+        profile
     )
+
 
 def _save_config(configuration, profile):
     for attribute in configuration.options(profile):
