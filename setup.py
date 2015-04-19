@@ -23,7 +23,7 @@ PROJECT = 'moodlefuse'
 VERSION = '0.0.1'
 URL = 'http://github.com/brogand1993/MoodleFUSE'
 AUTHOR = 'Darren Brogan'
-AUTHOR_EMAIL = 'brogand2@mail.dcu.ie'
+AUTHOR_EMAIL = 'darren.brogan2@mail.dcu.ie'
 DESC = "FUSE filesystem based on moodle implementation"
 LONG_DESC = read_file('README.rst')
 REQUIRES = [
@@ -45,8 +45,10 @@ setup(
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
     url=URL,
-    license='Apache License (2.0)',
-    package_data={},
+    license='MIT License',
+    package_data={
+        'alembic': ['*.mako', 'versions/*']
+    },
     packages=[
         'tests',
         'alembic',
@@ -70,6 +72,7 @@ setup(
     zip_safe=False,
     install_requires=REQUIRES,
     classifiers=[
+        'Development Status :: 2 - Pre-Alpha',
         'Environment :: Console',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
