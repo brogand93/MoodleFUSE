@@ -24,8 +24,14 @@ class RemoteHandler(object):
         category_contents = self.get_category_contents(location)
         return self.resources.get_file_names_as_array(category_contents)
 
+    def get_assignment_url(self, location):
+        category_contents = self.get_category_contents(location)
+        assignment_url = self.resources.get_assignment_url(category_contents, location[2])
+        return assignment_url
+
     def get_remote_grading_csv(self, location):
-        return self.assignments.get_grades_csv(location)
+        assignment_url = self.get_assignment_url(location)
+        return self.assignments.get_grades_csv(location, assignment_url)
 
     def get_remote_courses(self, location=None):
         return self.courses.get_courses_as_array()
@@ -53,9 +59,12 @@ class RemoteHandler(object):
         self.courses.enter_course_with_js(old_location[0])
         self.resources.rename_resource(old_location[1], old_location[2], new_location[3])
 
+    def mofify_grades(self, location):
+        assignment_url = self.get_remote_assignment_path(location)
+        return self.assignments.modify_grades(location, assignment_url)
+
     def get_remote_assignment_names(self, location):
-        category_contents = self.get_category_contents(location)
-        assignment_url = self.resources.get_assignment_url(category_contents, location[2])
+        assignment_url = self.get_remote_grading_csv(location)
         return self.assignments.get_assignment_submissions(assignment_url)
 
     def get_remote_file_path(self, location):

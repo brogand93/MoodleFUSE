@@ -14,19 +14,19 @@ class Emulator(object):
         self.password = password
 
     def setup_emulator(self):
-        pass
+        raise NotImplementedError
 
     def login(self):
-        pass
+        raise NotImplementedError
 
     def turn_course_editing_on(self):
-        pass
+        raise NotImplementedError
 
     def turn_course_editing_off(self):
-        pass
+        raise NotImplementedError
 
     def close(self):
-        pass
+        raise NotImplementedError
 
     @throws_moodlefuse_error(exception.NotFoundException)
     def open_login_page(self, open_url_function):

@@ -16,6 +16,7 @@ from moodlefuse.helpers import throws_moodlefuse_error
 from moodlefuse.moodle.courses import course_errors
 from moodlefuse.moodle import exception, paths
 from moodlefuse.moodle import attributes
+from moodlefuse.core import config
 
 
 class JsEmulator(Emulator):
@@ -25,10 +26,12 @@ class JsEmulator(Emulator):
         self.setup_emulator()
 
     def setup_emulator(self):
-        self.vdisplay = Xvfb(width=1280, height=720)
-        self.vdisplay.xvfb_cmd.append('-noreset')
-        self.vdisplay.xvfb_cmd.append('-ac')
-        self.vdisplay.start()
+        if config['DEBUG'] is False:
+            self.vdisplay = Xvfb(width=1280, height=720)
+            self.vdisplay.xvfb_cmd.append('-noreset')
+            self.vdisplay.xvfb_cmd.append('-ac')
+            self.vdisplay.start()
+
         self.driver = webdriver.Firefox()
 
     def open_add_resource_menu(self, category):

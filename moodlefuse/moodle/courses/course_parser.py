@@ -50,7 +50,7 @@ class CourseParser(Parser):
             course_html, attributes.EDIT_SUMMARY)
 
     def parse_course_category_titles(self, course_content):
-        sections = self.scraper.get_text_from_taged_item(course_content, 'h3')
+        sections = self.scraper.get_text_from_taged_item(course_content, attributes.HEADING3)
         return self.remove_unicode(sections)
 
     def parse_course_content_from_page(self, html):

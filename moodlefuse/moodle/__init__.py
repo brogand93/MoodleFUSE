@@ -18,7 +18,7 @@ USER_AGENT = [
 ]
 
 
-def requires_editing_moodle():
+def requires_editing_moodle_js():
     def inner(f):
         def wrapped(*args):
             args[0].js_emulator.turn_course_editing_on()
