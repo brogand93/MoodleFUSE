@@ -20,7 +20,7 @@ def read_file(name):
 
 
 PROJECT = 'moodlefuse'
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 URL = 'http://github.com/brogand1993/MoodleFUSE'
 AUTHOR = 'Darren Brogan'
 AUTHOR_EMAIL = 'darren.brogan2@mail.dcu.ie'
