@@ -93,8 +93,9 @@ class FileOperationOverrider(Operations):
 
     def write(self, path, buf, offset, fh):
         os.lseek(fh, offset, os.SEEK_SET)
+        response = os.write(fh, buf)
         self.translator.modify_file(path)
-        return os.write(fh, buf)
+        return response
 
     link = None
 

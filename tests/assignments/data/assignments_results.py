@@ -22,3 +22,9 @@ false_assignment_submissions = [
     '.', '..',
     'false_submission'
 ]
+
+grades_header = [
+    'Name                     ',
+    'Email                              ',
+    'Grade     '
+]

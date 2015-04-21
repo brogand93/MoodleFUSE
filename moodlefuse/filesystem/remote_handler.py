@@ -18,6 +18,10 @@ class RemoteHandler(object):
         course_contents = self.courses.enter_course_and_get_contents(location[0])
         return self.courses.get_course_category_contents(course_contents, location[1])
 
+    def modify_grades(self, location):
+        assignment_url = self.get_remote_assignment_path(location)
+        return self.assignments.modify_grades(location, assignment_url)
+
     def get_remote_resourse_names(self, location):
         if location[0] == FUSE_TRASH:
             return None
@@ -25,7 +29,8 @@ class RemoteHandler(object):
         return self.resources.get_file_names_as_array(category_contents)
 
     def get_remote_grading_csv(self, location):
-        return self.assignments.get_grades_csv(location)
+        assignment_url = self.get_remote_assignment_path(location)
+        return self.assignments.get_grades_csv(location, assignment_url)
 
     def get_remote_courses(self, location=None):
         return self.courses.get_courses_as_array()

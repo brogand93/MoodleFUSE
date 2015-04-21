@@ -1,6 +1,6 @@
 from tests import MoodleFuseAppTestCase
 from tests.assignments.data.assignments_results import \
-    true_assignment_submissions, false_assignment_submissions, \
+    true_assignment_submissions, grades_header, \
     true_assignment_info, false_assignment_submissions
 from fuse import FuseOSError
 from data.settings import DOWNLOADS
@@ -65,5 +65,7 @@ class AssignmentsTestCase(MoodleFuseAppTestCase):
         with open(csv_file, 'r') as file:
             reader = csv.reader(file)
             self.assertTrue(
-                list(reader)[0] == ['Name', 'Email Address', 'Grade']
+                self.utils.lists_are_equal(
+                    list(reader)[0], grades_header
+                )
             )

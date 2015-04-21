@@ -50,13 +50,6 @@ class ResourcesTestCase(MoodleFuseAppTestCase):
             )
         )
 
-    def get_resource_attributes_invalid_path_test(self):
-        self.assertRaises(UnableToDownloadResource, lambda:
-                self.ops.getattr(
-                    self.filesystem_root + '/testcourse/week3/dev'
-                )
-        )
-
     def get_resource_attributes_invalid_resource_test(self):
         self.assertRaises(FuseOSError, lambda:
                 self.ops.getattr(

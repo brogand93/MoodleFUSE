@@ -57,6 +57,8 @@ class FileSystemTranslator(object):
         location = PathParser.get_position_in_filesystem_as_array(path)
         if PathParser.is_file(location):
             self.modify_file(path)
+        elif PathParser.is_assignment(location):
+            self.remote_handler.modify_grades(location)
 
     def create_file(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
@@ -72,11 +74,13 @@ class FileSystemTranslator(object):
             self.remote_handler.add_category(location)
 
     def use_cache_file_or_get_update_file(self, location, cache_path):
-        if self.is_assignment_grading_form(location):
-            return CacheFile.create_file(location)
-        elif not os.path.isfile(cache_path):
-            moodle_url = self.remote_handler.get_remote_file_path(location)
-            return self.remote_handler.download_updated_file(location, moodle_url)
+        if not os.path.isfile(cache_path):
+            if self.is_assignment_grading_form(location):
+                return self.remote_handler.get_remote_grading_csv(location)
+            else:
+                moodle_url = self.remote_handler.get_remote_file_path(location)
+                return self.remote_handler.download_updated_file(location, moodle_url)
+        return cache_path
 
     def is_assignment_grading_form(self, location):
         if PathParser.is_assignment(location):

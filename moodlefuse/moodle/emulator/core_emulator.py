@@ -84,6 +84,13 @@ class CoreEmulator(Emulator):
         response = self.browser.submit()
         return BeautifulSoup(response.read())
 
+    def unfilter_assignment_submissions(self):
+        self.browser.form = list(self.browser.forms())[2]
+        self.browser.form["filter"] = [""]
+        self.browser.form["perpage"] = ["100"]
+        response = self.browser.submit()
+        return BeautifulSoup(response.read())
+
     @throws_moodlefuse_error(exception.UnableToToggleEditing)
     def turn_course_editing_off(self):
         self.set_form_to_form_with_control_value(moodle.EDIT_OFF_MOODLE_BUTTON_TEXT)

@@ -4,7 +4,7 @@
 """Class to act as a bridge between the Moodle emulator and handlers
 """
 
-from moodlefuse.moodle import requires_editing_moodle
+from moodlefuse.moodle import requires_editing_moodle_js
 
 
 class MoodleAPI(object):
@@ -28,25 +28,28 @@ class MoodleAPI(object):
     def filter_assignment_submissions(self):
         return self.emulator.filter_assignment_submissions()
 
-    @requires_editing_moodle()
+    def unfilter_assignment_submissions(self):
+        return self.emulator.unfilter_assignment_submissions()
+
+    @requires_editing_moodle_js()
     def add_new_resource(self, category, resource_name, resource_path):
         self.js_emulator.open_add_resource_menu(category)
         self.js_emulator.add_resource(resource_name, resource_path)
 
-    @requires_editing_moodle()
+    @requires_editing_moodle_js()
     def remove_existing_resource(self, category, resource_name):
         self.js_emulator.delete_resource(category, resource_name)
 
-    @requires_editing_moodle()
+    @requires_editing_moodle_js()
     def modify_existing_resource(self, category, resource_name, resource_path):
         self.js_emulator.open_edit_resource_menu(category, resource_name)
         self.js_emulator.edit_resource_content(resource_path)
 
-    @requires_editing_moodle()
+    @requires_editing_moodle_js()
     def rename_existing_resource(self, category, old_resource_name, new_resource_name):
         self.js_emulator.rename_file(category, old_resource_name, new_resource_name)
 
-    @requires_editing_moodle()
+    @requires_editing_moodle_js()
     def change_category_name(self, new_name):
         self.js_emulator.change_most_recent_categoryname(new_name)
 
