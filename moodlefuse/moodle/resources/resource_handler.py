@@ -44,15 +44,14 @@ class ResourceHandler(MoodleHandler):
             filename
         ) is not None
 
-    @staticmethod
-    def _get_moodle_url(moodle_url):
-        if 'forcedownload' not in moodle_url:
-            moodle_url + resources.DOWNLOAD_URL_EXTENSION
-        return moodle_url
-
     def download_resource(self, location, moodle_url):
         cache_path = CacheFile.create_file(location)
-        moodle_download_url = self._get_moodle_url(moodle_url)
+
+        if 'forcedownload' not in moodle_url:
+            moodle_download_url = moodle_url + resources.DOWNLOAD_URL_EXTENSION
+        else:
+            moodle_download_url = moodle_url
+
         self.moodle.download_resources(cache_path, moodle_download_url)
         return cache_path
 

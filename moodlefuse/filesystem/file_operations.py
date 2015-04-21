@@ -44,7 +44,6 @@ class FileOperationOverrider(Operations):
         pass
 
     def getattr(self, path, fh=None):
-        print 'geta'
         if not self.translator.path_exists_in_moodle(path):
             raise FuseOSError(errno.ENOENT)
         else:

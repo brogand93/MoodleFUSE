@@ -26,18 +26,6 @@ def throws_moodlefuse_error(moodlefuse_error):
     return inner
 
 
-def handles_errors_elegantly(after_error):
-    def inner(f):
-        def wrapped(*args):
-            try:
-                return f(*args)
-            except Exception, e:
-                after_error()
-                raise e
-        return wraps(f)(wrapped)
-    return inner
-
-
 def get_password_for_user(username):
     return USERS.get(
         User,

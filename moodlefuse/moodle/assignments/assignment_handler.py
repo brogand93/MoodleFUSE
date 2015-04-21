@@ -21,41 +21,17 @@ class AssignmentHandler(MoodleHandler):
     def get_assignment_info_as_array(self):
         return [assignments.SUBMISSIONS_FILENAME, assignments.GRADES_FILENAME]
 
-    def get_grading_url(self, assignment_url):
+    def get_assignment_submissions(self, assignment_url):
         if 'grading' not in assignment_url:
             assignment_url = assignment_url + assignments.GRADING_URL_EXTENSION
-
-        return assignment_url
-
-    def get_assignment_content(self, assignment_url):
-        assignment_url = self.get_grading_url(assignment_url)
-        return self.moodle.follow_link(assignment_url)
-
-    def get_assignment_submissions(self, assignment_url):
-        self.get_assignment_content(assignment_url)
+        self.moodle.follow_link(assignment_url)
         assignment_submissions = self.moodle.filter_assignment_submissions()
-        return self.parser.get_all_submission_names(assignment_submissions)
+        return self.parser.get_all_assignment_names(assignment_submissions)
 
-    def populate_grading_form(self, location, grading_info):
+    def fill_grades_file_with_template(self, location):
         csv = self.grader.format_csv(location)
-        csv = self.grader.add_user_information(csv, grading_info)
+        self.grader.add_user_names_and_emails(csv, None)
         return csv
 
-    def get_grade_info_from_url(self, assignment_url):
-        self.get_assignment_content(assignment_url)
-        assignment_submissions = self.moodle.unfilter_assignment_submissions()
-        return self.get_grading_info(assignment_submissions)
-
-    def get_grading_info(self, assignment_submissions):
-        names = self.parser.get_all_student_names(assignment_submissions)
-        emails = self.parser.get_all_student_emails(assignment_submissions)
-        grades = self.parser.get_all_student_grades(assignment_submissions)
-        return (names, emails, grades)
-
-    def modify_grades(self, location, assignment_url):
-        old_grading_info = self.get_grade_info_from_url(assignment_url)
-        modified_grades = self.grader.get_modified(location, old_grading_info)
-
-    def get_grades_csv(self, location, assignment_url):
-        grading_info = self.get_grade_info_from_url(assignment_url)
-        return self.populate_grading_form(location, grading_info)
+    def get_grades_csv(self, location):
+        return self.fill_grades_file_with_template(location)
