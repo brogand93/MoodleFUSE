@@ -56,6 +56,9 @@ class CoreEmulator(Emulator):
     def check_form_checkbox(self, checkboxname):
         self.browser.find_control(checkboxname).items[0].selected = True
 
+    def uncheck_form_checkbox(self, checkboxname):
+        self.browser.find_control(checkboxname).items[0].selected = False
+
     def add_form_content(self, inputname, content):
         self.browser.form.set_value(content, name=inputname)
 
@@ -77,19 +80,19 @@ class CoreEmulator(Emulator):
         response = self.browser.submit()
         return BeautifulSoup(response.read())
 
-    def filter_assignment_submissions(self):
-        self.browser.form = list(self.browser.forms())[2]
-        self.browser.form["filter"] = ["submitted"]
+    def _setup_assignments_for_parsing(self, submission_filter):
+        self.set_form_to_form_with_control_value('Save and update table')
+        self.browser.form["filter"] = [submission_filter]
         self.browser.form["perpage"] = ["100"]
+        self.uncheck_form_checkbox('quickgrading')
         response = self.browser.submit()
         return BeautifulSoup(response.read())
 
+    def filter_assignment_submissions(self):
+        return self._setup_assignments_for_parsing("submitted")
+
     def unfilter_assignment_submissions(self):
-        self.browser.form = list(self.browser.forms())[2]
-        self.browser.form["filter"] = [""]
-        self.browser.form["perpage"] = ["100"]
-        response = self.browser.submit()
-        return BeautifulSoup(response.read())
+        return self._setup_assignments_for_parsing("")
 
     @throws_moodlefuse_error(exception.UnableToToggleEditing)
     def turn_course_editing_off(self):

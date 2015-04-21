@@ -54,7 +54,9 @@ class AssignmentHandler(MoodleHandler):
 
     def modify_grades(self, location, assignment_url):
         old_grading_info = self.get_grade_info_from_url(assignment_url)
-        self.grader.get_modified(location, old_grading_info)
+        grades = self.grader.get_modified(location, old_grading_info)
+        self.moodle.follow_link_with_js(self.get_grading_url(assignment_url))
+        self.moodle.modify_assignment_grades(grades)
 
     def get_grades_csv(self, location, assignment_url):
         grading_info = self.get_grade_info_from_url(assignment_url)

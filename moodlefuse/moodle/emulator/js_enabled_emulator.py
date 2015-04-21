@@ -16,6 +16,7 @@ from moodlefuse.helpers import throws_moodlefuse_error
 from moodlefuse.moodle.courses import course_errors
 from moodlefuse.moodle import exception, paths
 from moodlefuse.moodle import attributes
+from moodlefuse.core import config
 
 
 class JsEmulator(Emulator):
@@ -25,10 +26,11 @@ class JsEmulator(Emulator):
         self.setup_emulator()
 
     def setup_emulator(self):
-        self.vdisplay = Xvfb(width=1280, height=720)
-        self.vdisplay.xvfb_cmd.append('-noreset')
-        self.vdisplay.xvfb_cmd.append('-ac')
-        self.vdisplay.start()
+        if config['DEBUG'] is False:
+            self.vdisplay = Xvfb(width=1280, height=720)
+            self.vdisplay.xvfb_cmd.append('-noreset')
+            self.vdisplay.xvfb_cmd.append('-ac')
+            self.vdisplay.start()
         self.driver = webdriver.Firefox()
 
     def open_add_resource_menu(self, category):
@@ -58,6 +60,34 @@ class JsEmulator(Emulator):
         self.open_edit_resource_menu(category, old_name)
         self.rename_file_from_edit_screen(new_name)
         self.driver.find_element_by_id(attributes.SUBMIT2_ID).click()
+
+    def click_option(self, select, desired_option):
+        element = self.driver.find_element_by_id(select)
+        for option in element.find_elements_by_tag_name('option'):
+            if option.text == desired_option:
+                option.click()
+
+    def filter_assignments(self):
+        self.click_option('id_filter', 'No filter')
+        self.click_option('id_perpage', '100')
+        self.driver.find_element_by_xpath(paths.QUICK_GRADING_OPTION).click()
+
+    def unfilter_assignments(self):
+        self.driver.find_element_by_xpath(paths.QUICK_GRADING_OPTION).click()
+
+    def grade_assignments(self, grades):
+        self.filter_assignments()
+        for grade in grades:
+            element = self.driver.find_element_by_xpath(paths.USER_ROW.format(grade[1]))
+            element = element.find_element_by_xpath(paths.PARENT)
+            element = element.find_element_by_xpath(paths.GRADE_BOX)
+            element.send_keys(webdriver.common.keys.Keys.CONTROL, 'a')
+            element.send_keys(str(grade[2]))
+            element.send_keys(webdriver.common.keys.Keys.RETURN)
+            time.sleep(.5)
+            self.driver.find_element_by_xpath(paths.CONTINUE).click()
+
+        self.unfilter_assignments()
 
     def rename_file_from_edit_screen(self, new_name):
         time.sleep(.5)
@@ -130,4 +160,5 @@ class JsEmulator(Emulator):
 
     def close(self):
         self.driver.quit()
-        self.vdisplay.stop()
+        if config['DEBUG'] is False:
+            self.vdisplay.stop()

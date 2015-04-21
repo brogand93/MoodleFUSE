@@ -79,7 +79,6 @@ class AssignmentGrader(object):
                 changed_grade[2] = self._get_grade_from_row(new_row)
                 changed_grades.append(changed_grade)
 
-        print changed_grades
         return changed_grades
 
     def add_user_information(self, csv_path, grading_info):

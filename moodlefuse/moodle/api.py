@@ -31,6 +31,9 @@ class MoodleAPI(object):
     def unfilter_assignment_submissions(self):
         return self.emulator.unfilter_assignment_submissions()
 
+    def modify_assignment_grades(self, grades):
+        self.js_emulator.grade_assignments(grades)
+
     @requires_editing_moodle_js()
     def add_new_resource(self, category, resource_name, resource_path):
         self.js_emulator.open_add_resource_menu(category)
