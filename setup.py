@@ -72,7 +72,7 @@ setup(
     zip_safe=False,
     install_requires=REQUIRES,
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
