@@ -7,9 +7,9 @@
 from mechanize import Browser, CookieJar
 from bs4 import BeautifulSoup
 
+from moodlefuse.exception import throws_moodlefuse_error
 from moodlefuse.moodle.emulator.emulator import Emulator
 from moodlefuse.moodle.resources import resource_errors
-from moodlefuse.helpers import throws_moodlefuse_error
 from moodlefuse.moodle.courses import course_errors
 from moodlefuse.moodle import exception, attributes
 from moodlefuse.core import config

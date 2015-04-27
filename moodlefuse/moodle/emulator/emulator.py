@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-from moodlefuse.helpers import throws_moodlefuse_error
+from moodlefuse.exception import throws_moodlefuse_error
 from moodlefuse.moodle import exception
 from moodlefuse.core import config
 from moodlefuse import moodle

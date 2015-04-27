@@ -12,7 +12,7 @@ from xvfbwrapper import Xvfb
 
 from moodlefuse.moodle.emulator.emulator import Emulator
 from moodlefuse.moodle.resources import resource_errors
-from moodlefuse.helpers import throws_moodlefuse_error
+from moodlefuse.exception import throws_moodlefuse_error
 from moodlefuse.moodle.courses import course_errors
 from moodlefuse.moodle import exception, paths
 from moodlefuse.moodle import attributes
@@ -109,13 +109,14 @@ class JsEmulator(Emulator):
     @throws_moodlefuse_error(resource_errors.UnableToModifyFile)
     def edit_resource_content(self, resource_path):
         time.sleep(.5)
-        self.driver.find_element_by_class_name(attributes.FILE_CONTENT).click()
-        self.driver.find_element_by_class_name(attributes.DELETE_FILE).click()
-        self.driver.find_element_by_class_name(attributes.CONFIRM).click()
-        self.driver.find_element_by_xpath(paths.UPLOAD).click()
-        element = self.driver.find_element_by_css_selector(attributes.FILE)
+        self.driver.find_element_by_class_name('fp-mainfile').click()
+        self.driver.find_element_by_class_name('fp-file-delete').click()
+        self.driver.find_element_by_class_name('fp-dlg-butconfirm').click()
+        self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
+        element = self.driver.find_element_by_css_selector("input[type='file']")
         element.send_keys(resource_path)
-        self.driver.find_element_by_class_name(attributes.UPLOAD).click()
+        self.driver.find_element_by_class_name("fp-upload-btn").click()
+        self.driver.find_element_by_id(attributes.SUBMIT2_ID).click()
 
     @throws_moodlefuse_error(course_errors.UnableToOAddCourseCategory)
     def change_most_recent_categoryname(self, new_name):

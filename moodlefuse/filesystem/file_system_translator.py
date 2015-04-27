@@ -56,7 +56,7 @@ class FileSystemTranslator(object):
     def modify_file(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
         if PathParser.is_file(location):
-            self.modify_file(path)
+            self.remote_handler.modify_resource(location, path)
         elif PathParser.is_assignment(location):
             self.remote_handler.modify_grades(location)
 

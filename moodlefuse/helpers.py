@@ -15,17 +15,6 @@ def get_cache_path_based_on_location(location):
     return cache_base + '/' + "_".join(location)
 
 
-def throws_moodlefuse_error(moodlefuse_error):
-    def inner(f):
-        def wrapped(*args):
-            try:
-                return f(*args)
-            except Exception:
-                raise moodlefuse_error()
-        return wraps(f)(wrapped)
-    return inner
-
-
 def get_password_for_user(username):
     return USERS.get(
         User,
