@@ -64,7 +64,7 @@ class FileSystemTranslator(object):
         location = PathParser.get_position_in_filesystem_as_array(path)
         if PathParser.is_file(location):
             cache_path = get_cache_path_based_on_location(location)
-            CacheFile(cache_path).create_file(location, ' ')
+            CacheFile().create_file(location, ' ')
             self.remote_handler.add_resource(location, cache_path)
             return cache_path
 

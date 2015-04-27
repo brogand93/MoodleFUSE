@@ -10,11 +10,14 @@ from moodlefuse.core import config
 
 class CacheFile(File):
 
-    def __init__(self, cache_path):
+    def __init__(self, cache_path=None):
         super(CacheFile, self).__init__()
-        self.path = cache_path
-        st = os.lstat(cache_path)
+        if cache_path is not None:
+            self.path = cache_path
+            self.set_attrs()
 
+    def set_attrs(self):
+        st = os.lstat(self.path)
         self.attrs = dict(
             (key, getattr(st, key)) for key in (
                 'st_atime',
@@ -28,8 +31,7 @@ class CacheFile(File):
             )
         )
 
-    @staticmethod
-    def create_file(location, content=None):
+    def create_file(self, location, content=None):
         if 'DOWNLOADS' in config:
             cache_path = config['DOWNLOADS'] + '/testfile'
         else:
@@ -38,4 +40,6 @@ class CacheFile(File):
             if content is not None:
                 cache_file.write(content)
             cache_file.close()
+            self.path = cache_path
+            self.set_attrs()
             return cache_path
