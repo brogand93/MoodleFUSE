@@ -12,6 +12,13 @@ from moodlefuse.core import setup, config
 from moodlefuse.services import USERS
 
 
+MOODLEFUSE_DATABASE_FILE = 'moodlefuse.sqlite'
+MOODLEFUSE_CONFIG_FILE = 'moodlefuse.conf'
+MOODLEFUSE_HIDDEN_FOLDER = '.moodlefuse'
+DATABASE_CONF = 'alembic.ini'
+MOODLEFUSE_CACHE = 'cache'
+
+
 class MoodleFuse(object):
 
     def __init__(self, settings=None, testing=None):
