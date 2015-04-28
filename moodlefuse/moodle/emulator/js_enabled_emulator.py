@@ -118,6 +118,7 @@ class JsEmulator(Emulator):
         self.driver.find_element_by_class_name('fp-dlg-butconfirm').click()
         self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
         time.sleep(.5)
+        print resource_path
         element = self.driver.find_element_by_css_selector("input[type='file']")
         element.send_keys(resource_path)
         self.driver.find_element_by_class_name("fp-upload-btn").click()

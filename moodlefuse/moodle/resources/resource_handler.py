@@ -45,7 +45,7 @@ class ResourceHandler(MoodleHandler):
         ) is not None
 
     def download_resource(self, location, moodle_url):
-        cache_path = CacheFile.create_file(location)
+        cache_path = CacheFile().create_file(location)
 
         if 'forcedownload' not in moodle_url:
             moodle_download_url = moodle_url + resources.DOWNLOAD_URL_EXTENSION

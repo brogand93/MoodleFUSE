@@ -10,6 +10,7 @@ import os
 from fuse import FuseOSError, Operations
 
 from moodlefuse.filesystem.file_system_translator import FileSystemTranslator
+from moodlefuse.filesystem.path_parser import PathParser
 
 
 class FileOperationOverrider(Operations):
@@ -93,8 +94,14 @@ class FileOperationOverrider(Operations):
 
     def write(self, path, buf, offset, fh):
         os.lseek(fh, offset, os.SEEK_SET)
-        response = os.write(fh, buf)
-        self.translator.modify_file(path)
+        location = PathParser.get_position_in_filesystem_as_array(path)
+        if PathParser.is_file(location):
+            response = os.write(fh, buf)
+            self.translator.modify_file(path)
+        else:
+            self.translator.modify_file(path)
+            response = os.write(fh, buf)
+
         return response
 
     link = None

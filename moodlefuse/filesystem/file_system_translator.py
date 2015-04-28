@@ -107,6 +107,7 @@ class FileSystemTranslator(object):
             self.represent_as_directory(location)
 
     def get_file_attributes(self, path):
+        print 'getattrs'
         location = PathParser.get_position_in_filesystem_as_array(path)
         if self.represent_as_file(location):
             cache_path = get_cache_path_based_on_location(location)
