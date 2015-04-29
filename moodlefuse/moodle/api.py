@@ -52,7 +52,6 @@ class MoodleAPI(object):
     def rename_existing_resource(self, category, old_resource_name, new_resource_name):
         self.js_emulator.rename_file(category, old_resource_name, new_resource_name)
 
-    @requires_editing_moodle_js()
     def change_category_name(self, new_name):
         self.js_emulator.change_most_recent_categoryname(new_name)
 

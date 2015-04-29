@@ -95,12 +95,13 @@ class FileOperationOverrider(Operations):
     def write(self, path, buf, offset, fh):
         os.lseek(fh, offset, os.SEEK_SET)
         location = PathParser.get_position_in_filesystem_as_array(path)
+        response = None
         if PathParser.is_file(location):
-            response = os.write(fh, buf)
-            self.translator.modify_file(path)
-        else:
             self.translator.modify_file(path)
             response = os.write(fh, buf)
+        elif PathParser.is_assignment(location):
+            response = os.write(fh, buf)
+            self.translator.modify_file(path)
 
         return response
 

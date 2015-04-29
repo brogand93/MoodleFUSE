@@ -118,11 +118,16 @@ class JsEmulator(Emulator):
         self.driver.find_element_by_class_name('fp-dlg-butconfirm').click()
         self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
         time.sleep(.5)
-        print resource_path
         element = self.driver.find_element_by_css_selector("input[type='file']")
         element.send_keys(resource_path)
+        print 'here'
+        time.sleep(.5)
         self.driver.find_element_by_class_name("fp-upload-btn").click()
+        print 'here'
+        time.sleep(.5)
+        print 'her'
         self.driver.find_element_by_id(attributes.SUBMIT2_ID).click()
+        print 'he'
 
     @throws_moodlefuse_error(course_errors.UnableToOAddCourseCategory)
     def change_most_recent_categoryname(self, new_name):
