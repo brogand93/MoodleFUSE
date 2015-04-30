@@ -23,3 +23,8 @@ Release 0.0.3
 - Improve user error messages
 - Add support for grading assignments
 - Add support for listing assignment submissions
+
+Release 0.0.4
+#############
+
+- Fix configuration bug with mount point
