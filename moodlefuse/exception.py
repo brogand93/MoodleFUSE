@@ -18,6 +18,7 @@ class MoodleFuseException(Exception):
     def __str__(self):
         return self.message
 
+
 def throws_moodlefuse_error(moodlefuse_error):
     def inner(f):
         def wrapped(*args):

@@ -3,8 +3,6 @@
 
 import os
 
-from functools import wraps
-
 from moodlefuse.models.users import User
 from moodlefuse.services import USERS
 

@@ -41,7 +41,7 @@ class FileSystemTranslator(object):
         if PathParser.is_file(location):
             moodle_url = self.remote_handler.get_remote_file_path(location)
             if moodle_url is None:
-                return CacheFile.create_file(location)
+                return CacheFile().create_file(location)
             else:
                 return self.remote_handler.download_updated_file(location, moodle_url)
         elif PathParser.is_assignment(location):

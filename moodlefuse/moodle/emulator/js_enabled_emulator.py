@@ -20,6 +20,7 @@ from moodlefuse.core import config
 
 _JS_TIMEOUT = .5
 
+
 class JsEmulator(Emulator):
 
     def __init__(self, username, password):
@@ -98,8 +99,6 @@ class JsEmulator(Emulator):
         element.click()
         element.send_keys(webdriver.common.keys.Keys.CONTROL, 'a')
         element.send_keys(new_name)
-
-
 
     @throws_moodlefuse_error(resource_errors.UnableToAddFile)
     def add_resource(self, resource_name, resource_path):
