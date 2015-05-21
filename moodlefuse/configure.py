@@ -15,6 +15,7 @@ from alembic import command
 from moodlefuse.model_manager import setup_model
 from moodlefuse.models.users import User
 from moodlefuse.services import USERS
+import moodlefuse
 
 
 def main():
@@ -27,11 +28,10 @@ class Configurer(object):
         config_folder = self._create_config_folder()
         self._create_user_database()
         self._create_configuration(config_folder)
-        self._create_filesystem_folder()
         self._create_file_cache()
 
     def _create_config_folder(self):
-        config_folder = os.path.join(os.path.expanduser('~'), '.moodlefuse')
+        config_folder = os.path.join(os.path.expanduser('~'), moodlefuse.MOODLEFUSE_HIDDEN_FOLDER)
         if not os.path.exists(config_folder):
             os.makedirs(config_folder)
         os.chmod(config_folder, 0o700)
@@ -40,7 +40,8 @@ class Configurer(object):
     def _create_file_cache(self):
         cache_folder = os.path.join(
             os.path.expanduser('~'),
-            '.moodlefuse/cache')
+            moodlefuse.MOODLEFUSE_HIDDEN_FOLDER + '/' + moodlefuse.MOODLEFUSE_CACHE
+        )
         if not os.path.exists(cache_folder):
             os.makedirs(cache_folder)
         os.chmod(cache_folder, 0o700)
@@ -49,23 +50,24 @@ class Configurer(object):
     def _create_configuration(self, config_folder):
         args = self._generate_args()
         profile = args.pop('profile')
-        config_file_path = config_folder + '/moodlefuse.conf'
+        config_file_path = config_folder + '/' + moodlefuse.MOODLEFUSE_CONFIG_FILE
         config = self._modify_config_profile(config_file_path, profile)
         self._add_user_to_database(config, profile)
+        self._create_filesystem_folder(config, profile)
         config_file = open(config_file_path, 'w+')
         config.write(config_file)
 
     def _create_user_database(self):
         database_file = os.path.join(
             os.path.expanduser('~'),
-            '.moodlefuse/moodlefuse.sqlite'
+            moodlefuse.MOODLEFUSE_HIDDEN_FOLDER + '/' + moodlefuse.MOODLEFUSE_DATABASE_FILE
         )
 
         if not os.path.exists(database_file):
             directory = os.path.join(os.path.dirname(__file__), '../alembic')
             config = AlembicConfig(os.path.join(
                 directory,
-                'alembic.ini'
+                moodlefuse.DATABASE_CONF
             ))
             config.set_main_option('script_location', directory)
             command.upgrade(config, 'head', sql=False, tag=None)
@@ -180,8 +182,11 @@ class Configurer(object):
 
         return attribute
 
-    def _create_filesystem_folder(self):
-        config_folder = os.path.join(os.path.expanduser('~'), 'moodle')
+    def _create_filesystem_folder(self, config, profile):
+        config_folder = os.path.join(
+            os.path.expanduser('~'),
+            config.get(profile, 'local_moodle_folder')
+        )
         if not os.path.exists(config_folder):
             os.makedirs(config_folder)
         os.chmod(config_folder, 0o700)
