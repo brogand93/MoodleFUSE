@@ -19,6 +19,12 @@ class UnableToUploadResource(MoodleException):
         super(UnableToUploadResource, self).__init__(debug_info)
 
 
+class UnableToGetLocalFile(MoodleException):
+    def __init__(self):
+        debug_info = "Failed to get the local resource"
+        super(UnableToGetLocalFile, self).__init__(debug_info)
+
+
 class UnableToDownloadResource(MoodleException):
     def __init__(self):
         debug_info = "Failed to download resource"

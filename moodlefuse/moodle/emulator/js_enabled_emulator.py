@@ -18,6 +18,7 @@ from moodlefuse.moodle import exception, paths
 from moodlefuse.moodle import attributes
 from moodlefuse.core import config
 
+_JS_TIMEOUT = .5
 
 class JsEmulator(Emulator):
 
@@ -63,13 +64,13 @@ class JsEmulator(Emulator):
 
     def click_option(self, select, desired_option):
         element = self.driver.find_element_by_id(select)
-        for option in element.find_elements_by_tag_name('option'):
+        for option in element.find_elements_by_tag_name(attributes.OPTION):
             if option.text == desired_option:
                 option.click()
 
     def filter_assignments(self):
-        self.click_option('id_filter', 'No filter')
-        self.click_option('id_perpage', '100')
+        self.click_option(attributes.FILTER, 'No filter')
+        self.click_option(attributes.PERPAGE, '100')
         self.driver.find_element_by_xpath(paths.QUICK_GRADING_OPTION).click()
 
     def unfilter_assignments(self):
@@ -90,7 +91,7 @@ class JsEmulator(Emulator):
         self.unfilter_assignments()
 
     def rename_file_from_edit_screen(self, new_name):
-        time.sleep(.5)
+        time.sleep(_JS_TIMEOUT)
         element = self.enter_text_into_textbox(attributes.NAME_ID, new_name)
         element.send_keys(webdriver.common.keys.Keys.TAB)
         element = self.driver.switch_to.active_element
@@ -98,36 +99,31 @@ class JsEmulator(Emulator):
         element.send_keys(webdriver.common.keys.Keys.CONTROL, 'a')
         element.send_keys(new_name)
 
+
+
     @throws_moodlefuse_error(resource_errors.UnableToAddFile)
     def add_resource(self, resource_name, resource_path):
         self.driver.find_element_by_xpath(paths.FILE).click()
         self.driver.find_element_by_name(attributes.SUBMIT).click()
         self.rename_file_from_edit_screen(resource_name)
-        self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
-        time.sleep(.5)
-        element = self.driver.find_element_by_css_selector("input[type='file']")
+        self.upload_resource(resource_path)
+
+    @throws_moodlefuse_error(resource_errors.UnableToGetLocalFile)
+    def upload_resource(self, resource_path):
+        self.driver.find_element_by_xpath(paths.UPLOAD).click()
+        time.sleep(_JS_TIMEOUT)
+        element = self.driver.find_element_by_css_selector(attributes.FILE)
         element.send_keys(resource_path)
-        self.driver.find_element_by_class_name("fp-upload-btn").click()
+        self.driver.find_element_by_class_name(attributes.UPLOAD).click()
         self.driver.find_element_by_id(attributes.SUBMIT2_ID).click()
 
     @throws_moodlefuse_error(resource_errors.UnableToModifyFile)
     def edit_resource_content(self, resource_path):
-        time.sleep(.5)
-        self.driver.find_element_by_class_name('fp-mainfile').click()
-        self.driver.find_element_by_class_name('fp-file-delete').click()
-        self.driver.find_element_by_class_name('fp-dlg-butconfirm').click()
-        self.driver.find_element_by_xpath("//div[@class='fp-btn-add']").click()
-        time.sleep(.5)
-        element = self.driver.find_element_by_css_selector("input[type='file']")
-        element.send_keys(resource_path)
-        print 'here'
-        time.sleep(.5)
-        self.driver.find_element_by_class_name("fp-upload-btn").click()
-        print 'here'
-        time.sleep(.5)
-        print 'her'
-        self.driver.find_element_by_id(attributes.SUBMIT2_ID).click()
-        print 'he'
+        time.sleep(_JS_TIMEOUT)
+        self.driver.find_element_by_class_name(attributes.FILE_CONTENT).click()
+        self.driver.find_element_by_class_name(attributes.DELETE_FILE).click()
+        self.driver.find_element_by_class_name(attributes.CONFIRM).click()
+        self.upload_resource(resource_path)
 
     @throws_moodlefuse_error(course_errors.UnableToOAddCourseCategory)
     def change_most_recent_categoryname(self, new_name):

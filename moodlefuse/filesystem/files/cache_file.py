@@ -17,19 +17,20 @@ class CacheFile(File):
             self.set_attrs()
 
     def set_attrs(self):
-        st = os.lstat(self.path)
-        self.attrs = dict(
-            (key, getattr(st, key)) for key in (
-                'st_atime',
-                'st_ctime',
-                'st_gid',
-                'st_mode',
-                'st_mtime',
-                'st_nlink',
-                'st_size',
-                'st_uid'
+        if os.path.isfile(self.path):
+            st = os.lstat(self.path)
+            self.attrs = dict(
+                (key, getattr(st, key)) for key in (
+                    'st_atime',
+                    'st_ctime',
+                    'st_gid',
+                    'st_mode',
+                    'st_mtime',
+                    'st_nlink',
+                    'st_size',
+                    'st_uid'
+                )
             )
-        )
 
     def create_file(self, location, content=None):
         if 'DOWNLOADS' in config:

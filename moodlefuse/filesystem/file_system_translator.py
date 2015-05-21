@@ -41,7 +41,7 @@ class FileSystemTranslator(object):
         if PathParser.is_file(location):
             moodle_url = self.remote_handler.get_remote_file_path(location)
             if moodle_url is None:
-                return CacheFile().create_file(location)
+                return CacheFile.create_file(location)
             else:
                 return self.remote_handler.download_updated_file(location, moodle_url)
         elif PathParser.is_assignment(location):
@@ -55,16 +55,18 @@ class FileSystemTranslator(object):
 
     def modify_file(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
-        if PathParser.is_file(location):
-            self.remote_handler.modify_resource(location, path)
-        elif PathParser.is_assignment(location):
-            self.remote_handler.modify_grades(location)
+        cache_path = get_cache_path_based_on_location(location)
+        self.remote_handler.modify_resource(location, cache_path)
+
+    def modify_grades(self, path):
+        location = PathParser.get_position_in_filesystem_as_array(path)
+        self.remote_handler.modify_grades(location)
 
     def create_file(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
         if PathParser.is_file(location):
             cache_path = get_cache_path_based_on_location(location)
-            CacheFile().create_file(location, ' ')
+            CacheFile(cache_path).create_file(location, ' ')
             self.remote_handler.add_resource(location, cache_path)
             return cache_path
 
@@ -76,10 +78,11 @@ class FileSystemTranslator(object):
     def use_cache_file_or_get_update_file(self, location, cache_path):
         if not os.path.isfile(cache_path):
             if self.is_assignment_grading_form(location):
-                self.remote_handler.get_remote_grading_csv(location)
+                return self.remote_handler.get_remote_grading_csv(location)
             else:
                 moodle_url = self.remote_handler.get_remote_file_path(location)
-                self.remote_handler.download_updated_file(location, moodle_url)
+                return self.remote_handler.download_updated_file(location, moodle_url)
+        return cache_path
 
     def is_assignment_grading_form(self, location):
         if PathParser.is_assignment(location):
