@@ -17,6 +17,7 @@ from moodlefuse.moodle.courses import course_errors
 from moodlefuse.moodle import exception, paths
 from moodlefuse.moodle import attributes
 from moodlefuse.core import config
+from moodlefuse import moodle
 
 _JS_TIMEOUT = .5
 
@@ -86,7 +87,7 @@ class JsEmulator(Emulator):
             element.send_keys(webdriver.common.keys.Keys.CONTROL, 'a')
             element.send_keys(str(grade[2]))
             element.send_keys(webdriver.common.keys.Keys.RETURN)
-            time.sleep(.5)
+            time.sleep(_JS_TIMEOUT)
             self.driver.find_element_by_xpath(paths.CONTINUE).click()
 
         self.unfilter_assignments()
@@ -129,6 +130,9 @@ class JsEmulator(Emulator):
         self.check_form_checkbox(attributes.DEFAULT_NAME_ID)
         self.enter_text_into_textbox(attributes.NAME_ID, new_name)
         self.close_form()
+
+    def session_expired(self):
+        return self.driver.current_url.endswith(moodle.LOGIN_LOCATION)
 
     @throws_moodlefuse_error(exception.LoginException)
     def login(self):
