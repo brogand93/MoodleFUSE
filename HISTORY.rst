@@ -2,19 +2,20 @@
 HISTORY
 =======
 
-Release 0.0.1
+Release 0.1.0
 #############
 
-Initial release
+- Fix modify files bug
+- Fix grading bug
+- Lower javascript timeouts
+- Fix session expiry issue
+- Fix file attributes bug
+- Improve error handling
 
-
-Release 0.0.2
+Release 0.0.4
 #############
 
-- Fix login bug
-- Improve login error handling
-- Add class docs
-
+- Fix configuration bug with mount point
 
 Release 0.0.3
 #############
@@ -24,7 +25,14 @@ Release 0.0.3
 - Add support for grading assignments
 - Add support for listing assignment submissions
 
-Release 0.0.4
+Release 0.0.2
 #############
 
-- Fix configuration bug with mount point
+- Fix login bug
+- Improve login error handling
+- Add class docs
+
+Release 0.0.1
+#############
+
+Initial release
