@@ -29,6 +29,7 @@ def requires_editing_moodle_js():
         return wraps(f)(wrapped)
     return inner
 
+
 def requires_valid_cookie():
     def inner(f):
         def wrapped(*args):
