@@ -29,9 +29,6 @@ class CoreEmulator(Emulator):
         self.cookiejar = CookieJar()
         self.browser.set_cookiejar(self.cookiejar)
 
-    def session_expired(self):
-        return self.browser.geturl().endswith(moodle.LOGIN_LOCATION)
-
     @throws_moodlefuse_error(exception.LoginException)
     def login(self):
         self.open_login_page(self.browser.open)

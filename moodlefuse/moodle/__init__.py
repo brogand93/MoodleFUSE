@@ -21,9 +21,25 @@ USER_AGENT = [
 def requires_editing_moodle_js():
     def inner(f):
         def wrapped(*args):
-            args[0].js_emulator.turn_course_editing_on()
+            wrapped_class = args[0]
+            wrapped_class.js_emulator.turn_course_editing_on()
             result = f(*args)
-            args[0].js_emulator.turn_course_editing_off()
+            wrapped_class.js_emulator.turn_course_editing_off()
             return result
+        return wraps(f)(wrapped)
+    return inner
+
+def requires_valid_cookie():
+    def inner(f):
+        def wrapped(*args):
+            wrapped_class = args[0]
+            try:
+                return f(*args)
+            except Exception:
+                if wrapped_class.js_emulator.session_expired():
+                    wrapped_class.js_emulator.login()
+                if wrapped_class.emulator.session_expired():
+                    wrapped_class.core_emulator.login()
+                return f(*args)
         return wraps(f)(wrapped)
     return inner

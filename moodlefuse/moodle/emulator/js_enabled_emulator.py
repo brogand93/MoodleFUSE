@@ -131,9 +131,6 @@ class JsEmulator(Emulator):
         self.enter_text_into_textbox(attributes.NAME_ID, new_name)
         self.close_form()
 
-    def session_expired(self):
-        return self.driver.current_url.endswith(moodle.LOGIN_LOCATION)
-
     @throws_moodlefuse_error(exception.LoginException)
     def login(self):
         self.open_login_page(self.driver.get)
