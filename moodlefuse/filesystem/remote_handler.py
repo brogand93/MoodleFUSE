@@ -67,6 +67,10 @@ class RemoteHandler(object):
         category_contents = self.get_category_contents(location)
         return self.resources.get_file_path(category_contents, location[2])
 
+    def get_remote_submission_path(self, location):
+        assignment_url = self.get_remote_assignment_path(location)
+        return self.assignments.get_assignment_submission_path(assignment_url, location[4])
+
     def get_remote_assignment_path(self, location):
         category_contents = self.get_category_contents(location)
         return self.resources.get_assignment_url(category_contents, location[2])
@@ -95,7 +99,7 @@ class RemoteHandler(object):
 
     def is_valid_assignment(self, location):
         category_contents = self.get_category_contents(location)
-        return self.resources.is_assignment(category_contents, location[2])
+        return self.resources.is_assignment(category_contents, location[-1])
 
     def is_valid_assignment_info(self, location):
         return location[3] in self.get_remote_assignment_info()

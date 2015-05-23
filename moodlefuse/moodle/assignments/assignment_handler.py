@@ -36,6 +36,13 @@ class AssignmentHandler(MoodleHandler):
         assignment_submissions = self.moodle.filter_assignment_submissions()
         return self.parser.get_all_submission_file_names(assignment_submissions)
 
+    def get_assignment_submission_path(self, assignment_url, file_name):
+        self.get_assignment_content(assignment_url)
+        assignment_submissions = self.moodle.filter_assignment_submissions()
+        submission = file_name.split(
+            assignments.SUBMISSION_LISTING_DELIMINATOR)[-1]
+        return self.parser.get_assignment_submission_path(assignment_submissions, submission)
+
     def populate_grading_form(self, location, grading_info):
         csv = self.grader.format_csv(location)
         csv = self.grader.add_user_information(csv, grading_info)

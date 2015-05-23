@@ -44,6 +44,9 @@ class FileSystemTranslator(object):
                 return CacheFile().create_file(location)
             else:
                 return self.remote_handler.download_updated_file(location, moodle_url)
+        elif PathParser.is_assignment_submission(location):
+            moodle_url = self.remote_handler.get_remote_submission_path(location)
+            return self.remote_handler.download_updated_file(location, moodle_url)
         elif PathParser.is_assignment(location):
             return self.remote_handler.get_remote_grading_csv(location)
 
@@ -79,9 +82,11 @@ class FileSystemTranslator(object):
         if not os.path.isfile(cache_path):
             if self.is_assignment_grading_form(location):
                 return self.remote_handler.get_remote_grading_csv(location)
+            elif PathParser.is_assignment_submission(location):
+                moodle_url = self.remote_handler.get_remote_submission_path(location)
             else:
                 moodle_url = self.remote_handler.get_remote_file_path(location)
-                return self.remote_handler.download_updated_file(location, moodle_url)
+            return self.remote_handler.download_updated_file(location, moodle_url)
         return cache_path
 
     def is_assignment_grading_form(self, location):
@@ -98,8 +103,15 @@ class FileSystemTranslator(object):
     def file_is_assignment(self, location):
         return self.remote_handler.is_valid_assignment(location)
 
+    def file_is_submissions_folder(self, location):
+        if PathParser.is_assignment(location):
+            return location[3] == assignments.SUBMISSIONS_FILENAME
+
+        return False
+
     def represent_as_directory(self, location):
-        return self.file_is_assignment(location) and not \
+        return self.file_is_assignment(location) or \
+            self.file_is_submissions_folder(location) and not \
             self.is_assignment_grading_form(location)
 
     def represent_as_file(self, location):
