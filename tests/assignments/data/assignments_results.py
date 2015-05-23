@@ -14,8 +14,7 @@ false_assignment_info = [
 
 true_assignment_submissions = [
     '.', '..',
-    u'darren_brogan_submission',
-    u'test_user_submission'
+    u'darren@hotmail.com_-_blockdevice.json'
 ]
 
 false_assignment_submissions = [

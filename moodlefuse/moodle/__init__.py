@@ -7,6 +7,7 @@ from functools import wraps
 LOGIN_LOCATION = '/login/index.php'
 EDIT_ON_MOODLE_BUTTON_TEXT = 'Turn editing on'
 EDIT_OFF_MOODLE_BUTTON_TEXT = 'Turn editing off'
+
 USER_AGENT = [
     ('User-Agent',
      'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
@@ -40,7 +41,7 @@ def requires_valid_cookie():
                 if wrapped_class.js_emulator.session_expired():
                     wrapped_class.js_emulator.login()
                 if wrapped_class.emulator.session_expired():
-                    wrapped_class.core_emulator.login()
+                    wrapped_class.emulator.login()
                 return f(*args)
         return wraps(f)(wrapped)
     return inner

@@ -6,7 +6,6 @@
 """
 
 from moodlefuse.moodle.parser import Parser
-from moodlefuse.moodle import assignments
 from moodlefuse.moodle import attributes
 
 
@@ -15,20 +14,25 @@ class AssignmentParser(Parser):
     def __init__(self):
         super(AssignmentParser, self).__init__()
 
-    def get_all_submission_names(self, assignment_content):
-        submission_names = []
-        names = self.get_all_student_names(assignment_content)
-        for name in names:
-            name = name.replace(" ", "_")
-            name = name + assignments.SUBMISSION_LISTING_END
-            submission_names.append(name)
+    def get_all_submission_file_names(self, assignment_content):
+        submission_file_names = []
+        files = self.get_all_submission_names(assignment_content)
+        emails = self.get_all_student_emails(assignment_content)
+        for email, submission_name in zip(emails, files):
+            file_name = email + '_-_' + submission_name
+            submission_file_names.append(file_name)
 
-        return submission_names
+        return submission_file_names
 
     def get_all_student_names(self, assignment_content):
         return self.get_items_from_table(
             assignment_content, attributes.THIRD_CELL
         )
+
+    def get_all_submission_names(self, assignment_content):
+        return [item.strip('\t\r\n ') for item in self.get_items_from_table(
+            assignment_content, attributes.EIGHT_CELL
+        )]
 
     def get_all_student_emails(self, assignment_content):
         return self.get_items_from_table(

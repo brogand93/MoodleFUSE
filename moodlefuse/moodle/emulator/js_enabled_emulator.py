@@ -10,6 +10,7 @@ import time
 from selenium import webdriver
 from xvfbwrapper import Xvfb
 
+from moodlefuse.moodle.assignments import assignment_errors
 from moodlefuse.moodle.emulator.emulator import Emulator
 from moodlefuse.moodle.resources import resource_errors
 from moodlefuse.exception import throws_moodlefuse_error
@@ -17,6 +18,7 @@ from moodlefuse.moodle.courses import course_errors
 from moodlefuse.moodle import exception, paths
 from moodlefuse.moodle import attributes
 from moodlefuse.core import config
+from moodlefuse import moodle
 
 _JS_TIMEOUT = .5
 
@@ -69,14 +71,17 @@ class JsEmulator(Emulator):
             if option.text == desired_option:
                 option.click()
 
+    @throws_moodlefuse_error(assignment_errors.UnableToFilterAssignments)
     def filter_assignments(self):
         self.click_option(attributes.FILTER, 'No filter')
         self.click_option(attributes.PERPAGE, '100')
         self.driver.find_element_by_xpath(paths.QUICK_GRADING_OPTION).click()
 
+    @throws_moodlefuse_error(assignment_errors.UnableToFilterAssignments)
     def unfilter_assignments(self):
         self.driver.find_element_by_xpath(paths.QUICK_GRADING_OPTION).click()
 
+    @throws_moodlefuse_error(assignment_errors.UnableToGradeAssignment)
     def grade_assignments(self, grades):
         self.filter_assignments()
         for grade in grades:
@@ -124,11 +129,14 @@ class JsEmulator(Emulator):
         self.driver.find_element_by_class_name(attributes.CONFIRM).click()
         self.upload_resource(resource_path)
 
-    @throws_moodlefuse_error(course_errors.UnableToOAddCourseCategory)
+    @throws_moodlefuse_error(course_errors.UnableToAddCourseCategory)
     def change_most_recent_categoryname(self, new_name):
         self.check_form_checkbox(attributes.DEFAULT_NAME_ID)
         self.enter_text_into_textbox(attributes.NAME_ID, new_name)
         self.close_form()
+
+    def session_expired(self):
+        return self.driver.current_url.endswith(moodle.LOGIN_LOCATION)
 
     @throws_moodlefuse_error(exception.LoginException)
     def login(self):
