@@ -28,7 +28,6 @@ class Configurer(object):
         config_folder = self._create_config_folder()
         self._create_user_database()
         self._create_configuration(config_folder)
-        self._create_file_cache()
 
     def _create_config_folder(self):
         config_folder = os.path.join(os.path.expanduser('~'), moodlefuse.MOODLEFUSE_HIDDEN_FOLDER)
@@ -36,16 +35,6 @@ class Configurer(object):
             os.makedirs(config_folder)
         os.chmod(config_folder, 0o700)
         return config_folder
-
-    def _create_file_cache(self):
-        cache_folder = os.path.join(
-            os.path.expanduser('~'),
-            moodlefuse.MOODLEFUSE_HIDDEN_FOLDER + '/' + moodlefuse.MOODLEFUSE_CACHE
-        )
-        if not os.path.exists(cache_folder):
-            os.makedirs(cache_folder)
-        os.chmod(cache_folder, 0o700)
-        return cache_folder
 
     def _create_configuration(self, config_folder):
         args = self._generate_args()
