@@ -2,6 +2,13 @@
 HISTORY
 =======
 
+Release 0.2.0
+#############
+
+- Fix assignment submission viewing
+- Fix assignment submission listing
+- Improve error handling for assignment ops
+
 Release 0.1.0
 #############
 
