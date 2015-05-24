@@ -2,6 +2,11 @@
 HISTORY
 =======
 
+Release 0.2.1
+#############
+
+- Use /tmp as location for cache
+
 Release 0.2.0
 #############
 
