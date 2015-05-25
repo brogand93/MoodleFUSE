@@ -11,6 +11,7 @@ from moodlefuse.moodle.resources.resource_handler import ResourceHandler
 from moodlefuse.moodle.emulator.js_enabled_emulator import JsEmulator
 from moodlefuse.moodle.courses.course_handler import CourseHandler
 from moodlefuse.moodle.emulator.core_emulator import CoreEmulator
+from moodlefuse.moodle.forums.forum_handler import ForumHandler
 from moodlefuse.helpers import get_cache_path_based_on_location
 from moodlefuse.filesystem.remote_handler import RemoteHandler
 from moodlefuse.filesystem.files.cache_file import CacheFile
@@ -27,10 +28,11 @@ class FileSystemTranslator(object):
         self.js_emulator = JsEmulator(config['USERNAME'], config['PASSWORD'])
         self.emulator.login()
         self.js_emulator.login()
+        forums = ForumHandler(self.emulator, self.js_emulator)
         course = CourseHandler(self.emulator, self.js_emulator)
         resource = ResourceHandler(self.emulator, self.js_emulator)
         assignment = AssignmentHandler(self.emulator, self.js_emulator)
-        self.remote_handler = RemoteHandler(course, resource, assignment)
+        self.remote_handler = RemoteHandler(forums, course, resource, assignment)
 
     def close_browsers(self):
         self.emulator.close()
@@ -38,7 +40,9 @@ class FileSystemTranslator(object):
 
     def open_file(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
-        if PathParser.is_file(location):
+        if self.remote_handler.is_valid_forum(location):
+            return get_cache_path_based_on_location(location)
+        elif PathParser.is_file(location):
             moodle_url = self.remote_handler.get_remote_file_path(location)
             if moodle_url is None:
                 return CacheFile().create_file(location)
@@ -122,6 +126,13 @@ class FileSystemTranslator(object):
 
     def get_file_attributes(self, path):
         location = PathParser.get_position_in_filesystem_as_array(path)
+        if PathParser.is_file(location) and self.remote_handler.is_valid_forum(location):
+            CacheFile().create_file(
+                location,
+                'This is a forum, unfortunately forums are not yet supported\n'
+            )
+            cache_path = get_cache_path_based_on_location(location)
+            return CacheFile(cache_path).get_attrs()
         if self.represent_as_file(location):
             cache_path = get_cache_path_based_on_location(location)
             self.use_cache_file_or_get_update_file(location, cache_path)

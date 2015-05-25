@@ -9,7 +9,8 @@ FUSE_TRASH = '.Trash-1000'
 
 class RemoteHandler(object):
 
-    def __init__(self, courses, resources, assignments):
+    def __init__(self, forums, courses, resources, assignments):
+        self.forums = forums
         self.courses = courses
         self.resources = resources
         self.assignments = assignments
@@ -96,6 +97,10 @@ class RemoteHandler(object):
 
     def is_valid_resource(self, location):
         return location[2] in self.get_remote_resourse_names(location)
+
+    def is_valid_forum(self, location):
+        category_contents = self.get_category_contents(location)
+        return self.forums.is_forum(category_contents, location)
 
     def is_valid_assignment(self, location):
         category_contents = self.get_category_contents(location)

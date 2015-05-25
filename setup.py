@@ -62,6 +62,7 @@ setup(
         'moodlefuse.models',
         'moodlefuse.filesystem',
         'moodlefuse.models.users',
+        'moodlefuse.moodle.forums',
         'moodlefuse.moodle.courses',
         'moodlefuse.moodle.emulator',
         'moodlefuse.moodle.resources',
