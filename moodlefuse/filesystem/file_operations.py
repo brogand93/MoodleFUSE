@@ -99,7 +99,7 @@ class FileOperationOverrider(Operations):
         if PathParser.is_file(location):
             self.translator.modify_file(path)
         elif PathParser.is_assignment(location):
-            response = os.write(fh, buf)
+            self.translator.modify_grades(path)
 
         return response
 

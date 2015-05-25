@@ -93,7 +93,6 @@ class JsEmulator(Emulator):
             element.send_keys(webdriver.common.keys.Keys.RETURN)
             time.sleep(_JS_TIMEOUT)
             self.driver.find_element_by_xpath(paths.CONTINUE).click()
-
         self.unfilter_assignments()
 
     def rename_file_from_edit_screen(self, new_name):
@@ -107,6 +106,7 @@ class JsEmulator(Emulator):
 
     @throws_moodlefuse_error(resource_errors.UnableToAddFile)
     def add_resource(self, resource_name, resource_path):
+        time.sleep(_JS_TIMEOUT)
         self.driver.find_element_by_xpath(paths.FILE).click()
         self.driver.find_element_by_name(attributes.SUBMIT).click()
         self.rename_file_from_edit_screen(resource_name)
@@ -114,6 +114,7 @@ class JsEmulator(Emulator):
 
     @throws_moodlefuse_error(resource_errors.UnableToGetLocalFile)
     def upload_resource(self, resource_path):
+        time.sleep(_JS_TIMEOUT)
         self.driver.find_element_by_xpath(paths.UPLOAD).click()
         time.sleep(_JS_TIMEOUT)
         element = self.driver.find_element_by_css_selector(attributes.FILE)

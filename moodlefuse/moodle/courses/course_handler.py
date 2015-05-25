@@ -24,7 +24,7 @@ class CourseHandler(MoodleHandler):
         return self.parser.parse_course_category_titles(course_contents)
 
     def add_new_category(self, categoryname):
-        course_html = self.moodle.set_modify_moodle(modify=True)
+        course_html = self.moodle.set_modify_moodle_on()
         add_section_link = self.parser.get_add_section_link(course_html)
         course_html_with_section = self.moodle.follow_link(add_section_link)
         edit_category_link = self.parser.get_last_sections_edit_button(

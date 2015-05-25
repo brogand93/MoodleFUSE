@@ -14,11 +14,12 @@ class MoodleAPI(object):
         self.js_emulator = js_emulator
 
     @requires_valid_cookie()
-    def set_modify_moodle(self, modify=True):
-        if modify is True:
-            return self.emulator.turn_course_editing_on()
-        else:
-            return self.emulator.turn_course_editing_off()
+    def set_modify_moodle_on(self):
+        return self.emulator.turn_course_editing_on()
+
+    @requires_valid_cookie()
+    def set_modify_moodle_off(self):
+        return self.emulator.turn_course_editing_off()
 
     @requires_valid_cookie()
     def follow_link(self, link):
