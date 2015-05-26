@@ -2,6 +2,12 @@
 HISTORY
 =======
 
+Release 0.3.0
+#############
+
+- Handle forums on Moodle nicely
+- Increase javascript timeout
+
 Release 0.2.1
 #############
 
