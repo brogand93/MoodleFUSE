@@ -11,9 +11,8 @@ from moodlefuse.core import config
 
 class MoodleFuseException(Exception):
     def __init__(self, debug_info):
-        exception_reason = "ERROR ENCOUNTERED: MoodleFUSE has encountered an error."
-        debug_info = debug_info
-        self.message = exception_reason + debug_info
+        _EXCEPTION_REASON = "ERROR ENCOUNTERED: MoodleFUSE has encountered an error."
+        self.message = _EXCEPTION_REASON + debug_info
 
     def __str__(self):
         return self.message
