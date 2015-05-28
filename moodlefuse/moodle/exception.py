@@ -15,7 +15,7 @@ class MoodleException(MoodleFuseException):
 
 class UnableToToggleEditing(MoodleException):
     def __init__(self):
-        debug_info = "Could not toggle editing button"
+        debug_info = "You do not have permission to edit this."
         super(UnableToToggleEditing, self).__init__(debug_info)
 
 

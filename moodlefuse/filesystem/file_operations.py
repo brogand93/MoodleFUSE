@@ -39,10 +39,10 @@ class FileOperationOverrider(Operations):
             return 1
 
     def flush(self, path, fh):
-        pass
+        return 0
 
     def fsync(self, path, fdatasync, fh):
-        pass
+        return 0
 
     def getattr(self, path, fh=None):
         if not self.translator.path_exists_in_moodle(path):

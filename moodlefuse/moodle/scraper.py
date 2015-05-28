@@ -73,6 +73,14 @@ class Scraper(object):
 
         return instances
 
+    def get_link_from_span_list_with_name(self, spanlist, name):
+        for span_item in spanlist:
+            sections = span_item.get_text().split(" ")
+            if sections[0] == name:
+                return span_item.find(attributes.LINK, href=True)[attributes.LINKTEXT]
+
+        return None
+
     def get_link_from_span_list_with_type_and_name(self, spanlist, instance_type, name):
         for span_item in spanlist:
             sections = span_item.get_text().split(" ")

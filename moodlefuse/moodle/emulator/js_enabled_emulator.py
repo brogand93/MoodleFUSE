@@ -20,7 +20,7 @@ from moodlefuse.moodle import attributes
 from moodlefuse.core import config
 from moodlefuse import moodle
 
-_JS_TIMEOUT = .5
+_JS_TIMEOUT = .8
 
 
 class JsEmulator(Emulator):

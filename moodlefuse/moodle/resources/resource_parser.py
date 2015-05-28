@@ -23,8 +23,8 @@ class ResourceParser(Parser):
         activity_instances = self.scraper.get_html_items_with_divclass(
             category_content, attributes.INSTANCE)
 
-        return self.scraper.get_link_from_span_list_with_type_and_name(
-            activity_instances, resources.FILE, filename
+        return self.scraper.get_link_from_span_list_with_name(
+            activity_instances, filename
         )
 
     def parse_course_assignment_url(self, category_content, filename):

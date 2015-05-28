@@ -18,6 +18,7 @@ from moodlefuse.filesystem.files.cache_file import CacheFile
 from moodlefuse.filesystem.files.directory import Directory
 from moodlefuse.filesystem.path_parser import PathParser
 from moodlefuse.moodle import assignments
+from moodlefuse.moodle import forums
 from moodlefuse.core import config
 
 
@@ -28,11 +29,11 @@ class FileSystemTranslator(object):
         self.js_emulator = JsEmulator(config['USERNAME'], config['PASSWORD'])
         self.emulator.login()
         self.js_emulator.login()
-        forums = ForumHandler(self.emulator, self.js_emulator)
+        forum = ForumHandler(self.emulator, self.js_emulator)
         course = CourseHandler(self.emulator, self.js_emulator)
         resource = ResourceHandler(self.emulator, self.js_emulator)
         assignment = AssignmentHandler(self.emulator, self.js_emulator)
-        self.remote_handler = RemoteHandler(forums, course, resource, assignment)
+        self.remote_handler = RemoteHandler(forum, course, resource, assignment)
 
     def close_browsers(self):
         self.emulator.close()
@@ -90,6 +91,7 @@ class FileSystemTranslator(object):
                 moodle_url = self.remote_handler.get_remote_submission_path(location)
             else:
                 moodle_url = self.remote_handler.get_remote_file_path(location)
+
             return self.remote_handler.download_updated_file(location, moodle_url)
         return cache_path
 
@@ -129,7 +131,7 @@ class FileSystemTranslator(object):
         if PathParser.is_file(location) and self.remote_handler.is_valid_forum(location):
             CacheFile().create_file(
                 location,
-                'This is a forum, unfortunately forums are not yet supported\n'
+                forums.UNSUPPORTED_RESPONSE
             )
             cache_path = get_cache_path_based_on_location(location)
             return CacheFile(cache_path).get_attrs()
