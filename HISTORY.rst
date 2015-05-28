@@ -2,6 +2,13 @@
 HISTORY
 =======
 
+Release 0.3.1
+#############
+
+- Handle all file types
+- Refine forum message
+- Ensure unable to edit message is user friendly
+
 Release 0.3.0
 #############
 
