@@ -47,7 +47,7 @@ setup(
     url=URL,
     license='MIT License',
     package_data={
-        'alembic': ['*.mako', 'versions/*']
+        'alembic': ['versions/*', '*.mako', '*.ini']
     },
     packages=[
         'tests',
