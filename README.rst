@@ -27,7 +27,7 @@ the remote Moodle file.
 The list of supported operations is (Assuming appropriate user rights on Moodle):
 
 -   Listing of courses
--   Listing of course secctions
+-   Listing of course sections
 -	Addition of course sections
 -   Listing of course files
 -   Viewing of course files
