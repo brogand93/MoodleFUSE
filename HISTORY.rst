@@ -2,6 +2,11 @@
 HISTORY
 =======
 
+Release 0.3.2
+#############
+
+- Fix first time db install issue
+
 Release 0.3.1
 #############
 
