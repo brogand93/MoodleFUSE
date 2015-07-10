@@ -13,6 +13,8 @@ Moodle filesystem sync with FUSE
     :target: https://coveralls.io/r/BroganD1993/MoodleFUSE?branch=master
 .. image:: https://badge.waffle.io/brogand1993/moodlefuse.svg?label=ready&title=Ready 
     :target: https://waffle.io/brogand1993/moodlefuse
+.. image:: https://img.shields.io/badge/project-wiki-ff69b4.svg
+    :target: https://github.com/BroganD1993/MoodleFUSE/wiki
 
  
 Moodle is WIT`s online learning platform used in schools and universities all around the world. Uploading 
