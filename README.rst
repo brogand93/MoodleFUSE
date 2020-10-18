@@ -11,8 +11,6 @@ Moodle filesystem sync with FUSE
     :target: https://travis-ci.org/BroganD1993/MoodleFUSE
 .. image:: https://coveralls.io/repos/BroganD1993/MoodleFUSE/badge.svg?branch=master 
     :target: https://coveralls.io/r/BroganD1993/MoodleFUSE?branch=master
-.. image:: https://badge.waffle.io/brogand1993/moodlefuse.svg?label=ready&title=Ready 
-    :target: https://waffle.io/brogand1993/moodlefuse
 .. image:: https://img.shields.io/badge/project-wiki-ff69b4.svg
     :target: https://github.com/BroganD1993/MoodleFUSE/wiki
 
