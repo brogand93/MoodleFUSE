@@ -9,8 +9,6 @@ Moodle filesystem sync with FUSE
     :target: https://pypi.python.org/pypi/moodlefuse
 .. image:: https://travis-ci.org/BroganD1993/MoodleFUSE.svg?branch=master
     :target: https://travis-ci.org/BroganD1993/MoodleFUSE
-.. image:: https://coveralls.io/repos/BroganD1993/MoodleFUSE/badge.svg?branch=master 
-    :target: https://coveralls.io/r/BroganD1993/MoodleFUSE?branch=master
 .. image:: https://img.shields.io/badge/project-wiki-ff69b4.svg
     :target: https://github.com/BroganD1993/MoodleFUSE/wiki
 
